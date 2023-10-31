@@ -27,7 +27,7 @@ const TopicsList = async () => {
   const { topics } = await getTopics();
   // console.log(topics);
   return (
-    <>
+    <div className="max-w-screen-xl mx-auto px-4 py-6">
       <h4 className="text-center font-semibold my-4">
         total-topics: {topics?.length}
       </h4>
@@ -50,7 +50,7 @@ const TopicsList = async () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
