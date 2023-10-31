@@ -23,8 +23,9 @@ const OneBlogItem = async () => {
 
   const itmesBlog = [...blogs].reverse();
   const javascript = itmesBlog?.filter(
-    (item) => item?.category === "javascript"
+    (item) => item?.articleCategory === "javascript"
   );
+  // console.log(javascript);
   const htmls = itmesBlog?.filter((item) => item?.articleCategory === "html");
   const css = itmesBlog?.filter((item) => item?.articleCategory === "css");
   return (

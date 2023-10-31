@@ -1,6 +1,9 @@
 import BlogArticles from "@/components/BlogArticles/BlogArticles";
 import Container from "@/components/Container/Container";
 import OneBlogItem from "@/components/OneBlogItem/OneBlogItem";
+import CV from "@/components/SideBar/CV";
+import CategoryList from "@/components/SideBar/CategoryList";
+import LastProject from "@/components/SideBar/LastProject";
 import TopicsList from "@/components/TopicsList";
 // import TopicsList from "@/components/TopicsList";
 import Image from "next/image";
@@ -20,9 +23,9 @@ const Home = () => {
               </div> */}
             </div>
             <aside className="space-y-4">
-              {/* <CV />
+              <CV />
               <CategoryList />
-              <LastProject /> */}
+              <LastProject />
             </aside>
           </div>
         </div>
