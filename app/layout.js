@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 import Toaster from '@/components/Toaster/Toaster'
+import NavbarSmall from "@/components/Navbar/NavbarSmall";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,8 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className='flex min-h-screen flex-col justify-between'>
             <div >
-              <Navbar></Navbar>
+            {/* <Navbar></Navbar> */}
+            <NavbarSmall />
               <main className='bg-gray-100'>{children}</main>
             </div>
           </div>
