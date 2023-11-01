@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 //update by single id
 export async function PUT(request, { params }) {
   const { id } = params;
-  const { newTitle: title, newDescription: description } = await request.json();
+  const { newTitle: title, newLivelink: livelink,newGitlink: gitlink } = await request.json();
   await connectMongoDB();
-  await Project.findByIdAndUpdate(id, { title, description });
+  await Project.findByIdAndUpdate(id, { title, livelink, gitlink });
   return NextResponse.json({ message: "Project updated" }, { status: 200 });
 }
 //get single id
