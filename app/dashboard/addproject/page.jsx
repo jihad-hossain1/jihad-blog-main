@@ -43,7 +43,7 @@ const AddProject = () => {
 
     //form collections
     const form = e.target;
-    const name = form.name.value;
+    const title = form.title.value;
     const details = form.details.value;
     const gitlink = form.gitlink.value;
     const livelink = form.livelink.value;
@@ -60,7 +60,7 @@ const AddProject = () => {
     //upload video file
     const videoUrl = await uploadFile("video");
     const info = {
-      name,
+      title,
       category,
       details,
       images: arr,
@@ -74,7 +74,7 @@ const AddProject = () => {
     //send to data on database
     const res = await fetch(`/api/projects`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-type": "application/json" },
       body: JSON.stringify(info),
     });
     if (res.status == 200) {
@@ -90,23 +90,23 @@ const AddProject = () => {
       <form action="" onSubmit={handleSubmit}>
         <div className="mb-7">
           <input
-            variant="standard"
+            className="w-full border border-gray-200 p-3 focus:outline-none"
             required
             placeholder="Title"
             type="text"
-            name="name"
+            name="title"
           />
         </div>
         <div className="mb-6 flex space-x-3 items-center">
           <input
-            variant="standard"
+            className="w-full border border-gray-200 p-3 focus:outline-none"
             required
             placeholder="git-link"
             type="text"
             name="gitlink"
           />
           <input
-            variant="standard"
+            className="w-full border border-gray-200 p-3 focus:outline-none"
             required
             placeholder="live-link"
             type="text"
@@ -127,7 +127,7 @@ const AddProject = () => {
 
         <div className="mb-7">
           <textarea
-            variant="standard"
+            className="w-full border border-gray-200 p-3 focus:outline-none"
             required
             placeholder="Project Details"
             type="text"
@@ -139,11 +139,8 @@ const AddProject = () => {
           <label htmlFor="images">Image Upload</label>
           <br />
           <input
-            className="block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 file:bg-transparent file:border-0
-    file:bg-gray-100 file:mr-4
-    file:py-3 file:px-4
-    dark:file:bg-gray-700 dark:file:text-gray-400"
             required
+            className=""
             type="file"
             name=""
             accept="image/*"
@@ -155,12 +152,7 @@ const AddProject = () => {
           <label htmlFor="video">Video Upload</label>
           <br />
           <input
-            required
-            className="block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400
-    file:bg-transparent file:border-0
-    file:bg-gray-100 file:mr-4
-    file:py-3 file:px-4
-    dark:file:bg-gray-700 dark:file:text-gray-400"
+            className=""
             type="file"
             name=""
             accept="video/*"
@@ -172,12 +164,7 @@ const AddProject = () => {
           <label for="image">Multiple Image Upload</label>
           <br />
           <input
-            className="block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400
-    file:bg-transparent file:border-0
-    file:bg-gray-100 file:mr-4
-    file:py-3 file:px-4
-    dark:file:bg-gray-700 dark:file:text-gray-400"
-            required
+            className=""
             type="file"
             name=""
             accept="image/*"
@@ -188,7 +175,10 @@ const AddProject = () => {
         </div>
         {loading && <h4>uploading.....</h4>}
         <div>
-          <button className="w-full" type="submit" variant="standard">
+          <button
+            type="submit"
+            className="w-full border border-gray-200 p-3 focus:outline-none"
+          >
             Add Project
           </button>
         </div>

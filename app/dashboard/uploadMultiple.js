@@ -8,7 +8,8 @@ export const uploadMultiple = async (file) => {
     `https://api.cloudinary.com/v1_1/dqfi9zw3e/image/upload`,
     formData
   );
-  return { publicId: data?.public_id, url: data?.secure_url };
+  let secure_urls = data?.secure_url
+  return { secure_urls };
 };
 
 export const uploadMultiVideo = async (file) => {

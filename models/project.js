@@ -1,15 +1,22 @@
 import mongoose, { Schema } from "mongoose";
 
-const projectSchema = new Schema(
-  {
-    title: String,
-    description: String,
+const projectSchema = new Schema({
+  details: { type: String, required: true },
+  gitlink: String,
+  livelink: String,
+  videoLink: String,
+  image: String,
+  category: String,
+  images: {
+    type: Array,
   },
-  {
-    timestamps: true,
-  }
-);
+  title: {
+    type: String,
+    required: true,
+  },
+});
 
-const Project = mongoose.models.Project || mongoose.model("Project", projectSchema);
+const Project =
+  mongoose.models.Project || mongoose.model("Project", projectSchema);
 
 export default Project;
