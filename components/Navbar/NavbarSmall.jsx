@@ -49,7 +49,7 @@ const NavbarSmall = () => {
               Start page
             </NavLink>
           </li>
-          <li>
+          <li className="group">
             <button
               onClick={() => setIsBlogButtonActive(!isBlogButtonActive)}
               className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 hover:underline"
@@ -58,7 +58,7 @@ const NavbarSmall = () => {
               <FiChevronDown />
             </button>
             {isBlogButtonActive && (
-              <div className="fixed z-10 bg-white mt-7 rounded-sm">
+              <div className="fixed z-10 bg-gray-100 mt-7 rounded-sm">
                 <ul className="text-sm min-w-[150px]">
                   <li
                     onClick={() => setIsBlogButtonActive(false)}
@@ -95,6 +95,14 @@ const NavbarSmall = () => {
                     <h4 className=" text-gray-600">Others</h4>
                     <div className="bg-gray-600 rounded-full h-2 w-2"></div>
                   </li>
+                  <Link href={`/blogsArticle`}>
+                    <li
+                      onClick={() => setIsBlogButtonActive(false)}
+                      className="transition-all cursor-pointer  duration-300 flex justify-between text-gray-600 items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5"
+                    >
+                      All Blogs
+                    </li>
+                  </Link>
                 </ul>
               </div>
             )}

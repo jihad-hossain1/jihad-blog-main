@@ -14,7 +14,7 @@ const SingleCategoryBlog = ({ art }) => {
   } = art;
 
   return (
-    <div className="border-l-[14px] border-[#ffc952] p-4 md:p-8 bg-white shadow-sm">
+    <div className="border-l-[14px] border-[#ffc952] p-4 md:p-8 bg-white shadow-sm ">
       <div>
         <div className="flex justify-between items-center mb-2 md:mb-4">
           <h4 className="text-xs text-gray-600">
