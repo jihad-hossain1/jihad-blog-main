@@ -7,12 +7,15 @@ import { FiChevronDown } from "react-icons/fi";
 import Link from "next/link";
 import { BiChevronRight } from "react-icons/bi";
 import Search from "./search/Search";
+import { useSession, signOut } from "next-auth/react";
 
 const NavbarSmall = () => {
-  const user = {
-    permit: true,
-    status: "admin",
-  };
+  const { status } = useSession();
+  const user = false;
+  // const user = {
+  //   permit: true,
+  //   status: "admin",
+  // };
 
   const [isAccountButtonActive, setIsAccountButtonActive] = useState(false);
   const [isBlogButtonActive, setIsBlogButtonActive] = useState(false);
@@ -147,7 +150,7 @@ const NavbarSmall = () => {
             {isAccountButtonActive && (
               <div className="fixed z-10 bg-white mt-7 rounded-sm">
                 <ul>
-                  {user ? (
+                  {status === "authenticated" ? (
                     <>
                       <li
                         onClick={() => setIsAccountButtonActive(false)}
@@ -155,7 +158,7 @@ const NavbarSmall = () => {
                       >
                         <NavLink href={"#"}>Profile</NavLink>
                       </li>
-                      <li onClick={() => setIsAccountButtonActive(false)}>
+                      <li onClick={() => signOut()}>
                         <button className="w-full hover:bg-gray-100 text-gray-600 hover:text-gray-900 px-10 transition duration-300  text-center py-3 border-b border-gray-200">
                           Log-Out
                         </button>
@@ -185,7 +188,7 @@ const NavbarSmall = () => {
               </div>
             )}
           </li>
-          {user && (
+          {status === "authenticated" && (
             <>
               <li>
                 <NavLink
