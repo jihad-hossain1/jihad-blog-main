@@ -1,21 +1,9 @@
+import { formatTimestamp } from "@/utils/timeStemp";
 import Link from "next/link";
 import { FiMessageSquare } from "react-icons/fi";
 import { MdFavoriteBorder } from "react-icons/md";
 
 const SingleBlogArticle = ({ blog }) => {
-  const formatTimestamp = (timestam) => {
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    };
-    const date = new Date(timestam);
-    const formattedDate = date.toLocaleString("en-US", options);
-    return formattedDate;
-  };
   //   const { _id } = blog;
   const getColor = (cardColor) => {
     let color = "border-slate-700";
@@ -28,6 +16,12 @@ const SingleBlogArticle = ({ blog }) => {
         return color;
       case "javascript":
         color = "border-[#ffc952]";
+        return color;
+      case "react":
+        color = "border-[#087ea4]";
+        return color;
+      case "nodejs":
+        color = "border-[#026e00]";
         return color;
     }
     return color;
@@ -50,7 +44,7 @@ const SingleBlogArticle = ({ blog }) => {
         <hr className="h-[1px] w-full mb-2 md:mb-4" />
         <div className="mb-4">
           <Link
-            href={`#`}
+            href={`/blogsArticle/${blog?._id}`}
             className=" text-xl md:text-3xl font-semibold md:font-extrabold hover:underline"
           >
             {blog?.articleTitle}
@@ -60,10 +54,7 @@ const SingleBlogArticle = ({ blog }) => {
           {blog?.details?.detailsSingle || blog?.Details}...
         </p>
         <div className="flex items-center justify-between">
-          <Link
-            href={`#`}
-            className="transition-all duration-300 rounded-3xl px-6 md:px-8 py-2 text-sm border border-neutral-200 text-gray-600 hover:text-gray-50 hover:bg-neutral-900"
-          >
+          <Link href={`/blogsArticle/${blog?._id}`} className="linkT">
             Read More
           </Link>
           <div className="flex items-center space-x-3 text-gray-500">

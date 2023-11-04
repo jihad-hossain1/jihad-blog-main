@@ -38,7 +38,7 @@ const NavbarSmall = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between px-6 py-2 mt-2">
+      <div className="lg:flex  hidden justify-between px-6 py-2 mt-2">
         <ul className="flex space-x-5 items-center">
           <li>
             <NavLink
@@ -60,45 +60,56 @@ const NavbarSmall = () => {
             {isBlogButtonActive && (
               <div className="fixed z-10 bg-gray-100 mt-7 rounded-sm">
                 <ul className="text-sm min-w-[150px]">
-                  <li
-                    onClick={() => setIsBlogButtonActive(false)}
-                    className="transition-all cursor-pointer   duration-300 flex justify-between items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5"
-                  >
-                    <h4 className="uppercase text-gray-600">CSS</h4>
-                    <div className="bg-[#38b7ea] rounded-full h-2 w-2"></div>
-                  </li>
-                  <li
-                    onClick={() => setIsBlogButtonActive(false)}
-                    className="transition-all cursor-pointer  duration-300 flex justify-between items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5"
-                  >
-                    <h4 className="uppercase text-gray-600">Html</h4>
-                    <div className="bg-[#ff7473] rounded-full h-2 w-2"></div>
-                  </li>
-                  <li
-                    onClick={() => setIsBlogButtonActive(false)}
-                    className="transition-all cursor-pointer  duration-300 flex justify-between items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5"
-                  >
-                    <h4 className=" text-gray-600">JavaScript</h4>
-                    <div className="bg-[#ffc952] rounded-full h-2 w-2"></div>
-                  </li>
-                  <li
-                    onClick={() => setIsBlogButtonActive(false)}
-                    className="transition-all cursor-pointer  duration-300 flex justify-between items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5"
-                  >
-                    <h4 className=" text-gray-600">React</h4>
-                    <div className="bg-[#6dc8bf] rounded-full h-2 w-2"></div>
-                  </li>
-                  <li
-                    onClick={() => setIsBlogButtonActive(false)}
-                    className="transition-all cursor-pointer  duration-300 flex justify-between items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5"
-                  >
-                    <h4 className=" text-gray-600">Others</h4>
-                    <div className="bg-gray-600 rounded-full h-2 w-2"></div>
-                  </li>
                   <Link href={`/blogsArticle`}>
                     <li
                       onClick={() => setIsBlogButtonActive(false)}
-                      className="transition-all cursor-pointer  duration-300 flex justify-between text-gray-600 items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5"
+                      className="ctg-l-b"
+                    >
+                      <h4 className="uppercase text-gray-600">CSS</h4>
+                      <div className="bg-[#38b7ea] rounded-full h-2 w-2"></div>
+                    </li>
+                  </Link>
+                  <Link href={`/blogsArticle`}>
+                    <li
+                      onClick={() => setIsBlogButtonActive(false)}
+                      className="ctg-l-b"
+                    >
+                      <h4 className="uppercase text-gray-600">Html</h4>
+                      <div className="bg-[#ff7473] rounded-full h-2 w-2"></div>
+                    </li>
+                  </Link>
+                  <Link href={`/blogsArticle`}>
+                    <li
+                      onClick={() => setIsBlogButtonActive(false)}
+                      className="ctg-l-b"
+                    >
+                      <h4 className=" text-gray-600">JavaScript</h4>
+                      <div className="bg-[#ffc952] rounded-full h-2 w-2"></div>
+                    </li>
+                  </Link>
+                  <Link href={`/blogsArticle`}>
+                    <li
+                      onClick={() => setIsBlogButtonActive(false)}
+                      className="ctg-l-b"
+                    >
+                      <h4 className=" text-gray-600">React</h4>
+                      <div className="bg-[#6dc8bf] rounded-full h-2 w-2"></div>
+                    </li>
+                  </Link>
+                  <Link href={`/blogsArticle`}>
+                    <li
+                      onClick={() => setIsBlogButtonActive(false)}
+                      className="ctg-l-b"
+                    >
+                      <h4 className=" text-gray-600">Others</h4>
+                      <div className="bg-gray-600 rounded-full h-2 w-2"></div>
+                    </li>
+                  </Link>
+
+                  <Link href={`/blogsArticle`}>
+                    <li
+                      onClick={() => setIsBlogButtonActive(false)}
+                      className="ctg-l-b"
                     >
                       All Blogs
                     </li>

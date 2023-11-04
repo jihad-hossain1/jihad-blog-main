@@ -110,9 +110,9 @@ const CV = () => {
               <input
                 required
                 type="text"
-                className="w-full"
+                className="inpt"
                 name="name"
-                label="Your Name"
+                placeholder="Your Name"
                 // defaultValue={updateData?.commentUser}
               />
             </div>
@@ -121,24 +121,23 @@ const CV = () => {
               <input
                 type="email"
                 required
-                className="w-full"
+                className="inpt"
                 name="email"
-                label="Your Email"
+                placeholder="Your Email"
                 // defaultValue={updateData?.commentUser}
               />
             </div>
             <div className="mb-4">
               <textarea
                 maxLength={500}
-                required
                 type="text"
-                className="w-full"
+                className="inpt"
                 name="message"
-                label="Your Message"
+                placeholder="Your Message"
               />
             </div>
             <div>
-              <button className="w-full" type="submit">
+              <button className="inpt btn" type="submit">
                 Send
               </button>
             </div>

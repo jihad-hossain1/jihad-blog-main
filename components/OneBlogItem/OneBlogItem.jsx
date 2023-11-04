@@ -1,7 +1,4 @@
-import React from "react";
-import SingleCategoryBlog from "./SingleCategoryBlog/SingleCategoryBlog";
-import HtmlSingleBlog from "./SingleCategoryBlog/HtmlSingleBlog";
-import CssSingleBlog from "./SingleCategoryBlog/CssSingleBlog";
+import SingleBlogArticle from "../SingleBlogArticle/SingleBlogArticle";
 
 const getBlogs = async () => {
   try {
@@ -32,17 +29,17 @@ const OneBlogItem = async () => {
     <div>
       <div className="mb-3 grid gap-3">
         {javascript.slice(0, 1).map((art) => (
-          <SingleCategoryBlog art={art} key={art?._id} />
+          <SingleBlogArticle blog={art} key={art?._id} />
         ))}
       </div>
       <div className="mb-3 grid gap-3">
         {htmls.slice(0, 1).map((art) => (
-          <HtmlSingleBlog art={art} key={art?._id} />
+          <SingleBlogArticle blog={art} key={art?._id} />
         ))}
       </div>
       <div className="mb-3 grid gap-3">
         {css.slice(0, 1).map((art) => (
-          <CssSingleBlog art={art} key={art?._id} />
+          <SingleBlogArticle blog={art} key={art?._id} />
         ))}
       </div>
     </div>

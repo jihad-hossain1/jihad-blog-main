@@ -8,7 +8,6 @@ import { PiTrashLight, PiLinkLight } from "react-icons/pi";
 import axios from "axios";
 
 const AddarticlesForm = () => {
-  // const { user } = useContext(AuthContext);
   const user = {
     displayName: "jihad hossain",
     photoURL: "https://i.ibb.co/FnfTKzv/icon-Jihad.png",
@@ -22,8 +21,6 @@ const AddarticlesForm = () => {
 
   const [links, setLinks] = useState([]);
   const [linkeInput, setLinkInput] = useState("");
-
-  const [infos, setinfos] = useState();
 
   const [video, setVideo] = useState(null);
   const [image, setimage] = useState(null);
@@ -119,17 +116,14 @@ const AddarticlesForm = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto px-2 py-5">
-      <h4 className="text-blue-gray-900 font-semibold text-2xl ">
-        Create a Blog
-      </h4>
+    <div className="max-w-screen-xl mx-auto px-2 py-5 h-screen">
+      <h4 className="text-gray-900 font-semibold text-2xl ">Create a Blog</h4>
       <div className="max-w-[400px] lg:max-w-[500px] my-10 mx-auto">
         {loading && <h4 className="mb-4 px-4">Loading.....</h4>}
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-7">
             <input
-              className="border  p-3 focus:outline-none w-full rounded-sm "
-              variant="standard"
+              className="inpt"
               required
               placeholder="Title"
               type="text"
@@ -138,9 +132,8 @@ const AddarticlesForm = () => {
           </div>
           <div className="mb-7">
             <input
-              className="border  p-3 focus:outline-none w-full rounded-sm "
+              className="inpt"
               value={user?.displayName}
-              variant="standard"
               required
               placeholder="author"
               type="text"
@@ -165,25 +158,21 @@ const AddarticlesForm = () => {
             </div>
             <div className="flex items-center gap-2">
               <input
-                className="border  p-3 focus:outline-none w-full rounded-sm "
+                className="inpt"
                 onChange={(e) => setLinkInput(e.target.value)}
                 value={linkeInput}
-                variant="standard"
                 placeholder="link"
                 type="text"
                 name="linkUrl"
               />
-              <button
-                onClick={addLink}
-                className="rounded-full border border-blue-gray-300 hover:border-blue-gray-50 p-1 hover:bg-gray-900 transition-all duration-300"
-              >
-                <FaPlus className="text-blue-gray-800 hover:text-white" />
+              <button onClick={addLink} className="crt-blog">
+                <FaPlus className="text-gray-800 hover:text-white" />
               </button>
             </div>
           </div>
           <div className="mb-7">
             <input
-              className="border  p-3 focus:outline-none w-full rounded-sm "
+              className="inpt"
               value={user?.email}
               variant="standard"
               required
@@ -195,7 +184,7 @@ const AddarticlesForm = () => {
           <select
             required
             onChange={(e) => setCategory(e.target.value)}
-            className="mb-7 w-full rounded-sm bg-transparent border-b border-blue-gray-300"
+            className="mb-7 w-full inpt"
           >
             <option>Select a Category</option>
 
@@ -211,17 +200,14 @@ const AddarticlesForm = () => {
               <textarea
                 onChange={(e) => setMoreInput(e.target.value)}
                 value={moreInput}
-                className="bg-transparent w-full min-h-[200px] focus:outline-none  p-2"
+                className="inpt"
                 placeholder="Details"
                 type="text"
                 name="details"
               />
               <div>
-                <button
-                  onClick={addMore}
-                  className="inline-block rounded-full border border-blue-gray-300 hover:border-blue-gray-50 p-1 hover:bg-gray-900 transition-all duration-300"
-                >
-                  <FaPlus className="text-blue-gray-800 hover:text-white" />
+                <button onClick={addMore} className="inline-block crt-blog">
+                  <FaPlus className="text-gray-800 hover:text-white" />
                 </button>
               </div>
             </div>
@@ -235,7 +221,7 @@ const AddarticlesForm = () => {
                     >
                       <PiTrashLight />
                     </span>
-                    <p className="text-blue-gray-500 text-xs break-all">
+                    <p className="text-gray-500 text-xs break-all">
                       {textInfo}
                     </p>
                   </div>
@@ -247,7 +233,7 @@ const AddarticlesForm = () => {
             <label htmlFor="images">Image Upload</label>
             <br />
             <input
-              className=""
+              className="inpt"
               required
               type="file"
               name=""
@@ -261,7 +247,7 @@ const AddarticlesForm = () => {
             <br />
             <input
               required
-              className=""
+              className="inpt"
               type="file"
               name=""
               accept="video/*"
@@ -270,7 +256,7 @@ const AddarticlesForm = () => {
             />
           </div>
           <div>
-            <button className="w-full" type="submit" variant="standard">
+            <button className="inpt btn" type="submit">
               Add Blog
             </button>
           </div>

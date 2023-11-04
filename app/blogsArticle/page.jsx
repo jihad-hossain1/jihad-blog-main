@@ -1,4 +1,5 @@
 import SingleBlogArticle from "@/components/SingleBlogArticle/SingleBlogArticle";
+import { getColor } from "@/utils/getRandomColor";
 
 const getBlogs = async () => {
   try {
@@ -20,7 +21,8 @@ const BlogPage = async () => {
   const uniqueCategories = [
     ...new Set(blogs?.map(({ articleCategory }) => articleCategory)),
   ];
-  console.log(uniqueCategories);
+  // console.log(uniqueCategories);
+
   return (
     <div className="max-w-screen-xl mx-auto px-2 md:px-8 pb-6 min-h-screen ">
       <div>
@@ -29,7 +31,13 @@ const BlogPage = async () => {
             {blogs &&
               uniqueCategories?.map((uniquecategory, categoryIndex) => (
                 <div className="mb-4" key={categoryIndex}>
-                  <h4>{uniquecategory}</h4>
+                  <h4
+                    className={`mb-3 text-xl uppercase border-b-2  w-fit ${getColor(
+                      uniquecategory
+                    )}`}
+                  >
+                    {uniquecategory}
+                  </h4>
                   <div className="grid md:grid-cols-2  gap-6">
                     {blogs
                       ?.filter(

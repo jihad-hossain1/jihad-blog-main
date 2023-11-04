@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 
 import Toaster from '@/components/Toaster/Toaster'
 import NavbarSmall from "@/components/Navbar/NavbarSmall";
+import Footer from "@/components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({ children }) {
               <main className='bg-gray-100'>{children}</main>
             </div>
           </div>
-        
+        <Footer />
         <Toaster />
       </body>
     </html>

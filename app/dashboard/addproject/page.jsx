@@ -90,7 +90,7 @@ const AddProject = () => {
       <form action="" onSubmit={handleSubmit}>
         <div className="mb-7">
           <input
-            className="w-full border border-gray-200 p-3 focus:outline-none"
+            className="inpt"
             required
             placeholder="Title"
             type="text"
@@ -99,14 +99,14 @@ const AddProject = () => {
         </div>
         <div className="mb-6 flex space-x-3 items-center">
           <input
-            className="w-full border border-gray-200 p-3 focus:outline-none"
+            className="inpt"
             required
             placeholder="git-link"
             type="text"
             name="gitlink"
           />
           <input
-            className="w-full border border-gray-200 p-3 focus:outline-none"
+            className="inpt"
             required
             placeholder="live-link"
             type="text"
@@ -116,7 +116,7 @@ const AddProject = () => {
         <select
           required
           onChange={(e) => setCategory(e.target.value)}
-          className="mb-7 w-full rounded-sm bg-transparent border-b border-blue-gray-300"
+          className="inpt mb-3"
         >
           <option label="scripts">scripts</option>
           <option label="application">application</option>
@@ -127,7 +127,7 @@ const AddProject = () => {
 
         <div className="mb-7">
           <textarea
-            className="w-full border border-gray-200 p-3 focus:outline-none"
+            className="inpt"
             required
             placeholder="Project Details"
             type="text"
@@ -175,10 +175,7 @@ const AddProject = () => {
         </div>
         {loading && <h4>uploading.....</h4>}
         <div>
-          <button
-            type="submit"
-            className="w-full border border-gray-200 p-3 focus:outline-none"
-          >
+          <button type="submit" className="inpt">
             Add Project
           </button>
         </div>
