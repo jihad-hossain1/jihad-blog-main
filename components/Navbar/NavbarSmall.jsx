@@ -1,18 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { PiShoppingCartThin } from "react-icons/pi";
 import NavLink from "../Navlink/NavLink";
 import { FiChevronDown } from "react-icons/fi";
 import Link from "next/link";
-import { BiChevronRight } from "react-icons/bi";
 import Search from "./search/Search";
 import { useSession, signOut } from "next-auth/react";
 import Logo from "./Logo";
 import Book from "./Book";
 import Buyproduct from "./Buyproduct";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
-import Button from "./Button";
 
 const NavbarSmall = () => {
   const { status } = useSession();
@@ -22,7 +19,7 @@ const NavbarSmall = () => {
   const [isBlogButtonActive, setIsBlogButtonActive] = useState(false);
   const navlist = (
     <>
-      <li classNamell="pl-5">
+      <li className="pl-5">
         <NavLink
           href="/"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -31,7 +28,7 @@ const NavbarSmall = () => {
           Start page
         </NavLink>
       </li>
-      <li className=" classNamell=pl-5t'">
+      <li className=" className=pl-5t'">
         <button
           onClick={() => setIsBlogButtonActive(!isBlogButtonActive)}
           className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 hover:underline"
@@ -100,7 +97,7 @@ const NavbarSmall = () => {
           </div>
         )}
       </li>
-      <li classNamell="pl-5">
+      <li className="pl-5">
         <NavLink
           href="/myproject"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -109,7 +106,7 @@ const NavbarSmall = () => {
           My projects
         </NavLink>
       </li>
-      <li classNamell="pl-5">
+      <li className="pl-5">
         <NavLink
           href="/contact"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -118,7 +115,7 @@ const NavbarSmall = () => {
           contact me
         </NavLink>
       </li>
-      <li classNamell="pl-5">
+      <li className="pl-5">
         <button
           onClick={() => setIsAccountButtonActive(!isAccountButtonActive)}
           className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 hover:underline"

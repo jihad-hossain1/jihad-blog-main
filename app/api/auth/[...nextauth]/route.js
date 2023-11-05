@@ -2,54 +2,46 @@ import connectMongoDB from "@/lib/mongodb";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 import bcrypt from 'bcryptjs';
-import User from "@/models/user";
+import User from "@/models/register";
+// import User from "@/models/user";
 
 export const authOptions = {
   providers: [
+
+
      GoogleProvider({
-      // profile(profile) {
-      //   console.log("Profile Google: ", profile);
-
-      //   let userRole = "Google User";
-      //   if (profile?.email == "jihadkhan934@gmail.com") {
-      //     userRole = "admin";
-      //   }
-
-      //   return {
-      //     ...profile,
-      //     role: userRole,
-      //   };
-      // },
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
      }),
      CredentialsProvider({
-       name: 'credentials',
-       credentials: {},
+      name: "credentials",
+      credentials: {},
 
-       async authorize(credentials) {
-         const { email, password } = credentials;
+      async authorize(credentials) {
+        const { email, password } = credentials;
 
-         try {
-           await connectMongoDB();
-           const user =  await User.findOne({email})
-          
-           if (!user) {
-             return null;
-           }
+        try {
+          await connectMongoDB();
+          const user = await User.findOne({ email });
 
-           const passwordMatch = await bcrypt.compare(password, user.password);
+          if (!user) {
+            return null;
+          }
 
-           if (!passwordMatch) {
-             return null;
-           }
-           return user;
-         } catch (error) {
-          console.log('error: ',error);
-         }
-       }
-    })
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          if (!passwordsMatch) {
+            return null;
+          }
+
+          return user;
+        } catch (error) {
+          console.log("Error: ", error);
+        }
+      },
+    }),
    ],
    session: {
      strategy: 'jwt'
@@ -58,7 +50,7 @@ export const authOptions = {
    pages: {
      signIn: '/login'
    } ,
-   callbacks: {
+  callbacks: {
      async signIn({ user, account }) {
        const { name, email,image } = user;
        if (account.provider === 'google') {
@@ -85,14 +77,7 @@ export const authOptions = {
        }
        return user
      },
-    //   async jwt({ token, user }) {
-    //   if (user) token.role = user.role;
-    //   return token;
-    // },
-    // async session({ session, token }) {
-    //   if (session?.user) session.user.role = token.role;
-    //   return session;
-    // },
+
    }
     
 };
