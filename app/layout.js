@@ -5,6 +5,7 @@ import Toaster from "@/components/Toaster/Toaster";
 import NavbarSmall from "@/components/Navbar/NavbarSmall";
 import Footer from "@/components/Footer/Footer";
 import { NextAuthProvider } from "./Provider";
+import Responsive from "@/components/Navbar/Responsive";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({ children }) {
           <div className="flex min-h-screen flex-col justify-between">
           <div>
             <NavbarSmall />
-
+            {/* <Responsive /> */}
             <main className="bg-gray-100">{children}</main>
           </div>
         </div>

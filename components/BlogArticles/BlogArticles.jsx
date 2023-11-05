@@ -20,7 +20,7 @@ const getBlogs = async () => {
 const BlogArticles = async () => {
   const { blogs } = await getBlogs();
   return (
-    <div>
+    <div className="pt-4">
       {/* <h4>top ar</h4> */}
       <div className="mb-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5  sm:max-w-sm sm:mx-auto lg:max-w-full p-2 md:px-10">
