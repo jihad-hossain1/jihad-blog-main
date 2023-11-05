@@ -1,17 +1,17 @@
-import SignIn from "@/components/login/SignIn";
+import RegisterForm from "@/components/login/RegisterForm";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 
-const LoginPage = async () => {
+const RegisterPage = async () => {
   const session = await getServerSession(authOptions);
 
   if (session) redirect("/");
   return (
     <div>
-      <SignIn />
+      <RegisterForm />
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

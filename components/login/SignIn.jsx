@@ -2,6 +2,7 @@
 
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
+import LoginForm from "./LoginForm";
 
 const SignIn = () => {
   const { status, data: session } = useSession();
@@ -23,12 +24,17 @@ const SignIn = () => {
             </div>
           </>
         ) : (
-          <button
-            onClick={() => signIn("google")}
-            className="text-xl font-bold text-gray-700 border border-blue-600 p-2 hover:btn transition-all duration-500"
-          >
-            Sign in with Google
-          </button>
+          <div className="pt-16">
+            <div className="flex justify-center">
+              <button
+                onClick={() => signIn("google")}
+                className="text-xl font-bold text-gray-700 border border-blue-600 p-2 hover:btn transition-all duration-500"
+              >
+                Sign in with Google
+              </button>
+            </div>
+            <LoginForm />
+          </div>
         )}
       </div>
     </div>
