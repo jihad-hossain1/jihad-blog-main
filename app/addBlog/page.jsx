@@ -116,7 +116,7 @@ const AddarticlesForm = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto px-2 py-5 h-screen">
+    <div className="max-w-screen-xl mx-auto px-2 py-5 min-h-screen">
       <h4 className="text-gray-900 font-semibold text-2xl ">Create a Blog</h4>
       <div className="max-w-[400px] lg:max-w-[500px] my-10 mx-auto">
         {loading && <h4 className="mb-4 px-4">Loading.....</h4>}

@@ -7,9 +7,9 @@ import { NextResponse } from "next/server";
 //update by single id
 export async function PUT(request, { params }) {
   const { id } = params;
-  const { newTitle: title, newDescription: description } = await request.json();
+  const { newArticleTitle: articleTitle, newDetails: details,newImage: image } = await request.json();
   await connectMongoDB();
-  await Blog.findByIdAndUpdate(id, { title, description });
+  await Blog.findByIdAndUpdate(id, { articleTitle, details,image });
   return NextResponse.json({ message: "Blog updated" }, { status: 200 });
 }
 //get single id
