@@ -1,1 +1,1 @@
-- [live-link](https://nextjs-gtcoding-crud-app.vercel.app/)
+- [live-link](https://jihad-blog-main.vercel.app/)
