@@ -42,3 +42,25 @@
     }
     return color;
   };
+  export const borderColor = (bg) => {
+    let color = `border-gray-700`;
+
+    switch (bg) {
+      case "framework":
+        color = `border-[#38b7ea]`;
+        return color;
+      case "css":
+        color = `border-[#38b7ea]`;
+        return color;
+      case "javascript":
+        color = ` border-[#ffc952]`;
+        return color;
+      case "react":
+        color = `border-[#087ea4]`;
+        return color;
+      case "nodejs":
+        color = `border-[#026e00]`;
+        return color;
+    }
+    return color;
+  };

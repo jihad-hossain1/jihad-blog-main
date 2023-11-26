@@ -17,13 +17,13 @@ const Search = () => {
   };
 
   return (
-    <div className="relative ">
-      <button className="absolute right-0 m-2">
+    <div className=" ">
+      <button className="md:hidden block">
         <PiMagnifyingGlassLight className="text-2xl" />
       </button>
       <form action="" onSubmit={onSearch}>
         <input
-          className="border border-gray-100 p-2 focus:outline-none"
+          className="md:block hidden border border-gray-100 p-2 focus:outline-none"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="what are looking for!"

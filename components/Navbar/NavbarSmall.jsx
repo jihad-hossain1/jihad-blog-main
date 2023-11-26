@@ -19,7 +19,7 @@ const NavbarSmall = () => {
   const [isBlogButtonActive, setIsBlogButtonActive] = useState(false);
   const navlist = (
     <>
-      <li className="pl-5">
+      <li onClick={() => setOpen(!open)} className="pl-5 ">
         <NavLink
           href="/"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -28,7 +28,7 @@ const NavbarSmall = () => {
           Start page
         </NavLink>
       </li>
-      <li className=" className=pl-5t'">
+      <li className="pl-5t'">
         <button
           onClick={() => setIsBlogButtonActive(!isBlogButtonActive)}
           className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 hover:underline"
@@ -97,7 +97,7 @@ const NavbarSmall = () => {
           </div>
         )}
       </li>
-      <li className="pl-5">
+      <li onClick={() => setOpen(!open)} className="pl-5">
         <NavLink
           href="/myproject"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -106,7 +106,7 @@ const NavbarSmall = () => {
           My projects
         </NavLink>
       </li>
-      <li className="pl-5">
+      <li onClick={() => setOpen(!open)} className="pl-5">
         <NavLink
           href="/contact"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -198,34 +198,23 @@ const NavbarSmall = () => {
 
         {/* mobile device  */}
         <div className="md:hidden block">
-          <div className="relative  top-0 flex items-center space-x-4">
+          <div className="   flex justify-between items-center gap-4">
             <Logo />
-            <Search />
-
-            <div
-              onClick={() => setOpen(!open)}
-              className="text-3xl absolute right-8 top-0 cursor-pointer"
-            >
-              {open ? (
-                <RxCross1
-                  className=""
-                  name={open ? "close" : "menu"}
-                ></RxCross1>
-              ) : (
-                <RxHamburgerMenu
-                  className=""
-                  name={open ? "close" : "menu"}
-                ></RxHamburgerMenu>
+            {/* <Search /> */}
+            <div className="relative flex items-center gap-6">
+              <Search />
+              <button onClick={() => setOpen(!open)} className="text-3xl">
+                <RxHamburgerMenu />
+              </button>
+              {open && (
+                <ul
+                  className={`flex flex-col gap-5 absolute z-10 top-6 mt-7 right-5  bg-slate-200 mx-4 p-2 w-[300px] py-6 items-center`}
+                >
+                  {navlist}
+                </ul>
               )}
             </div>
           </div>
-          <ul
-            className={` px-10 py-12 absolute  bg-white md:z-auto z-[-1] left-0 w-full md:w-auo space-y-7 md:space-x-0 transition-all duration-500 ease-in ${
-              open ? "top-10 " : "top-[-490px] "
-            }`}
-          >
-            {navlist}
-          </ul>
         </div>
       </div>
     </nav>

@@ -25,6 +25,8 @@ const AddarticlesForm = () => {
   const [video, setVideo] = useState(null);
   const [image, setimage] = useState(null);
 
+
+
   const uploadFile = async (type) => {
     const data = new FormData();
     data.append("file", type === "image" ? image : video);
@@ -101,17 +103,22 @@ const AddarticlesForm = () => {
     };
 
     console.log(info);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(info),
-    };
-    const res = await fetch(`/api/blogs`, requestOptions);
+    try {
+      setloading(true);
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(info),
+      };
+      const res = await fetch(`/api/blogs`, requestOptions);
 
-    if (res.status == 200) {
-      toast.success("blogs is added");
-      form.reset();
-      setloading(false);
+      if (res.status == 200) {
+        toast.success("blogs is added");
+        form.reset();
+        setloading(false);
+      }
+    } catch (error) {
+      toast.error(`${error.message}`);
     }
   };
 
@@ -257,7 +264,11 @@ const AddarticlesForm = () => {
           </div>
           <div>
             <button className="inpt btn" type="submit">
-              Add Blog
+              {loading ? (
+                <span className="text-sm">Loading...</span>
+              ) : (
+                <span>Add Blog</span>
+              )}
             </button>
           </div>
         </form>

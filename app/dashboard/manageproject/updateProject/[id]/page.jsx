@@ -20,7 +20,7 @@ const UpdateProject = async ({ params }) => {
   const id = params;
   const { project } = await getProjectById(id);
   return (
-    <div>
+    <div className="w-full h-full">
       <UpdateProjectForm id={id} project={project} />
     </div>
   );

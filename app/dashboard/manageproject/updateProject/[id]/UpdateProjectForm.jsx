@@ -39,12 +39,12 @@ const UpdateProjectForm = ({ id, project }) => {
     }
   };
   return (
-    <div>
+    <div className="">
       <h4 className="text-xl font-bold text-center underline my-10">
         Update your Project
       </h4>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="">
           <div className="mb-7">
             <input
               onChange={(e) => setNewTitle(e.target.value)}

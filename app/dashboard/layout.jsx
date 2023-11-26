@@ -4,7 +4,7 @@ import React from "react";
 const DashboardLayout = ({ children }) => {
   return (
     <div className="max-w-screen-xl mx-auto px-6  py-2">
-      <nav className="flex justify-end items-end bg-blue-gray-100/60 rounded shadow-sm p-4">
+      <nav className=" flex justify-end items-end bg-gray-100/60 rounded shadow-sm p-4">
         <ul className="flex space-x-5">
           {/* <Link href={"/dashboard/addblog"}>
             <li>add blog</li>

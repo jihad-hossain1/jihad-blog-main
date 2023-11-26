@@ -26,6 +26,7 @@ const AddProject = () => {
 
     try {
       //   let cloudName = import.meta.env.VITE_CLOUDNARY_NAME;
+      setloading(true);
       let resourceType = type === "image" ? "image" : "video";
       let api = `https://api.cloudinary.com/v1_1/dqfi9zw3e/${resourceType}/upload`;
 
@@ -33,6 +34,7 @@ const AddProject = () => {
       console.log(res);
       const { secure_url } = res.data;
       console.log(secure_url);
+      setloading(false);
       return secure_url;
     } catch (error) {
       console.error(error);
@@ -72,15 +74,21 @@ const AddProject = () => {
     console.log(info);
 
     //send to data on database
-    const res = await fetch(`/api/projects`, {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(info),
-    });
-    if (res.status == 200) {
-      console.log(res);
-      toast.success("project is added");
-      form.reset();
+    try {
+      setloading(true);
+      const res = await fetch(`/api/projects`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(info),
+      });
+      if (res.status == 200) {
+        console.log(res);
+        toast.success("project is added");
+        form.reset();
+        setloading(false);
+      }
+    } catch (error) {
+      toast.error(`${error.message}`);
     }
   };
 
