@@ -130,7 +130,7 @@ const NavbarSmall = () => {
                 <>
                   <li
                     onClick={() => setIsAccountButtonActive(false)}
-                    className="m hover:bg-gray-100 text-gray-600 hover:text-gray-900 px-10 transition duration-300   text-center py-3 border-b border-gray-200"
+                    className=" hover:bg-gray-100 text-gray-600 hover:text-gray-900 px-10 transition duration-300   text-center py-3 border-b border-gray-200"
                   >
                     <NavLink href={"/profile"}>Profile</NavLink>
                   </li>

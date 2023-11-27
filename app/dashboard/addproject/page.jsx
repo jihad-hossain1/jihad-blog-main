@@ -1,16 +1,12 @@
 "use client";
 
-// import AuthContext from "@/context/AuthContext";
-// import { Input, Button, Textarea } from "@material-tailwind/react";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { uploadMultiple } from "../uploadMultiple";
 import axios from "axios";
-// import MultipleUploadForm from "./multipleUpload/MultipleUploadImage";
 
 const AddProject = () => {
   const [multiImage, setMultiImage] = useState([]);
-  const [singleImage, setSingleImage] = useState({});
   const [video, setVideo] = useState(null);
   const [image, setimage] = useState(null);
   const [category, setCategory] = useState(null);
@@ -71,7 +67,6 @@ const AddProject = () => {
       videoLink: videoUrl,
       image: imgUrl,
     };
-    console.log(info);
 
     //send to data on database
     try {

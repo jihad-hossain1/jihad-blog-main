@@ -6,11 +6,11 @@ const DashboardLayout = ({ children }) => {
     <div className="max-w-screen-xl mx-auto px-6  py-2">
       <nav className=" flex justify-end items-end bg-gray-100/60 rounded shadow-sm p-4">
         <ul className="flex space-x-5">
-          {/* <Link href={"/dashboard/addblog"}>
-            <li>add blog</li>
-          </Link> */}
           <Link href={"/dashboard/addproject"}>
             <li>add project</li>
+          </Link>
+          <Link href={"/dashboard/addProduct"}>
+            <li>add product</li>
           </Link>
           <Link href={"/dashboard/manageBlog"}>
             <li>Manage blog</li>
