@@ -1,4 +1,3 @@
-import React from "react";
 import UpdateProjectForm from "../../../components/UpdateProjectForm";
 
 const getProjectById = async (id) => {
@@ -19,6 +18,7 @@ const getProjectById = async (id) => {
 const UpdateProject = async ({ params }) => {
   const { id } = params;
   const { project } = await getProjectById(id);
+  // console.log(object);
   return (
     <div className="max-w-screen-xl mx-auto px-2 py-4">
       <UpdateProjectForm id={id} project={project} />

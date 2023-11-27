@@ -14,40 +14,8 @@ const AddProductForm = () => {
       [name]: value,
     }));
   };
-  // const [title, setTitle] = useState("");
-  // const [details, setdetails] = useState("");
-
-  // const handlesubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!title || !details) {
-  //     toast.error(`fill title & details `);
-  //     return;
-  //   }
-  //   const info = {
-  //     title,
-  //     details,
-  //   };
-
-  //   try {
-  //     const res = await fetch(`/api/products`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(info),
-  //     });
-  //     if (res.ok) {
-  //       toast.success("successfull added product");
-  //       // router.push("/");
-  //       // router.refresh();
-  //     } else {
-  //       throw new Error("failed to create product");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  
+  
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {

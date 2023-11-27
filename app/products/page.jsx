@@ -1,7 +1,9 @@
+import SingleProduct from "./compo/SingleProduct";
+
 const getProduct = async () => {
   try {
     // https://jihad-blog-main.vercel.app
-    const res = await fetch("http://localhost:3000/api/products", {
+    const res = await fetch("https://jihad-blog-main.vercel.app/api/products", {
       cache: "no-store",
     });
     if (!res.ok) {
@@ -14,15 +16,19 @@ const getProduct = async () => {
 };
 
 const ProductsPage = async () => {
-  // const { products } = await getProduct();
+  const { products } = await getProduct();
   // console.log(products);
   return (
     <div className="max-w-screen-xl mx-auto px-6  py-2 min-h-screen">
       <div className="flex justify-between items-center my-6">
         <h4 className="text-gray-400 text-2xl font-semibold">Shop</h4>
-        <h4 className="text-gray-400">{`${7} Projects`}</h4>
+        <h4 className="text-gray-400">{`${products?.length} Projects`}</h4>
       </div>
-      <div>products ....</div>
+      <div>
+        {products?.map((product) => (
+          <SingleProduct {...product} key={product?._id} />
+        ))}
+      </div>
     </div>
   );
 };
