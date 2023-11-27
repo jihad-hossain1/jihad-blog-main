@@ -12,10 +12,12 @@ const UpdateProductForm = ({ pid, product }) => {
     const form = e.target;
     const title = form.title.value;
     const details = form.details.value;
+    const category = form.category.value;
 
     const info = {
       title,
       details,
+      category,
     };
 
     try {
@@ -62,6 +64,18 @@ const UpdateProductForm = ({ pid, product }) => {
             placeholder="details"
             id=""
           />
+          <select
+            // onChange={handleChange}
+            defaultValue={product?.category}
+            name="category"
+            className="border focus:outline-none p-3"
+            id="category"
+          >
+            <option value="Template">Template</option>
+            <option value="CMS">CMS</option>
+            <option value="eCommerce">eCommerce</option>
+            <option value="Others">Others</option>
+          </select>
           <button
             type="submit"
             className="transition duration-300 border p-4 w-fit bg-green-700 text-white rounded hover:bg-green-500"

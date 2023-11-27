@@ -3,7 +3,9 @@ import mongoose, { Schema } from "mongoose";
 const productSchema = new Schema(
   {
     title: String,
-    details: String
+    details: String,
+    category: String,
+    
   },
   {
     timestamps: true,

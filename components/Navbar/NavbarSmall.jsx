@@ -139,7 +139,7 @@ const NavbarSmall = () => {
                       Log-Out
                     </button>
                   </li>
-                  {user?.status == "admin" && (
+                  {user?.role == "admin" && (
                     <>
                       <li
                         onClick={() => setIsAccountButtonActive(false)}

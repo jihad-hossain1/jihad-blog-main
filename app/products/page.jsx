@@ -1,5 +1,5 @@
+import ProuctTab from "./compo/ProuctTab";
 import SingleProduct from "./compo/SingleProduct";
-
 const getProduct = async () => {
   try {
     // https://jihad-blog-main.vercel.app
@@ -17,7 +17,7 @@ const getProduct = async () => {
 
 const ProductsPage = async () => {
   const { products } = await getProduct();
-  // console.log(products);
+
   return (
     <div className="max-w-screen-xl mx-auto px-6  py-2 min-h-screen">
       <div className="flex justify-between items-center my-6">
@@ -25,9 +25,15 @@ const ProductsPage = async () => {
         <h4 className="text-gray-400">{`${products?.length} Projects`}</h4>
       </div>
       <div>
-        {products?.map((product) => (
-          <SingleProduct {...product} key={product?._id} />
-        ))}
+        <div>
+          <ProuctTab products={products} />
+        </div>
+
+        <div className="flex flex-col gap-5 mt-2">
+          {products?.map((product) => (
+            <SingleProduct product={product} key={product?._id} />
+          ))}
+        </div>
       </div>
     </div>
   );

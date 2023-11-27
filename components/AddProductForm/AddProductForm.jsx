@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const AddProductForm = () => {
   const router = useRouter();
-
+  
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -14,11 +14,11 @@ const AddProductForm = () => {
       [name]: value,
     }));
   };
-  
-  
+
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData);
       const res = await fetch(`/api/products`, {
         method: "POST",
         headers: {
@@ -29,7 +29,7 @@ const AddProductForm = () => {
       if (res.ok) {
         toast.success("successfull added product");
         // router.push("/");
-        // router.refresh();
+        router.refresh();
       } else {
         throw new Error("failed to create product");
       }
@@ -40,6 +40,7 @@ const AddProductForm = () => {
   const scafolding = {
     title: "",
     details: "",
+    category: "",
   };
   const [formData, setFormData] = useState(scafolding);
   return (
@@ -50,7 +51,6 @@ const AddProductForm = () => {
       </h4>
       <form className="flex flex-col gap-3" onSubmit={handlesubmit}>
         <input
-          // onChange={(e) => setTitle(e.target.value)}
           onChange={handleChange}
           value={formData.title}
           type="text"
@@ -59,8 +59,7 @@ const AddProductForm = () => {
           placeholder="title"
           id=""
         />
-        <input
-          // onChange={(e) => setdetails(e.target.value)}
+        <textarea
           onChange={handleChange}
           value={formData.details}
           type="text"
@@ -69,6 +68,18 @@ const AddProductForm = () => {
           placeholder="details"
           id=""
         />
+        <select
+          onChange={handleChange}
+          value={formData.category}
+          name="category"
+          className="border focus:outline-none p-3"
+          id="category"
+        >
+          <option value="Template">Template</option>
+          <option value="CMS">CMS</option>
+          <option value="eCommerce">eCommerce</option>
+          <option value="Others">Others</option>
+        </select>
         <button
           type="submit"
           className="transition duration-300 border p-4 w-fit bg-green-600 text-white rounded hover:bg-green-500"
