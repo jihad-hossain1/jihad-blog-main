@@ -57,25 +57,25 @@ const RegisterForm = () => {
     }
   };
   return (
-    <div className="max-w-xl mx-auto p-2">
+    <div className="max-w-xl mx-auto p-2 min-h-screen pt-12">
       <h4 className="text-xl font-semibold text-center">Register Form</h4>
 
       <form onSubmit={handlesubmit} className="flex flex-col gap-3">
-        <label htmlFor="">full name</label>
+        <label htmlFor="">Full Name</label>
         <input
           onChange={(e) => setName(e.target.value)}
           type="text"
           name="text"
           className="inpt"
         />
-        <label htmlFor="">email</label>
+        <label htmlFor="">Email</label>
         <input
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
           className="inpt"
         />
-        <label htmlFor="">password</label>
+        <label htmlFor="">Password</label>
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
@@ -85,9 +85,10 @@ const RegisterForm = () => {
         <input type="submit" value={"register"} className="inpt btn" />
       </form>
       {errors && <p className="text-red-600">{errors}</p>}
-      <div className="mt-2">
+      <div className="flex items-center gap-2 mt-5">
+        You have an already account ?
         <Link href={"/login"} className="underline">
-          go login page
+          login here
         </Link>
       </div>
     </div>

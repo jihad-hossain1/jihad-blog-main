@@ -32,17 +32,18 @@ const LoginForm = () => {
   };
   return (
     <div className="max-w-xl mx-auto p-2">
-      <h4>LoginForm</h4>
       <form onSubmit={handlesubmit} className="flex flex-col gap-3">
-        <label htmlFor="">email</label>
+        <label htmlFor="">Email</label>
         <input
+          defaultValue={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
           className="inpt"
         />
-        <label htmlFor="">password</label>
+        <label htmlFor="">Password</label>
         <input
+          defaultValue={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           name="password"
@@ -51,10 +52,24 @@ const LoginForm = () => {
         <input type="submit" value={"login"} className="inpt btn" />
       </form>
       {errors && <p className="text-red-600">{errors}</p>}
-      <div className="mt-2">
-        <Link href={"/register"} className="underline">
-          register here
-        </Link>
+      <div className="flex justify-between items-center ">
+        <div className="flex items-center gap-2 mt-5">
+          You are new here ?
+          <Link href={"/register"} className="underline">
+            register here
+          </Link>
+        </div>
+        <div className="mt-5">
+          <button
+            className="transition-all duration-700 bg-green-600 text-zinc-50 px-4 rounded py-1 hover:bg-green-600/75"
+            onClick={() => {
+              setEmail("guest@example.com");
+              setPassword("123456");
+            }}
+          >
+            Use Guest Credentials
+          </button>
+        </div>
       </div>
     </div>
   );

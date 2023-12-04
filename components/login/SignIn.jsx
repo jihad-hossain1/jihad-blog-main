@@ -7,7 +7,8 @@ import LoginForm from "./LoginForm";
 const SignIn = () => {
   const { status, data: session } = useSession();
   return (
-    <div className="max-w-screen-xl mx-auto px-8 min-h-screen">
+    <div className="max-w-screen-xl mx-auto px-8 min-h-screen pt-12">
+      <h4 className="text-xl font-semibold text-center">Login Form</h4>
       <div>
         {status === "authenticated" ? (
           <>
@@ -28,7 +29,7 @@ const SignIn = () => {
             <div className="flex justify-center">
               <button
                 onClick={() => signIn("google")}
-                className="text-xl font-bold text-gray-700 border border-blue-600 p-2 hover:btn transition-all duration-500"
+                className="text-xl font-bold text-gray-700 border border-blue-600 py-2 hover:btn transition-all duration-700 rounded-lg px-6"
               >
                 Sign in with Google
               </button>
