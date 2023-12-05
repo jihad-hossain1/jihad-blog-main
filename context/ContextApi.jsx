@@ -1,16 +1,14 @@
-import AuthContext from "@/context/AuthContext";
-// import { useEffect, useState } from "react";
+"use client";
+import { SessionProvider } from "next-auth/react";
+import { useState } from "react";
+import { BlogContext } from ".";
 
-const ContextApi = ({ children }) => {
-  const isData = [
-    {
-      id: "abc",
-    },
-  ];
-  const value = {
-    isData,
-  };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
+export default function BlogProvider({ children }) {
+  const [blogData, setBlogData] = useState([]);
 
-export default ContextApi;
+  return (
+    <BlogContext.Provider value={{ blogData, setBlogData }}>
+      <SessionProvider>{children}</SessionProvider>
+    </BlogContext.Provider>
+  );
+}

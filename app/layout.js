@@ -6,6 +6,7 @@ import NavbarSmall from "@/components/Navbar/NavbarSmall";
 import Footer from "@/components/Footer/Footer";
 import { NextAuthProvider } from "./Provider";
 import Responsive from "@/components/Navbar/Responsive";
+import BlogProvider from "@/context/ContextApi";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="dark">
       <body className={inter.className}>
+        {/* <BlogProvider> */}
         <NextAuthProvider>
           <div className="flex min-h-screen flex-col justify-between">
           <div>
@@ -27,7 +29,8 @@ export default function RootLayout({ children }) {
           </div>
         </div>
         <Footer />
-        </NextAuthProvider>
+          </NextAuthProvider>
+          {/* </BlogProvider> */}
         <Toaster />
       </body>
     </html>
