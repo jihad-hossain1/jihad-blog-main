@@ -4,11 +4,25 @@ import OneBlogItem from "@/components/OneBlogItem/OneBlogItem";
 import CV from "@/components/SideBar/CV";
 import CategoryList from "@/components/SideBar/CategoryList";
 import LastProject from "@/components/SideBar/LastProject";
-import TopicsList from "@/components/TopicsList";
 
+// const getResume = async () => {
+//   try {
+//     const res = await fetch("http://localhost:3000/api/resume", {
+//       cache: "no-store",
+//     });
+//     if (!res.ok) {
+//       throw new Error("failed to fatch");
+//     }
+//     return res.json();
+//   } catch (error) {
+//     console.log("error loading resume:", error);
+//   }
+// };
 
-
-const Home = () => {
+const Home = async () => {
+  // const { resumes } = await getResume();
+  // const lastElem = await resumes?.at(-1);
+  // console.log(lastElem);
   return (
     <Container>
       <div className="min-h-full pb-3">
@@ -23,7 +37,9 @@ const Home = () => {
               </div> */}
             </div>
             <aside className="space-y-4">
-              <CV />
+              <CV
+              // lastElem={lastElem?.link}
+              />
               <CategoryList />
               <LastProject />
             </aside>
