@@ -9,7 +9,7 @@ import { GrLinkedinOption } from "react-icons/gr";
 import { PiBookOpenThin, PiTelegramLogoLight } from "react-icons/pi";
 // import { PiTelegramLogoLight } from "react-icons/pi";
 
-const CV = ({}) => {
+const CV = ({ lastElem }) => {
   // console.log(lastElem);
   const modalRef = useRef(null);
   const formRef = useRef(null);
@@ -75,7 +75,7 @@ const CV = ({}) => {
       <div>
         <a
           download="downloadMyCv"
-          href={"lastElem"}
+          href={lastElem}
           target="_blank"
           className="w-full hover:bg-gray-50/60 hover:text-gray-900 border-y cursor-pointer transition-all duration-300 flex space-x-4 items-center px-6 md:px-8 py-6 text-gray-500"
         >

@@ -5,23 +5,23 @@ import CV from "@/components/SideBar/CV";
 import CategoryList from "@/components/SideBar/CategoryList";
 import LastProject from "@/components/SideBar/LastProject";
 
-// const getResume = async () => {
-//   try {
-//     const res = await fetch("http://localhost:3000/api/resume", {
-//       cache: "no-store",
-//     });
-//     if (!res.ok) {
-//       throw new Error("failed to fatch");
-//     }
-//     return res.json();
-//   } catch (error) {
-//     console.log("error loading resume:", error);
-//   }
-// };
+const getResume = async () => {
+  try {
+    const res = await fetch("https://jihad-blog-main.vercel.app/api/resume", {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      throw new Error("failed to fatch");
+    }
+    return res.json();
+  } catch (error) {
+    console.log("error loading resume:", error);
+  }
+};
 
 const Home = async () => {
-  // const { resumes } = await getResume();
-  // const lastElem = await resumes?.at(-1);
+  const { resumes } = await getResume();
+  const lastElem = await resumes?.at(-1);
   // console.log(lastElem);
   return (
     <Container>
@@ -37,9 +37,7 @@ const Home = async () => {
               </div> */}
             </div>
             <aside className="space-y-4">
-              <CV
-              // lastElem={lastElem?.link}
-              />
+              <CV lastElem={lastElem?.link} />
               <CategoryList />
               <LastProject />
             </aside>
