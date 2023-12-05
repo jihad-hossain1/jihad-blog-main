@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 import NavLink from "../Navlink/NavLink";
 import { FiChevronDown } from "react-icons/fi";
@@ -9,9 +10,30 @@ import { useSession, signOut } from "next-auth/react";
 import Logo from "./Logo";
 import Book from "./Book";
 import Buyproduct from "./Buyproduct";
-import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
+import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
+
+import { useMediaQuery } from "@/utils/useMediaQuery";
+
+const navMotion = {
+  visible: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.15,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
+
+const itemMotion = {
+  visible: { opacity: 1, x: 0 },
+  hidden: { opacity: 0, x: -100 },
+};
 
 const NavbarSmall = () => {
+  const matches = useMediaQuery("(min-width: 768px)");
   const { status } = useSession();
   const user = false;
   let [open, setOpen] = useState(false);
@@ -197,21 +219,71 @@ const NavbarSmall = () => {
         </div>
 
         {/* mobile device  */}
+
         <div className="md:hidden block">
           <div className="   flex justify-between items-center gap-4">
             <Logo />
             {/* <Search /> */}
             <div className="relative flex items-center gap-6">
               <Search />
-              <button onClick={() => setOpen(!open)} className="text-3xl">
+              <button
+                onClick={() => setOpen((pre) => !pre)}
+                className="text-3xl"
+              >
                 <RxHamburgerMenu />
               </button>
               {open && (
-                <ul
-                  className={`flex flex-col gap-5 absolute z-10 top-6 mt-7 right-5  bg-slate-200 mx-4 p-2 w-[300px] py-6 items-center`}
-                >
-                  {navlist}
-                </ul>
+                <div>
+                  <motion.div
+                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, x: 25 }}
+                    className="fixed bg-zinc-50 bottom-0 left-0 w-full h-screen flex items-center justify-center z-50"
+                  >
+                    <div className="fixed top-0 right-0 p-10">
+                      <button
+                        className="z-50"
+                        onClick={() => setOpen((pre) => !pre)}
+                      >
+                        <RxCross1 size={30} />
+                      </button>
+                    </div>
+                    <motion.div
+                      variants={navMotion}
+                      animate="visible"
+                      initial="hidden"
+                      className="flex flex-col gap-20 font-semibold"
+                    >
+                      <motion.a variants={itemMotion} href="/">
+                        Start page
+                      </motion.a>
+                      <motion.a variants={itemMotion} href="/blogsArticle">
+                        Blog Article
+                      </motion.a>
+                      <motion.a variants={itemMotion} href="/myproject">
+                        My Projects
+                      </motion.a>
+                      <motion.a variants={itemMotion} href="/contact">
+                        Contact
+                      </motion.a>
+
+                      {status === "authenticated" ? (
+                        <>
+                          <motion.a href="/addBlog">create blog</motion.a>
+                          <motion.a
+                            className="cursor-pointer"
+                            onClick={() => signOut()}
+                          >
+                            Log-Out
+                          </motion.a>
+                        </>
+                      ) : (
+                        <motion.a variants={itemMotion} href="/login">
+                          Log-In
+                        </motion.a>
+                      )}
+                    </motion.div>
+                  </motion.div>
+                </div>
               )}
             </div>
           </div>
