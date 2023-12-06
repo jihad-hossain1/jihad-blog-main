@@ -54,7 +54,7 @@ const SingleBlogDetails = ({ blog, id }) => {
             <VideoFrame videoUrl={blog?.videoLink} />
           </div>
           <div>
-            <Comments />
+            <Comments bid={blog?._id} />
           </div>
         </main>
         {/* share content  */}
