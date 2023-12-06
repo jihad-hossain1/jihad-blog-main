@@ -50,13 +50,13 @@ const CommentForm = ({ bid }) => {
     } catch (error) {
       console.log(error);
     }
-    // console.log(info);
   };
 
   const scafolding = {
     name: session?.user.name,
     details: "",
   };
+  
   const [formData, setFormData] = useState(scafolding);
 
   return (

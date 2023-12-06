@@ -29,7 +29,7 @@ const SingleBlogDetails = ({ blog, id }) => {
     return color;
   };
   return (
-    <div className="p-1">
+    <div className="p-1 ">
       <div className="flex flex-col md:flex-row  justify-between gap-5">
         <main className="w-full">
           <div className="flex justify-between ">

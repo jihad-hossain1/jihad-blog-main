@@ -1,16 +1,17 @@
 "use client";
 
 const AllComments = ({ allComments, isBlog }) => {
-  //   console.log(allComments);
-  //   console.log(isBlog?._id);
+
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {allComments
         ?.filter((isComment) => isComment?.blogId === isBlog?._id)
         .map((comment) => (
-          <div key={comment?._id}>
-            <h4 className="font-semibold text-sm">{comment?.name}</h4>
-            <p className="text-xs">{comment?.details}</p>
+          <div key={comment?._id} className="p-4 bg-slate-50">
+            <p className="break-all">{comment?.details}</p>
+            <h4 className="font-semibold text-sm">
+              comment-by: <span className="font-normal">{comment?.name}</span>
+            </h4>
           </div>
         ))}
     </div>
