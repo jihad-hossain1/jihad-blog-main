@@ -3,8 +3,7 @@ import NewBlogBadge from "./NewBlogBadge";
 import DetailsBlog from "./DetailsBlog";
 import VideoFrame from "./VideoFrame";
 import Comments from "./Comments";
-import Image from "next/image";
-// import { getColorText } from "@/utils/getRandomColor";
+
 
 const SingleBlogDetails = ({ blog, id }) => {
   const getColorText = (bg) => {
@@ -60,11 +59,11 @@ const SingleBlogDetails = ({ blog, id }) => {
         </main>
         {/* share content  */}
         <div className="md:flex justify-end">
-          <ShareContent />
+          <ShareContent bid={blog?._id} />
         </div>
       </div>
     </div>
   );
 };
-// flex flex-col md:flex-row  justify-between md:space-x-3
+
 export default SingleBlogDetails;
