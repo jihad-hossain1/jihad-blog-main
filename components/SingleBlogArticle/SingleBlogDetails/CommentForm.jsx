@@ -5,6 +5,9 @@ import { useState } from "react";
 
 const CommentForm = ({ bid }) => {
   const { data: session } = useSession();
+  const isEmail = session?.user.email;
+  const isName = session?.user.name;
+
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -16,14 +19,19 @@ const CommentForm = ({ bid }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //   const { name, email, blogId: session?.user?.name, } = formData;
-    console.log(formData);
+    const { details } = formData;
+    const info = {
+      details: details,
+      name: isName,
+      email: isEmail,
+      blogId: bid,
+    };
+
+    console.log(info);
   };
 
   const scafolding = {
-    name: session?.user?.name,
-    email: session?.user?.email,
-    blogId: bid,
+    name: session?.user.name,
     details: "",
   };
   const [formData, setFormData] = useState(scafolding);
@@ -37,7 +45,7 @@ const CommentForm = ({ bid }) => {
             type="text"
             name="name"
             id="name"
-            defaultValue={formData?.name}
+            defaultValue={isName}
             onChange={handleChange}
           />
         </div>
@@ -47,7 +55,7 @@ const CommentForm = ({ bid }) => {
             type="text"
             name="details"
             id="details"
-            defaultValue={formData?.details}
+            defaultValue={formData.details}
             onChange={handleChange}
           />
         </div>
