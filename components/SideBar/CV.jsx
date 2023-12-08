@@ -1,47 +1,57 @@
 "use client";
 
-// import { Button, Input, Textarea } from "@material-tailwind/react";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { BsGithub, BsFacebook } from "react-icons/bs";
 import { GrLinkedinOption } from "react-icons/gr";
 import { PiBookOpenThin, PiTelegramLogoLight } from "react-icons/pi";
-// import { PiTelegramLogoLight } from "react-icons/pi";
 
 const CV = ({ lastElem }) => {
-  // console.log(lastElem);
   const modalRef = useRef(null);
   const formRef = useRef(null);
   const [updateData, setUpdateData] = useState(null);
 
   const openModal = (modalComp) => {
-    // console.log(modalComp);
     setUpdateData(modalComp);
     modalRef.current.showModal();
   };
   const closeModal = () => {
-    // setUpdateData(null);
     modalRef.current.close();
   };
-  const handleMessage = (e) => {
+  const handleMessage = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
+    const subject = form.subject.value;
     const email = form.email.value;
     const message = form.message.value;
-    const info = {
-      name,
-      email,
-      message,
-    };
-    console.log(info);
-    if (info) {
+    // const info = {
+    //   name,
+    //   email,
+    //   message,
+    // };
+    try {
+      const res = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: email,
+          to: "lovedose4166@gmail.com",
+          subject: `${subject} - [${name}]`,
+          html: "<p>HI</p>",
+          text: message,
+        }),
+      });
+      const data = await res.json();
       toast.success("Message sending successfull");
       form.reset();
       setTimeout(() => {
         closeModal();
       }, 2000);
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
     }
   };
   return (
@@ -119,7 +129,16 @@ const CV = ({ lastElem }) => {
                 // defaultValue={updateData?.commentUser}
               />
             </div>
-
+            <div className="mb-4">
+              <input
+                required
+                type="text"
+                className="inpt"
+                name="subject"
+                placeholder="subject"
+                // defaultValue={updateData?.commentUser}
+              />
+            </div>
             <div className="mb-4">
               <input
                 type="email"
