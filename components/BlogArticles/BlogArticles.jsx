@@ -1,10 +1,7 @@
-// "use client";
-
 import SingleArticle from "./SingleArticle";
 
 const getBlogs = async () => {
   try {
-    // https://jihad-blog-main.vercel.app
     const res = await fetch("https://jihad-blog-main.vercel.app/api/blogs", {
       cache: "no-store",
     });
@@ -21,7 +18,6 @@ const BlogArticles = async () => {
   const { blogs } = await getBlogs();
   return (
     <div className="pt-4">
-      {/* <h4>top ar</h4> */}
       <div className="mb-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5  sm:max-w-sm sm:mx-auto lg:max-w-full p-2 md:px-10">
           {blogs.slice(0, 2).map((article) => (

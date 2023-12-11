@@ -22,7 +22,7 @@ const DeleteComment = ({ id }) => {
   };
   return (
     <>
-      <Toaster />
+      {/* <Toaster /> */}
       <button onClick={() => handleDelete(id)}>
         <GoTrash />
       </button>

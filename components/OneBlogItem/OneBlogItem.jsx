@@ -1,8 +1,8 @@
 import SingleBlogArticle from "../SingleBlogArticle/SingleBlogArticle";
+import ReverseBlogs from "./ReverseBlogs";
 
 const getBlogs = async () => {
   try {
-    // https://jihad-blog-main.vercel.app
     const res = await fetch("https://jihad-blog-main.vercel.app/api/blogs", {
       cache: "no-store",
     });
@@ -26,23 +26,28 @@ const OneBlogItem = async () => {
   const htmls = itmesBlog?.filter((item) => item?.articleCategory === "html");
   const css = itmesBlog?.filter((item) => item?.articleCategory === "css");
   return (
-    <div>
-      <div className="mb-3 grid gap-3">
-        {javascript.slice(0, 1).map((art) => (
-          <SingleBlogArticle blog={art} key={art?._id} />
-        ))}
+    <>
+      <div>
+        <ReverseBlogs itmesBlog={itmesBlog} />
       </div>
-      <div className="mb-3 grid gap-3">
-        {htmls.slice(0, 1).map((art) => (
-          <SingleBlogArticle blog={art} key={art?._id} />
-        ))}
+      <div className="hidden">
+        <div className="mb-3 grid gap-3">
+          {javascript.slice(0, 1).map((art) => (
+            <SingleBlogArticle blog={art} key={art?._id} />
+          ))}
+        </div>
+        <div className="mb-3 grid gap-3">
+          {htmls.slice(0, 1).map((art) => (
+            <SingleBlogArticle blog={art} key={art?._id} />
+          ))}
+        </div>
+        <div className="mb-3 grid gap-3">
+          {css.slice(0, 1).map((art) => (
+            <SingleBlogArticle blog={art} key={art?._id} />
+          ))}
+        </div>
       </div>
-      <div className="mb-3 grid gap-3">
-        {css.slice(0, 1).map((art) => (
-          <SingleBlogArticle blog={art} key={art?._id} />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

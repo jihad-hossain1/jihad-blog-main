@@ -4,20 +4,7 @@ import OneBlogItem from "@/components/OneBlogItem/OneBlogItem";
 import CV from "@/components/SideBar/CV";
 import CategoryList from "@/components/SideBar/CategoryList";
 import LastProject from "@/components/SideBar/LastProject";
-
-const getResume = async () => {
-  try {
-    const res = await fetch("https://jihad-blog-main.vercel.app/api/resume", {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("failed to fatch");
-    }
-    return res.json();
-  } catch (error) {
-    console.log("error loading resume:", error);
-  }
-};
+import { getResume } from "@/utils/fetchResume";
 
 const Home = async () => {
   const { resumes } = await getResume();

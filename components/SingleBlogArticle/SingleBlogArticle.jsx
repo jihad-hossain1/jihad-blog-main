@@ -1,7 +1,6 @@
 import { formatTimestamp } from "@/utils/timeStemp";
 import Link from "next/link";
-import { FiMessageSquare } from "react-icons/fi";
-import { MdFavoriteBorder } from "react-icons/md";
+import CommentReactionCount from "./CommentReactionCount";
 
 const SingleBlogArticle = ({ blog }) => {
   //   const { _id } = blog;
@@ -58,14 +57,7 @@ const SingleBlogArticle = ({ blog }) => {
             Read More
           </Link>
           <div className="flex items-center space-x-3 text-gray-500">
-            <div className="flex space-x-2">
-              <FiMessageSquare className="text-2xl" />
-              <h4 className="hover:text-gray-900 cursor-pointer text-sm">{`${13} Response`}</h4>
-            </div>
-            <div className="flex space-x-2">
-              <MdFavoriteBorder className="text-2xl" />
-              <h4 className="hover:text-gray-900 cursor-pointer text-sm">{`1423`}</h4>
-            </div>
+            <CommentReactionCount bid={blog?._id} />
           </div>
         </div>
       </div>

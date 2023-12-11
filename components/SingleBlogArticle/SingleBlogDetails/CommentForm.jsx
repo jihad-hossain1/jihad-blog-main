@@ -6,6 +6,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const CommentForm = ({ bid }) => {
+  const [isFormToggle, setisFormToggle] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   const isEmail = session?.user.email;
@@ -42,8 +43,8 @@ const CommentForm = ({ bid }) => {
         body: JSON.stringify(info),
       });
       if (res.ok) {
-        toast.success("successfull added comment");
         router.refresh();
+        toast.success("successfull added comment");
       } else {
         throw new Error("failed to create comment");
       }
@@ -61,37 +62,47 @@ const CommentForm = ({ bid }) => {
 
   return (
     <div className="p-4">
-      <Toaster />
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3">
-          <label htmlFor="name">Name</label>
-          <input
-            required
-            type="text"
-            name="name"
-            id="name"
-            className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
-            defaultValue={isName}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col gap-3">
-          <label htmlFor="details">details</label>
-          <textarea
-            className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
-            required
-            type="text"
-            name="details"
-            id="details"
-            defaultValue={formData.details}
-            onChange={handleChange}
-          />
-        </div>
+      {/* <Toaster /> */}
+      <button
+        onClick={() => setisFormToggle((pre) => !pre)}
+        className="transition-all duration-300 text-sm font-semibold bg-gray-200 px-4 py-1 rounded-md shadow hover:bg-slate-200/75"
+      >
+        {isFormToggle ? "Close Comment Box" : "Open Comment Box"}
+      </button>
+      {isFormToggle && (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
+            <label htmlFor="name">Name</label>
+            <input
+              required
+              type="text"
+              name="name"
+              id="name"
+              className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
+              defaultValue={isName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex flex-col gap-3">
+            <label htmlFor="details">Details</label>
+            <textarea
+              className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
+              required
+              type="text"
+              name="details"
+              id="details"
+              defaultValue={formData.details}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+          <div className="">
+            <button type="submit" className="btn">
+              Submit
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };
