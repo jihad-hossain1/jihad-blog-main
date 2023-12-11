@@ -21,7 +21,9 @@ const SingleBlogpage = async ({ params }) => {
   const { blog } = await getBlogById(id);
   return (
     <MainContainer>
-      <SingleBlogDetails id={id} blog={blog} />
+      <>
+        <SingleBlogDetails id={id} blog={blog} />
+      </>
     </MainContainer>
   );
 };

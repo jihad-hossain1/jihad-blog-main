@@ -4,6 +4,8 @@ import DetailsBlog from "./DetailsBlog";
 import VideoFrame from "./VideoFrame";
 import Comments from "./Comments";
 import BlogLinks from "./BlogLinks";
+import Link from "next/link";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const SingleBlogDetails = ({ blog, id }) => {
   const getColorText = (bg) => {
@@ -29,7 +31,15 @@ const SingleBlogDetails = ({ blog, id }) => {
     return color;
   };
   return (
-    <div className="p-1 ">
+    <div className="p-1 flex flex-col gap-2">
+      <div className="flex justify-start">
+        <Link
+          href={"/blogsArticle"}
+          className="hover:text-blue-600 flex  gap-1 items-center"
+        >
+          <IoIosArrowRoundBack size={23} /> {"Back to Blogs"}
+        </Link>
+      </div>
       <div className="flex flex-col md:flex-row  justify-between gap-5">
         <main className="w-full">
           <div className="flex justify-between ">
