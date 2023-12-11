@@ -3,7 +3,7 @@ import NewBlogBadge from "./NewBlogBadge";
 import DetailsBlog from "./DetailsBlog";
 import VideoFrame from "./VideoFrame";
 import Comments from "./Comments";
-
+import BlogLinks from "./BlogLinks";
 
 const SingleBlogDetails = ({ blog, id }) => {
   const getColorText = (bg) => {
@@ -53,6 +53,7 @@ const SingleBlogDetails = ({ blog, id }) => {
           <div>
             <VideoFrame videoUrl={blog?.videoLink} />
           </div>
+          <BlogLinks blog_links={blog?.blog_links} />
           <div>
             <Comments bid={blog?._id} />
           </div>
