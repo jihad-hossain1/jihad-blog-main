@@ -12,8 +12,8 @@ const ReverseBlogs = ({ itmesBlog }) => {
   // Get current posts
   const indexOfLastBlogs = currentPage * BlogsPerPage;
   const indexOfFirstBlogs = indexOfLastBlogs - BlogsPerPage;
-  const currentBlogss = itmesBlog.slice(indexOfFirstBlogs, indexOfLastBlogs);
-  console.log(currentBlogss);
+  const currentBlogss = itmesBlog?.slice(indexOfFirstBlogs, indexOfLastBlogs);
+  // console.log(currentBlogss);
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
@@ -27,7 +27,7 @@ const ReverseBlogs = ({ itmesBlog }) => {
         <Pagination
           paginate={paginate}
           BlogsPerPage={BlogsPerPage}
-          totalBlogs={itmesBlog.length}
+          totalBlogs={itmesBlog?.length}
         />
       </div>
     </>

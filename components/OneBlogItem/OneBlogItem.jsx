@@ -22,15 +22,15 @@ const OneBlogItem = async () => {
   const javascript = itmesBlog?.filter(
     (item) => item?.articleCategory === "javascript"
   );
-  // console.log(javascript);
+
   const htmls = itmesBlog?.filter((item) => item?.articleCategory === "html");
   const css = itmesBlog?.filter((item) => item?.articleCategory === "css");
   return (
     <>
-      <div>
+      {/* <div>
         <ReverseBlogs itmesBlog={itmesBlog} />
-      </div>
-      <div className="hidden">
+      </div> */}
+      <div className="">
         <div className="mb-3 grid gap-3">
           {javascript.slice(0, 1).map((art) => (
             <SingleBlogArticle blog={art} key={art?._id} />

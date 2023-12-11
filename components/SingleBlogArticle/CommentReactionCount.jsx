@@ -6,7 +6,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 const CommentReactionCount = async ({ bid }) => {
   const { comments } = await getComments();
   const allComments = [...comments];
-  const inBlogCount = allComments.filter((item) => item?.blogId === bid);
+  const inBlogCount = allComments?.filter((item) => item?.blogId === bid);
   return (
     <>
       <Link href={`/blogsArticle/${bid}`} className="flex space-x-2">
