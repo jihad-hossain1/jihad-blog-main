@@ -22,7 +22,7 @@ const CommentForm = ({ bid }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { details } = formData;
+    let { details } = formData;
     const info = {
       details: details,
       name: isName,
@@ -56,7 +56,7 @@ const CommentForm = ({ bid }) => {
     name: session?.user.name,
     details: "",
   };
-  
+
   const [formData, setFormData] = useState(scafolding);
 
   return (
@@ -70,6 +70,7 @@ const CommentForm = ({ bid }) => {
             type="text"
             name="name"
             id="name"
+            className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
             defaultValue={isName}
             onChange={handleChange}
           />
@@ -77,6 +78,7 @@ const CommentForm = ({ bid }) => {
         <div className="flex flex-col gap-3">
           <label htmlFor="details">details</label>
           <textarea
+            className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
             required
             type="text"
             name="details"

@@ -38,9 +38,10 @@ const CV = ({ lastElem }) => {
         body: JSON.stringify({
           from: email,
           to: "lovedose4166@gmail.com",
-          subject: `${subject} - [${name}]`,
+          subject: `hello world`,
+          // subject: `${subject} - [${name}]`,
           html: "<p>HI</p>",
-          text: message,
+          text: "message",
         }),
       });
       const data = await res.json();

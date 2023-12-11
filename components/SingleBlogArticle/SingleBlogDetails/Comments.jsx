@@ -39,8 +39,8 @@ const Comments = async ({ bid }) => {
   const { blog } = await getCommentById(bid);
   return (
     <div className="mt-20 text-xl ">
-      <h3>Comments-Box: </h3>
-      <div className="border border-slate-300 w-full h-96">
+      <h3 className="my-2">Comments-Box: </h3>
+      <div className="border border-slate-300 w-full h-full overflow-y-scroll">
         <CommentForm bid={bid} />
         <AllComments allComments={allComments} isBlog={blog} />
       </div>
