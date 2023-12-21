@@ -1,9 +1,10 @@
+import Link from "next/link";
 import SingleBlogArticle from "../SingleBlogArticle/SingleBlogArticle";
-import ReverseBlogs from "./ReverseBlogs";
+import BlogsContent from "./BlogsContent";
 
-const getBlogs = async () => {
+const getBlogs = async (pageNumber) => {
   try {
-    const res = await fetch("https://jihad-blog-main.vercel.app/api/blogs", {
+    const res = await fetch(`https://jihad-blog-main.vercel.app/api/blogs`, {
       cache: "no-store",
     });
     if (!res.ok) {
@@ -16,50 +17,23 @@ const getBlogs = async () => {
 };
 
 const OneBlogItem = async () => {
-  const { blogs } = await getBlogs();
-  const itmesBlog = [...blogs];
-
-  const javascript = itmesBlog?.filter(
-    (item) => item?.articleCategory === "javascript"
-  );
-  let lastJavaScriptBlog = javascript?.at(-1);
-
-  const htmls = itmesBlog?.filter((item) => item?.articleCategory === "html");
-  let lastHtmlsBlog = htmls?.at(-1);
-
-  const css = itmesBlog?.filter((item) => item?.articleCategory === "css");
-  let lastCssBlog = css?.at(-1);
+  let { blogs } = await getBlogs();
+  // let newB = [...blogs];
 
   return (
     <>
-      {/* <div>
-        <ReverseBlogs itmesBlog={itmesBlog} />
-      </div> */}
-      <div className="flex flex-col gap-4">
-        <div>
-          <SingleBlogArticle blog={lastJavaScriptBlog} />
-        </div>
-        {/* <div className="mb-3 grid gap-3">
-          {javascript?.slice(0, 1).map((art) => (
-            <SingleBlogArticle blog={art} key={art?._id} />
-          ))}
-        </div> */}
-        {/* <div className="mb-3 grid gap-3">
-          {htmls.slice(0, 1).map((art) => (
-            <SingleBlogArticle blog={art} key={art?._id} />
-          ))}
-        </div> */}
-        <div>
-          <SingleBlogArticle blog={lastHtmlsBlog} />
-        </div>
-        {/* <div className="mb-3 grid gap-3">
-          {css.slice(0, 1).map((art) => (
-            <SingleBlogArticle blog={art} key={art?._id} />
-          ))}
-        </div> */}
-        <div>
-          <SingleBlogArticle blog={lastCssBlog} />
-        </div>
+      <div className="flex flex-col gap-3">
+        {blogs?.slice(0, 4).map((blog) => (
+          <SingleBlogArticle blog={blog} key={blog?._id} />
+        ))}
+      </div>
+      <div className="text-end mt-2">
+        <Link
+          href={"/blogsArticle"}
+          className="border-b border-blue-600 w-fit hover:text-blue-300 hover:translate-x-1 ease-in-out hover:pb-1 transition-all duration-300 "
+        >
+          See More Blog
+        </Link>
       </div>
     </>
   );

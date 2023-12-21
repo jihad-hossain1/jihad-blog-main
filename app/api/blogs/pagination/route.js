@@ -9,9 +9,9 @@ const paginate = (data, page, itemsPerPage) => {
 };
 
 export async function GET(request) {
-    
+
   let { searchParams } = await request?.nextUrl;
-  let page = parseFloat(searchParams.get("page"));
+  let page = parseFloat(searchParams.get("page")) || 1
   const itemsPerpage = 3;
 
     try {

@@ -13,21 +13,18 @@ const Home = async () => {
   return (
     <Container>
       <div className="min-h-full pb-3">
-        {/* <BlogArticles /> */}
-        {/* <TopicsList /> */}
         <div className="px-2 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6">
-            <div className="col-span-2  ">
+          <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 pt-6">
+            <div className=" col-span-2  ">
               <OneBlogItem />
-              {/* <div className="flex justify-end">
-                <PaginationContent />
-              </div> */}
             </div>
-            <aside className="space-y-4">
-              <CV lastElem={lastElem?.link} />
-              <CategoryList />
-              <LastProject />
-            </aside>
+            <div className="">
+              <aside className=" space-y-4">
+                <CV lastElem={lastElem?.link} />
+                <CategoryList />
+                <LastProject />
+              </aside>
+            </div>
           </div>
         </div>
       </div>

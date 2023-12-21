@@ -6,7 +6,7 @@ const SingleBlogArticle = ({ blog }) => {
   //   const { _id } = blog;
   const getColor = (cardColor) => {
     let color = "border-slate-700";
-    switch (cardColor.toLowerCase()) {
+    switch (cardColor?.toLowerCase()) {
       case "html":
         color = "border-[#ff7473]";
         return color;
