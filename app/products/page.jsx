@@ -1,22 +1,10 @@
+import { getProducts } from "@/utils/fetchAllProducts";
 import ProuctTab from "./compo/ProuctTab";
 import SingleProduct from "./compo/SingleProduct";
-const getProduct = async () => {
-  try {
-    // https://jihad-blog-main.vercel.app
-    const res = await fetch("https://jihad-blog-main.vercel.app/api/products", {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("failed to fatch");
-    }
-    return res.json();
-  } catch (error) {
-    console.log("error loading product:", error);
-  }
-};
 
 const ProductsPage = async () => {
-  const { products } = await getProduct();
+  const { products } = await getProducts();
+  const newProduct = [...products];
 
   return (
     <div className="max-w-screen-xl mx-auto px-6  py-2 min-h-screen">
@@ -26,14 +14,14 @@ const ProductsPage = async () => {
       </div>
       <div>
         <div>
-          <ProuctTab products={products} />
+          <ProuctTab products={newProduct} />
         </div>
 
-        <div className="flex flex-col gap-5 mt-2">
+        {/* <div className="flex flex-col gap-5 mt-2">
           {products?.map((product) => (
             <SingleProduct product={product} key={product?._id} />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
