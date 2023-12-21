@@ -1,6 +1,7 @@
 import { formatTimestamp } from "@/utils/timeStemp";
 import Link from "next/link";
 import CommentReactionCount from "./CommentReactionCount";
+import Layout from "../Layout";
 
 const SingleBlogArticle = ({ blog }) => {
   //   const { _id } = blog;
@@ -26,7 +27,7 @@ const SingleBlogArticle = ({ blog }) => {
     return color;
   };
   return (
-    <div className="">
+    <Layout>
       <div
         className={`border-l-[14px] ${getColor(
           blog?.articleCategory
@@ -61,7 +62,7 @@ const SingleBlogArticle = ({ blog }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

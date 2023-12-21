@@ -11,8 +11,17 @@ import Logo from "./Logo";
 import Book from "./Book";
 import Buyproduct from "./Buyproduct";
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
-
 import { useMediaQuery } from "@/utils/useMediaQuery";
+
+const listvariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
 
 const navMotion = {
   visible: {
@@ -41,7 +50,11 @@ const NavbarSmall = () => {
   const [isBlogButtonActive, setIsBlogButtonActive] = useState(false);
   const navlist = (
     <>
-      <li onClick={() => setOpen(!open)} className="pl-5 ">
+      <motion.li
+        whileHover={{ scale: 1.1 }}
+        onClick={() => setOpen(!open)}
+        className="pl-5 "
+      >
         <NavLink
           href="/"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -49,8 +62,8 @@ const NavbarSmall = () => {
         >
           Start page
         </NavLink>
-      </li>
-      <li className="pl-5t'">
+      </motion.li>
+      <motion.li whileHover={{ scale: 1.1 }} className="pl-5t'">
         <button
           onClick={() => setIsBlogButtonActive(!isBlogButtonActive)}
           className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 hover:underline"
@@ -118,8 +131,12 @@ const NavbarSmall = () => {
             </ul>
           </div>
         )}
-      </li>
-      <li onClick={() => setOpen(!open)} className="pl-5">
+      </motion.li>
+      <motion.li
+        whileHover={{ scale: 1.1 }}
+        onClick={() => setOpen(!open)}
+        className="pl-5"
+      >
         <NavLink
           href="/myproject"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -127,8 +144,12 @@ const NavbarSmall = () => {
         >
           My projects
         </NavLink>
-      </li>
-      <li onClick={() => setOpen(!open)} className="pl-5">
+      </motion.li>
+      <motion.li
+        whileHover={{ scale: 1.1 }}
+        onClick={() => setOpen(!open)}
+        className="pl-5"
+      >
         <NavLink
           href="/contact"
           className="text-gray-500 hover:text-gray-700 hover:underline"
@@ -136,8 +157,8 @@ const NavbarSmall = () => {
         >
           contact me
         </NavLink>
-      </li>
-      <li className="pl-5">
+      </motion.li>
+      <motion.li whileHover={{ scale: 1.1 }} className="pl-5">
         <button
           onClick={() => setIsAccountButtonActive(!isAccountButtonActive)}
           className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 hover:underline"
@@ -185,10 +206,10 @@ const NavbarSmall = () => {
             </ul>
           </div>
         )}
-      </li>
+      </motion.li>
       {status === "authenticated" && (
         <>
-          <li>
+          <motion.li whileHover={{ scale: 1.1 }}>
             <NavLink
               href="/addBlog"
               className=" text-gray-500 hover:text-gray-700 hover:underline"
@@ -196,7 +217,7 @@ const NavbarSmall = () => {
             >
               create blog
             </NavLink>
-          </li>
+          </motion.li>
         </>
       )}
     </>
@@ -214,7 +235,14 @@ const NavbarSmall = () => {
           </div>
         </div>
         <div className="flex justify-between px-6 py-2 mt-2">
-          <ul className="hidden md:flex space-x-5 items-center ">{navlist}</ul>
+          <motion.ul
+            variants={listvariants}
+            initial="hidden"
+            animate="show"
+            className="hidden md:flex space-x-5 items-center "
+          >
+            {navlist}
+          </motion.ul>
           <Buyproduct />
         </div>
 
