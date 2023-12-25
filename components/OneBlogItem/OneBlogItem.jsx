@@ -25,7 +25,7 @@ const OneBlogItem = async () => {
         <div>Posts: {blogs?.length}</div>
       </div>
       <div className="flex flex-col gap-3">
-        {blogs?.slice(0, 4).map((blog) => (
+        {blogs?.slice(0, 6).map((blog) => (
           <SingleBlogArticle blog={blog} key={blog?._id} />
         ))}
       </div>

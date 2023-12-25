@@ -223,7 +223,7 @@ const NavbarSmall = () => {
     </>
   );
   return (
-    <nav className="shadow-md w-full sticky top-0 left-0 bg-white">
+    <nav className="shadow-md w-full sticky z-50 top-0 left-0 bg-white">
       <div className="max-w-screen-xl mx-auto px-4   pb-6">
         <div className="hidden md:block">
           <div className="flex justify-between items-center border-b border-gray-200 pb-4 px-4">
@@ -249,7 +249,7 @@ const NavbarSmall = () => {
         {/* mobile device  */}
 
         <div className="md:hidden block">
-          <div className="   flex justify-between items-center gap-4">
+          <div className="flex justify-between items-center gap-4">
             <Logo />
             {/* <Search /> */}
             <div className="relative flex items-center gap-6">

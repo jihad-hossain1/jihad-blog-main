@@ -1,10 +1,24 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence ,useScroll,useTransform} from "framer-motion";
+import { useRef } from "react";
 
-const Layout = ({ children }) => (
-  <AnimatePresence >
+const Layout = ({ children }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["0 1", "1.33 1"],
+  });
+ const scaleProgress =  useTransform(scrollYProgress,[0, 1],[0.8, 1])
+ const opacityProgress =  useTransform(scrollYProgress,[0, 1],[0.6, 1])
+return (
+    <AnimatePresence >
     <motion.div
+      style={{
+          scale: scaleProgress,
+          opacity: opacityProgress,
+        }}
+        ref={ref}
        initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 15 }}
@@ -13,7 +27,8 @@ const Layout = ({ children }) => (
       {children}
     </motion.div>
   </AnimatePresence>
-);
+  )
+}
 export default Layout;
 
 // initial={{ opacity: 0, y: 10 }}

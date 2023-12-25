@@ -4,7 +4,6 @@ import CommentReactionCount from "./CommentReactionCount";
 import Layout from "../Layout";
 
 const SingleBlogArticle = ({ blog }) => {
-  //   const { _id } = blog;
   const getColor = (cardColor) => {
     let color = "border-slate-700";
     switch (cardColor?.toLowerCase()) {
