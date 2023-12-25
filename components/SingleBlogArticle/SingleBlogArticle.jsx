@@ -26,6 +26,7 @@ const SingleBlogArticle = ({ blog }) => {
     }
     return color;
   };
+  let blogDetails = blog?.details?.detailsSingle;
   return (
     <Layout>
       <div
@@ -51,7 +52,7 @@ const SingleBlogArticle = ({ blog }) => {
           </Link>
         </div>
         <p className="break-all mb-2 md:mb-4 text-gray-600">
-          {blog?.details?.detailsSingle || blog?.Details}...
+          {blogDetails?.slice(0, 200)}...
         </p>
         <div className="flex items-center justify-between">
           <Link href={`/blogsArticle/${blog?._id}`} className="linkT">

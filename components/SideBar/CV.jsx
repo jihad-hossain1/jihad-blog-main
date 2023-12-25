@@ -66,7 +66,7 @@ const CV = ({ lastElem }) => {
           />
         </div>
         <h4 className="text-gray-600  mb-2">Jihad Hossain</h4>
-        <h4 className="text-gray-600 mb-4">Front-End Developer</h4>
+        <h4 className="text-gray-600 mb-4">MERN Stack Developer</h4>
         <div className="flex space-x-3 ">
           <Link target="_blank" href={`https://github.com/jihad-hossain1`}>
             <BsGithub className="text-gray-500 hover:text-gray-900 text-2xl cursor-pointer transition-all duration-500" />

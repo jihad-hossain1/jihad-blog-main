@@ -1,8 +1,7 @@
 import Link from "next/link";
 import SingleBlogArticle from "../SingleBlogArticle/SingleBlogArticle";
-import BlogsContent from "./BlogsContent";
 
-const getBlogs = async (pageNumber) => {
+const getBlogs = async () => {
   try {
     const res = await fetch(`https://jihad-blog-main.vercel.app/api/blogs`, {
       cache: "no-store",
@@ -18,10 +17,13 @@ const getBlogs = async (pageNumber) => {
 
 const OneBlogItem = async () => {
   let { blogs } = await getBlogs();
-  // let newB = [...blogs];
 
   return (
     <>
+      <div className="border-l-[13px] border-gray-400 bg-gray-200/75  py-4 mb-4 flex justify-between px-3 items-center">
+        <h4 className="">Recently Published</h4>
+        <div>Posts: {blogs?.length}</div>
+      </div>
       <div className="flex flex-col gap-3">
         {blogs?.slice(0, 4).map((blog) => (
           <SingleBlogArticle blog={blog} key={blog?._id} />

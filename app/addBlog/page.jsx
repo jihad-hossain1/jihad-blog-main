@@ -253,7 +253,6 @@ const AddarticlesForm = () => {
             <label htmlFor="video">Video Upload</label>
             <br />
             <input
-              required
               className="inpt"
               type="file"
               name=""

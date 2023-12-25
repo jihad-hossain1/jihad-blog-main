@@ -1,6 +1,5 @@
 import { getProducts } from "@/utils/fetchAllProducts";
 import ProuctTab from "./compo/ProuctTab";
-import SingleProduct from "./compo/SingleProduct";
 
 const ProductsPage = async () => {
   const { products } = await getProducts();
@@ -16,12 +15,6 @@ const ProductsPage = async () => {
         <div>
           <ProuctTab products={newProduct} />
         </div>
-
-        {/* <div className="flex flex-col gap-5 mt-2">
-          {products?.map((product) => (
-            <SingleProduct product={product} key={product?._id} />
-          ))}
-        </div> */}
       </div>
     </div>
   );

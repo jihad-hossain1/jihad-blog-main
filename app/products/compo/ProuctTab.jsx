@@ -1,71 +1,106 @@
 "use client";
 
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
 import { Tab } from "@headlessui/react";
 import SingleProduct from "./SingleProduct";
-import { list } from "postcss";
 
 const ProuctTab = ({ products }) => {
-  console.log(products);
-  const [filt, setFilt] = useState([]);
-  const uniqueCategories = [
-    ...new Set(products?.map(({ category }) => category)),
-  ];
-  console.log(uniqueCategories);
-  const handleCategoryTab = (pcat) => {
-    const fil = products?.filter(({ category }) => category === pcat);
-    setFilt(fil);
-  };
+  const eCommerce = products?.filter((item) => item?.category == "eCommerce");
+  const Template = products?.filter((item) => item?.category == "Template");
+  const CMS = products?.filter((item) => item?.category == "CMS");
+  const Others = products?.filter((item) => item?.category == "Others");
+
   return (
     <>
-      <div>{filt?.length}</div>
-      {/* <div className="flex items-center gap-5 bg-gray-400/30 p-4">
-        {uniqueCategories.map((cat, index) => (
-          <>
-            <button onClick={() => handleCategoryTab(cat)} key={index}>
-              {cat}
-            </button>
-            {filt?.map((product) => (
-              <SingleProduct product={product} key={product?._id} />
-            ))}
-          </>
-        ))}
-      </div> */}
-      {/* <div className="flex items-center gap-5 bg-gray-400/30 p-4">
-        {uniqueCategories.map((cat, index) => (
-          <button onClick={() => handleCategoryTab(cat)} key={index}>
-            {cat}
-          </button>
-        ))}
-      </div> */}
       <div className="">
         <Tab.Group>
-          <Tab.List>
-            {uniqueCategories?.map((cat, index) => (
-              <Tab as={Fragment} key={index}>
-                {({ selected }) => (
-                  /* Use the `selected` state to conditionally style the selected tab. */
-                  <button
-                    className={
-                      selected
-                        ? "bg-blue-500 text-white"
-                        : "bg-white text-black"
-                    }
-                  >
-                    {cat}
-                  </button>
-                )}
-              </Tab>
-            ))}
+          <Tab.List
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`${
+                    selected
+                      ? "bg-blue-500/25 border-b border-orange-300 transition-all duration-500"
+                      : ""
+                  } bg-none px-4 rounded shadow-sm mb-4`}
+                >
+                  {`CMS`}
+                </button>
+              )}
+            </Tab>
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`${
+                    selected
+                      ? "bg-blue-500/25 border-b border-orange-300 transition-all duration-500"
+                      : ""
+                  } bg-none px-4 rounded shadow-sm mb-4`}
+                >
+                  {`eCommerce`}
+                </button>
+              )}
+            </Tab>
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`${
+                    selected
+                      ? "bg-blue-500/25 border-b border-orange-300 transition-all duration-500"
+                      : ""
+                  } bg-none px-4 rounded shadow-sm mb-4`}
+                >
+                  {`Others`}
+                </button>
+              )}
+            </Tab>
+            <Tab as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={`${
+                    selected
+                      ? "bg-blue-500/25 border-b border-orange-300 transition-all duration-500"
+                      : ""
+                  } bg-none px-4 rounded shadow-sm mb-4`}
+                >
+                  {`Template`}
+                </button>
+              )}
+            </Tab>
           </Tab.List>
           <Tab.Panels>
-            {products
-              ?.filter((pro) => pro?.category === "CMS")
-              .map((product) => (
-                <Tab.Panel key={product?._id}>
-                  <SingleProduct product={product} key={product?._id} />
-                </Tab.Panel>
-              ))}
+            {CMS?.map((product) => (
+              <Tab.Panel key={product?._id}>
+                <SingleProduct product={product} key={product?._id} />
+              </Tab.Panel>
+            ))}
+          </Tab.Panels>
+          <Tab.Panels>
+            {eCommerce?.map((product) => (
+              <Tab.Panel key={product?._id}>
+                <SingleProduct product={product} key={product?._id} />
+              </Tab.Panel>
+            ))}
+          </Tab.Panels>
+          <Tab.Panels>
+            {Others?.map((product) => (
+              <Tab.Panel key={product?._id}>
+                <SingleProduct product={product} key={product?._id} />
+              </Tab.Panel>
+            ))}
+          </Tab.Panels>
+          <Tab.Panels>
+            {Template?.map((product) => (
+              <Tab.Panel key={product?._id}>
+                <SingleProduct product={product} key={product?._id} />
+              </Tab.Panel>
+            ))}
           </Tab.Panels>
         </Tab.Group>
       </div>

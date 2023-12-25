@@ -1,6 +1,7 @@
 // import getProjects from "@/utils/getProjects";
 import React from "react";
 import SingleManageProject from "./singleproject/SingleManageProject";
+import Link from "next/link";
 
 const getProjects = async () => {
   try {
@@ -23,6 +24,9 @@ const ManageProjectsPage = async () => {
   const { projects } = await getProjects();
   return (
     <div>
+      <Link href={"/dashboard/addproject"}>
+        <button>add project</button>
+      </Link>
       <h4 className="text-xl font-bold text-center">
         Manage-project : {projects?.length}
       </h4>
