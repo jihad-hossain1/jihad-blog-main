@@ -24,7 +24,9 @@
     "react-hook-form": "^7.47.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
+    "react-markdown": "^9.0.1",
     "react-tabs": "^6.0.2",
+    "rehype-highlight": "^7.0.0",
     "resend": "^2.0.0",
     "swr": "^2.2.4"
   },

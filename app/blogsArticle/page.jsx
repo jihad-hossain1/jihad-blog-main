@@ -1,6 +1,15 @@
 import SingleBlogArticle from "@/components/SingleBlogArticle/SingleBlogArticle";
 import { getColor } from "@/utils/getRandomColor";
 
+// export async function generateStaticParams() {
+//   const res = await fetch("https://jihad-blog-main.vercel.app/api/blogs");
+//   const { blogs } = await res.json();
+//   return blogs?.map((blog) => ({
+//     id: blog?._id,
+//   }));
+// }
+
+
 const getBlogs = async () => {
   try {
     // https://jihad-blog-main.vercel.app

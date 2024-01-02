@@ -58,7 +58,7 @@ const SingleBlogDetails = ({ blog, id }) => {
           </div>
           <div>
             <h3 className="mb-4">{blog?.articleTitle}</h3>
-            <DetailsBlog details={blog?.details} detail={blog?.Details} />
+            <DetailsBlog details={blog?.details} />
           </div>
           <div>
             <VideoFrame videoUrl={blog?.videoLink} />

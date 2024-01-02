@@ -1,10 +1,12 @@
+import MarkdownPreview from "@/app/addBlog/MarkdownPreview";
 import React from "react";
 
 const DetailsBlog = ({ details, detail }) => {
   return (
     <>
       <div>
-        <p className="text-lg text-gray-500 break-all mb-4">
+        <MarkdownPreview details={details}></MarkdownPreview>
+        {/* <p className="text-lg text-gray-500 break-all mb-4">
           {details?.detailsSingle || detail}
         </p>
         {details?.mores.length > 0
@@ -13,7 +15,7 @@ const DetailsBlog = ({ details, detail }) => {
                 {itm}
               </p>
             ))
-          : null}
+          : null} */}
       </div>
       {/* blog link  */}
     </>

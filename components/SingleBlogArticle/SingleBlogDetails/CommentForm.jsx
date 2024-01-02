@@ -70,38 +70,44 @@ const CommentForm = ({ bid }) => {
         {isFormToggle ? "Close Comment Box" : "Open Comment Box"}
       </button>
       {isFormToggle && (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-3">
-            <label htmlFor="name">Name</label>
-            <input
-              required
-              type="text"
-              name="name"
-              id="name"
-              className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
-              defaultValue={isName}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="flex flex-col gap-3">
-            <label htmlFor="details">Details</label>
-            <textarea
-              className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
-              required
-              type="text"
-              name="details"
-              id="details"
-              defaultValue={formData.details}
-              onChange={handleChange}
-            />
-          </div>
+        <div className="max-w-lg mx-auto">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
+              <label htmlFor="name" className="text-sm">
+                Name
+              </label>
+              <input
+                required
+                type="text"
+                name="name"
+                id="name"
+                className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
+                defaultValue={isName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-col gap-3">
+              <label htmlFor="details" className="text-sm">
+                Details
+              </label>
+              <textarea
+                className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
+                required
+                type="text"
+                name="details"
+                id="details"
+                defaultValue={formData.details}
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="">
-            <button type="submit" className="btn">
-              Submit
-            </button>
-          </div>
-        </form>
+            <div className="">
+              <button type="submit" className="btn text-sm">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       )}
     </div>
   );

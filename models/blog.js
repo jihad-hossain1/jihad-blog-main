@@ -4,18 +4,24 @@ const blogSchema = new Schema(
   {
     articleTitle: String,
     articleCategory: String,
+    user: Object,
+    details: {
+        type: String,
+        required: true
+    },
+    image: String,
+
+
+
     author: String,
     email: String,
     videoLink: String,
-    image: String,
     blog_links: {
         type: Object,
-        required: true
+       
     },
-    details: {
-        type: Object,
-        required: true
-    },
+    
+    
   },
   {
     timestamps: true,

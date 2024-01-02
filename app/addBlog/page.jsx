@@ -1,108 +1,56 @@
 "use client";
 // import AuthContext from "@/context/AuthContext";
 import { categoriesData } from "./categoryData";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { FaPlus } from "react-icons/fa";
-import { PiTrashLight, PiLinkLight } from "react-icons/pi";
 import axios from "axios";
+import MarkdownPreview from "./MarkdownPreview";
+import Image from "next/image";
 
 const AddarticlesForm = () => {
+  const [isPreview, setPreview] = useState(false);
   const user = {
     displayName: "jihad hossain",
     photoURL: "https://i.ibb.co/FnfTKzv/icon-Jihad.png",
     email: "jihadkhan934@gmail.com",
   };
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState("");
   const [loading, setloading] = useState(false);
 
-  const [mores, setMores] = useState([]);
-  const [moreInput, setMoreInput] = useState("");
+  // const [video, setVideo] = useState(null);
+  // const [image, setimage] = useState(null);
 
-  const [links, setLinks] = useState([]);
-  const [linkeInput, setLinkInput] = useState("");
+  const [details, setDetails] = useState("");
+  const [articleTitle, setarticleTitle] = useState("");
 
-  const [video, setVideo] = useState(null);
+  const [photo, setPhoto] = useState("");
   const [image, setimage] = useState(null);
 
-
-
-  const uploadFile = async (type) => {
-    const data = new FormData();
-    data.append("file", type === "image" ? image : video);
-    data.append(
-      "upload_preset",
-      type === "image" ? "images_preset" : "videos_presets"
-    );
-
+  const handleOnFileUpload = async (e) => {
+    e.preventDefault();
     try {
-      //   let cloudName = import.meta.env.VITE_CLOUDNARY_NAME;
-      let resourceType = type === "image" ? "image" : "video";
-      let api = `https://api.cloudinary.com/v1_1/dqfi9zw3e/${resourceType}/upload`;
-
+      let data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "images_preset");
+      let api = `https://api.cloudinary.com/v1_1/dqfi9zw3e/image/upload`;
       const res = await axios.post(api, data);
-      console.log(res);
-      const { secure_url } = res.data;
-      console.log(secure_url);
-      return secure_url;
+      let _up = await res?.data?.secure_url;
+      setPhoto(_up);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
-  const addLink = (e) => {
-    e.preventDefault();
-    if (linkeInput.trim() !== "") {
-      setLinks((prev) => [...prev, linkeInput]);
-      setLinkInput("");
-    }
-  };
-
-  const deleteMore = (ind) => {
-    setLinks((prev) => prev.filter((_, i) => i !== ind));
-  };
-  const addMore = (e) => {
-    e.preventDefault();
-    if (moreInput.trim() !== "") {
-      setMores((prev) => [...prev, moreInput]);
-      setLinkInput("");
-    }
-  };
-
-  const deleteLink = (ind) => {
-    setMores((prev) => prev.filter((_, i) => i !== ind));
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    const articleTitle = form.articleTitle.value;
-    const author = form.author.value;
-    const email = form.email.value;
-    const details = form.details.value;
-    const linkUrl = form.linkUrl.value;
-    //link
-    // single image upload
-    const imgUrl = await uploadFile("image");
-
-    //upload video file
-    const videoUrl = await uploadFile("video");
-    //main info for
     const info = {
       articleTitle,
+      image: photo,
       articleCategory: category,
-      details: {
-        detailsSingle: details,
-        mores,
-      },
-      author,
-      email,
-      blog_links: { links, linkUrl },
-      videoLink: videoUrl,
-      image: imgUrl,
+      details,
+      user,
     };
-
-    console.log(info);
     try {
       setloading(true);
       const requestOptions = {
@@ -125,142 +73,84 @@ const AddarticlesForm = () => {
   return (
     <div className="max-w-screen-xl mx-auto px-2 py-5 min-h-screen">
       <h4 className="text-gray-900 font-semibold text-2xl ">Create a Blog</h4>
-      <div className="max-w-[400px] lg:max-w-[500px] my-10 mx-auto">
+      <div className=" my-10 ">
         {loading && <h4 className="mb-4 px-4">Loading.....</h4>}
         <form action="" onSubmit={handleSubmit}>
-          <div className="mb-7">
-            <input
-              className="inpt"
-              required
-              placeholder="Title"
-              type="text"
-              name="articleTitle"
-            />
-          </div>
-          <div className="mb-7">
-            <input
-              className="inpt"
-              value={user?.displayName}
-              required
-              placeholder="author"
-              type="text"
-              name="author"
-            />
-          </div>
-          <div className="mb-7 ">
-            <div>
-              {links &&
-                links.map((link, i) => (
-                  <div key={i} className="flex gap-2 items-center">
-                    <PiLinkLight />
-                    <p className="text-blue-700">{link}</p>
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => deleteMore(i)}
-                    >
-                      <PiTrashLight />
-                    </span>
-                  </div>
-                ))}
-            </div>
-            <div className="flex items-center gap-2">
+          {/* blog title section  */}
+          <div className="grid lg:grid-cols-2 gap-3">
+            <div className="mb-7">
               <input
                 className="inpt"
-                onChange={(e) => setLinkInput(e.target.value)}
-                value={linkeInput}
-                placeholder="link"
+                required
+                placeholder="Title"
                 type="text"
-                name="linkUrl"
+                name="articleTitle"
+                value={articleTitle}
+                onChange={(e) => setarticleTitle(e.target.value)}
               />
-              <button onClick={addLink} className="crt-blog">
-                <FaPlus className="text-gray-800 hover:text-white" />
+            </div>
+            <h4>{articleTitle}</h4>
+          </div>
+          {/* blog category section  */}
+          <div className="grid lg:grid-cols-2 gap-3">
+            <select
+              required
+              onChange={(e) => setCategory(e.target.value)}
+              className="mb-7 w-full inpt"
+            >
+              <option>Select a Category</option>
+
+              {categoriesData.map((ite) => (
+                <option key={ite.id} value={ite.value}>
+                  {ite.value}
+                </option>
+              ))}
+            </select>
+            {/* preview  */}
+            <h4>{category}</h4>
+          </div>
+          {/* image uploader section  */}
+          <div className="grid lg:grid-cols-2 gap-3">
+            <div className="flex items-center gap-3">
+              <input
+                className="inpt"
+                required
+                type="file"
+                name=""
+                accept="image/*"
+                id="image"
+                onChange={(e) => setimage((prev) => e.target.files[0])}
+              />
+              <button
+                onClick={handleOnFileUpload}
+                className="border p-2 rounded bg-slate-400"
+              >
+                Upload
               </button>
             </div>
-          </div>
-          <div className="mb-7">
-            <input
-              className="inpt"
-              value={user?.email}
-              variant="standard"
-              required
-              placeholder="email"
-              type="email"
-              name="email"
-            />
-          </div>
-          <select
-            required
-            onChange={(e) => setCategory(e.target.value)}
-            className="mb-7 w-full inpt"
-          >
-            <option>Select a Category</option>
 
-            {categoriesData.map((ite) => (
-              <option key={ite.id} value={ite.value}>
-                {ite.value}
-              </option>
-            ))}
-          </select>
-
-          <div className="mb-7 ">
-            <div className="flex gap-2">
-              <textarea
-                onChange={(e) => setMoreInput(e.target.value)}
-                value={moreInput}
-                className="inpt"
-                placeholder="Details"
-                type="text"
-                name="details"
+            {photo && (
+              <Image
+                alt="photo for blog"
+                width={300}
+                height={300}
+                src={photo}
               />
-              <div>
-                <button onClick={addMore} className="inline-block crt-blog">
-                  <FaPlus className="text-gray-800 hover:text-white" />
-                </button>
-              </div>
-            </div>
-            <div>
-              {mores &&
-                mores.map((textInfo, i) => (
-                  <div key={i} className="flex gap-2 items-center py-2">
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => deleteLink(i)}
-                    >
-                      <PiTrashLight />
-                    </span>
-                    <p className="text-gray-500 text-xs break-all">
-                      {textInfo}
-                    </p>
-                  </div>
-                ))}
-            </div>
+            )}
+          </div>
+          {/* blog main content  */}
+          <div className="grid lg:grid-cols-2 gap-3">
+            <textarea
+              onChange={(e) => setDetails(e.target.value)}
+              value={details}
+              className="inpt"
+              placeholder="Details markdown syntax only"
+              type="text"
+              name="details"
+            />
+            <MarkdownPreview details={details}></MarkdownPreview>
           </div>
 
-          <div className="mb-4 ">
-            <label htmlFor="images">Image Upload</label>
-            <br />
-            <input
-              className="inpt"
-              required
-              type="file"
-              name=""
-              accept="image/*"
-              id="image"
-              onChange={(e) => setimage((prev) => e.target.files[0])}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="video">Video Upload</label>
-            <br />
-            <input
-              className="inpt"
-              type="file"
-              name=""
-              accept="video/*"
-              id="video"
-              onChange={(e) => setVideo((prev) => e.target.files[0])}
-            />
-          </div>
           <div>
             <button className="inpt btn" type="submit">
               {loading ? (

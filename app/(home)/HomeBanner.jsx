@@ -24,11 +24,11 @@ const HomeBanner = () => {
         <DotGrid />
         <div className=" ">
           <div
-            className=" flex justify-center"
-            style={{ position: "relative", width: "", overflow: "hidden" }}
+          // className=" flex "
+          // style={{ position: "relative", width: "", overflow: "hidden" }}
           >
             <motion.div
-              className="py-10 text-center"
+              className="py-10 "
               ref={ref}
               variants={{
                 hidden: { opacity: 0, y: 75 },
@@ -55,7 +55,7 @@ const HomeBanner = () => {
                   Specialized in MERN Stack Developer.
                 </div>
               </div>
-              <div className="relative mt-7 md:mt-10 flex justify-center mb-4">
+              <div className="relative mt-7 md:mt-10 flex ml-7 mb-4">
                 <Link
                   href={"/about"}
                   className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-3 font-semibold uppercase text-black transition-all duration-300 hover: translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none w-fit absolute z-20"
@@ -89,7 +89,7 @@ const HomeBanner = () => {
   );
 };
 
-const GRID_WIDTH = 13;
+const GRID_WIDTH = 16;
 const GRID_HEIGHT = 10;
 
 const DotGrid = () => {
@@ -135,7 +135,7 @@ const DotGrid = () => {
   }
 
   return (
-    <div className="flex justify-center md:pl-36">
+    <div className="flex justify-center lg:pl-36 lg:pt-4">
       <div
         style={{ gridTemplateColumns: `repeat(${GRID_WIDTH}, 1fr)` }}
         className="w-fit grid absolute  z-10"

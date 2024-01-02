@@ -8,19 +8,12 @@ export async function POST(request) {
   const { articleTitle,
       articleCategory,
       details,
-      author,
-      email,
-      blog_links,
-      videoLink,
-      image } = await request.json();
+      image ,user} = await request.json();
   await connectMongoDB();
   await Blog.create({ articleTitle,
       articleCategory,
       details,
-      author,
-      email,
-      blog_links,
-      videoLink,
+      user,
       image });
   // await Blog.create(body)
   return NextResponse.json({ message: "Blog Created" }, { status: 200 });
