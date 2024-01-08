@@ -1,21 +1,18 @@
 import connectMongoDB from "@/lib/mongodb";
+import BlogDetail from "@/models/BlogDetail";
 // import connectMongoDB from "@/database/connectMongoDB";
 import Blog from "@/models/blog";
 import { NextResponse } from "next/server";
 
-export async function POST(request) {
-  // const body = await request.json();
-  const { articleTitle,
-      articleCategory,
-      details,
-      image ,user} = await request.json();
+export async function POST(request, response) {
+  const body = await request.json();
   await connectMongoDB();
-  await Blog.create({ articleTitle,
-      articleCategory,
-      details,
-      user,
-      image });
-  // await Blog.create(body)
+  let details = await BlogDetail.create(body.details);
+  // await connectMongoDB();
+  await Blog.create({
+    ...body,
+    details: details._id,
+  });
   return NextResponse.json({ message: "Blog Created" }, { status: 200 });
 }
 

@@ -25,40 +25,42 @@ const SingleBlogArticle = ({ blog }) => {
     }
     return color;
   };
-  let blogDetails = blog?.details?.detailsSingle;
+  // console.log(blog);
   return (
     <Layout>
       <div
         className={`border-l-[14px] ${getColor(
           blog?.articleCategory
-        )} p-4 md:p-8 bg-white shadow-sm`}
+        )} p-2 bg-white rounded shadow-sm`}
       >
         <div>
-          <div className="flex justify-between items-center mb-2 md:mb-4">
+          <div className="flex justify-between items-center p-2">
             <h4 className="text-xs text-gray-600">
               <p className="text-xs my-1">{formatTimestamp(blog?.createdAt)}</p>
             </h4>
             <p className="text-sm text-[#ff7473]">{blog?.articleCategory}</p>
           </div>
         </div>
-        <hr className="h-[1px] w-full mb-2 md:mb-4" />
-        <div className="mb-4">
-          <Link
-            href={`/blogsArticle/${blog?._id}`}
-            className=" text-xl md:text-3xl font-semibold md:font-extrabold hover:underline"
-          >
-            {blog?.articleTitle}
-          </Link>
-        </div>
-        <p className="break-all mb-2 md:mb-4 text-gray-600">
-          {blogDetails?.slice(0, 200)}...
-        </p>
-        <div className="flex items-center justify-between">
-          <Link href={`/blogsArticle/${blog?._id}`} className="linkT">
-            Read More
-          </Link>
-          <div className="flex items-center space-x-3 text-gray-500">
-            <CommentReactionCount bid={blog?._id} />
+        <div className="flex flex-col gap-2">
+          <hr className="h-[1px] w-full  " />
+          <div className="">
+            <Link
+              href={`/blogsArticle/${blog?._id}`}
+              className="  text-sm lg:text-lg font-semibold hover:underline"
+            >
+              {blog?.articleTitle}
+            </Link>
+          </div>
+          <p className="break-all text-xs lg:text-sm text-gray-600">
+            {blog?.sortContent?.slice(0, 200)}...
+          </p>
+          <div className="flex items-center justify-between">
+            <Link href={`/blogsArticle/${blog?._id}`} className="linkT">
+              Read More
+            </Link>
+            <div className="flex items-center space-x-3 text-gray-500">
+              <CommentReactionCount bid={blog?._id} />
+            </div>
           </div>
         </div>
       </div>

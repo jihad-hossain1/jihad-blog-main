@@ -3,65 +3,91 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+      --background: 0 0% 100%;
+      --foreground: 240 10% 3.9%;
 
-    h1,
-    h2,
-    h3 {
-        @apply font-bold;
+    --card: 0 0% 100%;
+      --card-foreground: 240 10% 3.9%;
+      --popover: 0 0% 100%;
+      --popover-foreground: 240 10% 3.9%;
+      --primary: 240 5.9% 10%;
+      --primary-foreground: 0 0% 98%;
+      --secondary: 240 4.8% 95.9%;
+      --secondary-foreground: 240 5.9% 10%;
+      --muted: 240 4.8% 95.9%;
+      --muted-foreground: 240 3.8% 46.1%;
+      --accent: 240 4.8% 95.9%;
+      --accent-foreground: 240 5.9% 10%;
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 0 0% 98%;
+    
+      --border: 240 5.9% 90%;
+      --input: 240 5.9% 90%;
+      --ring: 240 10% 3.9%;
+      --radius: 0.5rem;
     }
+    .dark {
+      --background: 240 10% 3.9%;
+      --foreground: 0 0% 98%;
+  
+      --card: 240 10% 3.9%;
+      --card-foreground: 0 0% 98%;
 
-    h1 {
-        @apply text-4xl;
+    --popover: 240 10% 3.9%;
+      --popover-foreground: 0 0% 98%;
+      --primary: 0 0% 98%;
+      --primary-foreground: 240 5.9% 10%;
+      --secondary: 240 3.7% 15.9%;
+      --secondary-foreground: 0 0% 98%;
+      --muted: 240 3.7% 15.9%;
+      --muted-foreground: 240 5% 64.9%;
+      --accent: 240 3.7% 15.9%;
+      --accent-foreground: 0 0% 98%;
+    
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 0 0% 98%;
+      --border: 240 3.7% 15.9%;
+      --input: 240 3.7% 15.9%;
+      --ring: 240 4.9% 83.9%;
     }
-
-    h2 {
-        @apply text-3xl;
-    }
-
-    h3 {
-        @apply text-2xl;
-    }
-
-
-
-    p {
-        @apply text-sm;
-    }
-
-
 }
 
-@layer components {
-    .icon {
-        @apply text-default-text text-xl;
-    }
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-    .btn {
-        @apply hover:no-underline bg-blue-accent hover:bg-blue-600/80 transition-all duration-500 cursor-pointer px-4 rounded-md block font-bold py-2 text-zinc-50 hover:-translate-x-1 hover:translate-y-1;
+    body {
+      @apply bg-background text-foreground;
+    }
+}
+@layer components {
+  .btn {
+    @apply hover:no-underline bg-blue-500 hover:bg-blue-600/80 transition-all duration-500 cursor-pointer px-4 rounded-md block font-bold py-2 text-zinc-50 hover:-translate-x-1 hover:translate-y-1;
     }
 
     .inpt {
-        @apply focus:outline-none p-3 w-full border border-neutral-300;
+      @apply focus:outline-none p-3 w-full border border-neutral-300;
     }
 
     .crt-blog {
-        @apply rounded-full border border-gray-300 hover:border-gray-50 p-1 hover:bg-gray-900 transition-all duration-300;
+      @apply rounded-full border border-gray-300 hover:border-gray-50 p-1 hover:bg-gray-900 transition-all duration-300;
     }
 
     .ctg-l {
-        @apply transition-all duration-300 flex justify-between items-center border-t hover:bg-gray-50/60 py-5 px-7;
+      @apply transition-all duration-300 flex justify-between items-center border-t hover:bg-gray-50/60 py-5 px-7;
     }
 
     .ctg-l-b {
-        @apply transition-all cursor-pointer duration-300 flex justify-between items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5
+    @apply transition-all cursor-pointer duration-300 flex justify-between items-center border-t hover:bg-gray-200/60 py-5 px-4 space-x-5;
     }
 
     .bdg {
-        @apply inline-block px-2 rounded-md w-fit text-gray-50 py-[2px];
+      @apply inline-block px-2 rounded-md w-fit text-gray-50 py-[2px];
     }
 
     .linkT {
-        @apply md:text-sm transition-all duration-300 rounded-3xl px-5 md:px-8 py-2 text-xs border border-neutral-200 text-gray-600 hover:text-gray-50 hover:bg-neutral-900;
+      @apply md:text-sm transition-all duration-300 rounded-3xl px-5 md:px-8 py-2 text-xs border border-neutral-200 text-gray-600 hover:text-gray-50 hover:bg-neutral-900;
     }
-                
 }

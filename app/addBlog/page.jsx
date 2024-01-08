@@ -2,12 +2,17 @@
 // import AuthContext from "@/context/AuthContext";
 import { categoriesData } from "./categoryData";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import axios from "axios";
 import MarkdownPreview from "./MarkdownPreview";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { Textarea } from "@/components/ui/textarea";
 
 const AddarticlesForm = () => {
+  const { status } = useSession();
+  const { toast } = useToast();
   const [isPreview, setPreview] = useState(false);
   const user = {
     displayName: "jihad hossain",
@@ -22,6 +27,7 @@ const AddarticlesForm = () => {
 
   const [details, setDetails] = useState("");
   const [articleTitle, setarticleTitle] = useState("");
+  const [sortContent, setSortContent] = useState("");
 
   const [photo, setPhoto] = useState("");
   const [image, setimage] = useState(null);
@@ -43,42 +49,61 @@ const AddarticlesForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const unAuth = status === "authenticated";
+    if (!unAuth) {
+      return toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "You are not logIn ,Please login first",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
     const info = {
       articleTitle,
-      image: photo,
       articleCategory: category,
-      details,
-      user,
+      details: {
+        user,
+        image: photo,
+        details,
+      },
+      sortContent,
     };
     try {
       setloading(true);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(info),
+        body: JSON.stringify({ ...info }),
       };
       const res = await fetch(`/api/blogs`, requestOptions);
 
       if (res.status == 200) {
-        toast.success("blogs is added");
+        toast({
+          title: "Blog Added Successfull",
+        });
         form.reset();
         setloading(false);
       }
     } catch (error) {
-      toast.error(`${error.message}`);
+      toast({
+        title: `${error.message}`,
+      });
     }
   };
-
+  // console.log();
   return (
     <div className="max-w-screen-xl mx-auto px-2 py-5 min-h-screen">
       <h4 className="text-gray-900 font-semibold text-2xl ">Create a Blog</h4>
       <div className=" my-10 ">
-        {loading && <h4 className="mb-4 px-4">Loading.....</h4>}
-        <form action="" onSubmit={handleSubmit}>
+        {/* {loading && <h4 className="mb-4 px-4">Loading.....</h4>} */}
+        <form
+          action=""
+          onSubmit={handleSubmit}
+          className="max-w-lg mx-auto p-2 flex flex-col gap-2"
+        >
           {/* blog title section  */}
-          <div className="grid lg:grid-cols-2 gap-3">
-            <div className="mb-7">
+          <div className="">
+            <div className="">
               <input
                 className="inpt"
                 required
@@ -89,10 +114,9 @@ const AddarticlesForm = () => {
                 onChange={(e) => setarticleTitle(e.target.value)}
               />
             </div>
-            <h4>{articleTitle}</h4>
           </div>
           {/* blog category section  */}
-          <div className="grid lg:grid-cols-2 gap-3">
+          <div className="">
             <select
               required
               onChange={(e) => setCategory(e.target.value)}
@@ -106,11 +130,9 @@ const AddarticlesForm = () => {
                 </option>
               ))}
             </select>
-            {/* preview  */}
-            <h4>{category}</h4>
           </div>
           {/* image uploader section  */}
-          <div className="grid lg:grid-cols-2 gap-3">
+          <div>
             <div className="flex items-center gap-3">
               <input
                 className="inpt"
@@ -128,39 +150,47 @@ const AddarticlesForm = () => {
                 Upload
               </button>
             </div>
-
-            {photo && (
-              <Image
-                alt="photo for blog"
-                width={300}
-                height={300}
-                src={photo}
-              />
-            )}
+          </div>
+          <div>
+            <Textarea
+              onChange={(e) => setSortContent(e.target.value)}
+              value={sortContent}
+              // className="inpt"
+              placeholder="sort content"
+              type="text"
+              name="details"
+              maxLength={200}
+            />
           </div>
           {/* blog main content  */}
-          <div className="grid lg:grid-cols-2 gap-3">
-            <textarea
+          <div className="">
+            <Textarea
               onChange={(e) => setDetails(e.target.value)}
               value={details}
-              className="inpt"
+              // className="inpt"
               placeholder="Details markdown syntax only"
               type="text"
               name="details"
             />
-            <MarkdownPreview details={details}></MarkdownPreview>
           </div>
 
-          <div>
-            <button className="inpt btn" type="submit">
-              {loading ? (
-                <span className="text-sm">Loading...</span>
-              ) : (
-                <span>Add Blog</span>
-              )}
+          <div className="mt-4 ml-2">
+            <button className="w-fit btn" type="submit">
+              <span>Add Blog</span>
             </button>
           </div>
         </form>
+
+        <div>
+          {/* preview  */}
+          <h4>{articleTitle}</h4>
+          <h4>{category}</h4>
+          {photo && (
+            <Image alt="photo for blog" width={300} height={300} src={photo} />
+          )}
+          <h4>{sortContent}</h4>
+          <MarkdownPreview details={details}></MarkdownPreview>
+        </div>
       </div>
 
       {/* blog looking sample  */}

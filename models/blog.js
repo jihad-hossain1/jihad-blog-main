@@ -4,24 +4,11 @@ const blogSchema = new Schema(
   {
     articleTitle: String,
     articleCategory: String,
-    user: Object,
+    sortContent: String,
     details: {
-        type: String,
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "BlogDetail",
     },
-    image: String,
-
-
-
-    author: String,
-    email: String,
-    videoLink: String,
-    blog_links: {
-        type: Object,
-       
-    },
-    
-    
   },
   {
     timestamps: true,

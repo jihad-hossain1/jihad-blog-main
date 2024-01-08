@@ -1,18 +1,10 @@
 import SingleBlogArticle from "@/components/SingleBlogArticle/SingleBlogArticle";
 import { getColor } from "@/utils/getRandomColor";
 
-// export async function generateStaticParams() {
-//   const res = await fetch("https://jihad-blog-main.vercel.app/api/blogs");
-//   const { blogs } = await res.json();
-//   return blogs?.map((blog) => ({
-//     id: blog?._id,
-//   }));
-// }
 
 
 const getBlogs = async () => {
   try {
-    // https://jihad-blog-main.vercel.app
     const res = await fetch("https://jihad-blog-main.vercel.app/api/blogs", {
       cache: "no-store",
     });
@@ -27,17 +19,16 @@ const getBlogs = async () => {
 const BlogPage = async () => {
   const { blogs } = await getBlogs();
 
-  const uniqueCategories = [
-    ...new Set(blogs?.map(({ articleCategory }) => articleCategory)),
-  ];
-  // console.log(uniqueCategories);
+  // const uniqueCategories = [
+  //   ...new Set(blogs?.map(({ articleCategory }) => articleCategory)),
+  // ];
 
   return (
     <div className="max-w-screen-xl mx-auto px-2 md:px-8 pb-6 min-h-screen ">
       <div>
         <div className="p-5">
           <div>
-            {blogs &&
+            {/* {blogs &&
               uniqueCategories?.map((uniquecategory, categoryIndex) => (
                 <div className="mb-4" key={categoryIndex}>
                   <h4
@@ -57,7 +48,13 @@ const BlogPage = async () => {
                       ))}
                   </div>
                 </div>
+              ))} */}
+
+            <div className="grid md:grid-cols-2  gap-6">
+              {blogs?.map((filteredblog, _index) => (
+                <SingleBlogArticle key={_index} blog={filteredblog} />
               ))}
+            </div>
           </div>
         </div>
       </div>
