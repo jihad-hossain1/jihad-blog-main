@@ -50,7 +50,7 @@ const BlogPage = async () => {
                 </div>
               ))} */}
 
-            <div className="grid md:grid-cols-2  gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-1  gap-6">
               {blogs?.map((filteredblog, _index) => (
                 <SingleBlogArticle key={_index} blog={filteredblog} />
               ))}

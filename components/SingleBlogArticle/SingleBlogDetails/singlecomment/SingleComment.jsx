@@ -22,31 +22,24 @@ import {
 import { useState } from "react";
 import AddReply from "./Reply/AddReply";
 import BlogReplies from "./Reply/BlogReplies";
+import { MdHideSource } from "react-icons/md";
+import { MdShare } from "react-icons/md";
 
 const SingleComment = ({ comment }) => {
   const { data: session } = useSession();
 
-  const handleUpdate = (cid) => {
-    //
-    // console.log(cid);
-    // console.log(comment?._id);
-  };
-
-  const handleSession =
-    session?.user.email === comment?.email
-      ? "block flex items-center gap-4"
-      : "hidden";
+  const handleUpdate = (cid) => {};
 
   const [replyToggle, setReplyToggle] = useState(false);
   return (
-    <div key={comment?._id} className="flex gap-2">
+    <div className="flex gap-2">
       <div>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
-      <section className="flex flex-col gap-1">
+      <section className="flex flex-col gap-1 lg:min-w-[600px] ">
         <div className="p-4 bg-gray-200/70 rounded-md flex flex-col gap-1">
           <div className="flex justify-between">
             <h4 className="font-semibold text-sm uppercase">{comment?.name}</h4>
@@ -60,18 +53,27 @@ const SingleComment = ({ comment }) => {
                   <BsThreeDots />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => handleUpdate()}>
-                    <button className="flex items-center gap-5">
+                  <div className="flex flex-col gap-2 py-2 ">
+                    <button className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-green-600 transition-all duration-150">
+                      <span>Share</span>
+                      <MdShare />
+                    </button>
+                    <hr />
+                    <button className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-orange-600 transition-all duration-150">
+                      <span>Hide</span>
+                      <MdHideSource />
+                    </button>
+                    <hr />
+                    <button
+                      onClick={() => handleUpdate()}
+                      className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-green-600 transition-all duration-150"
+                    >
                       <span>Edit</span>
                       <TfiPencilAlt />
                     </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <div className={handleSession}>
-                      <span>Delete </span>
-                      <DeleteComment id={comment?._id} />
-                    </div>
-                  </DropdownMenuItem>
+                    <hr />
+                    <DeleteComment id={comment?._id} email={comment?.email} />
+                  </div>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -102,7 +104,7 @@ const SingleComment = ({ comment }) => {
           </button>
         </div>
         <div>
-          <BlogReplies replies={comment?.replies} />
+          <BlogReplies replies={comment?.replies} commentId={comment?._id} />
         </div>
         {replyToggle && (
           <AddReply bid={comment?.blogId} commentId={comment?._id} />

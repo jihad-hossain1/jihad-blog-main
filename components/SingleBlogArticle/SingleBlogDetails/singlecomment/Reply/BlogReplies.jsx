@@ -20,22 +20,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useState } from "react";
+import DeleteReply from "./DeleteReply";
+import { MdHideSource, MdShare } from "react-icons/md";
 
-const BlogReplies = ({ replies }) => {
+const BlogReplies = ({ replies, commentId }) => {
   const { data: session } = useSession();
 
   const handleUpdate = (cid) => {
     //
-    // console.log(cid);
-    // console.log(comment?._id);
   };
 
-  //   const handleSession =
-  //     session?.user.email === comment?.email
-  //       ? "block flex items-center gap-4"
-  //       : "hidden";
   return (
-    <>
+    <div className="flex flex-col gap-2">
       {replies?.map((reply) => (
         <div key={reply?._id} className="flex gap-2">
           <div>
@@ -44,8 +40,8 @@ const BlogReplies = ({ replies }) => {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
-          <section className="flex flex-col gap-1">
-            <div className="p-4 bg-gray-200/70 rounded-md flex flex-col gap-1">
+          <section className="flex flex-col gap-1 lg:min-w-[600px] ">
+            <div className="p-4 bg-gray-200/50 rounded-md flex flex-col gap-1">
               <div className="flex justify-between">
                 <h4 className="font-semibold text-sm uppercase">
                   {reply?.name}
@@ -60,24 +56,31 @@ const BlogReplies = ({ replies }) => {
                       <BsThreeDots />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuItem onClick={() => handleUpdate()}>
-                        <button className="flex items-center gap-5">
+                      <div className="flex flex-col gap-2 py-2 ">
+                        <button className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-green-600 transition-all duration-150">
+                          <span>Share</span>
+                          <MdShare />
+                        </button>
+                        <hr />
+                        <button className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-orange-600 transition-all duration-150">
+                          <span>Hide</span>
+                          <MdHideSource />
+                        </button>
+                        <hr />
+                        <button
+                          onClick={() => handleUpdate()}
+                          className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-green-600 transition-all duration-150"
+                        >
                           <span>Edit</span>
                           <TfiPencilAlt />
                         </button>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <div
-                          className={
-                            session?.user.email === reply?.email
-                              ? " flex items-center gap-4"
-                              : "hidden"
-                          }
-                        >
-                          <span>Delete </span>
-                          {/* <DeleteComment id={reply?._id} /> */}
-                        </div>
-                      </DropdownMenuItem>
+                        <hr />
+                        <DeleteReply
+                          id={reply?._id}
+                          email={reply?.email}
+                          commentId={commentId}
+                        />
+                      </div>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
@@ -103,7 +106,7 @@ const BlogReplies = ({ replies }) => {
           </section>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

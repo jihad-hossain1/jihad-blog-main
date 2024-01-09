@@ -13,7 +13,7 @@ export async function POST(request) {
       console.log(body, blogId, commentId);
       await connectMongoDB();
 
-      let newReply = await Comment.findByIdAndUpdate(
+      await Comment.findByIdAndUpdate(
         { _id: commentId },
         {
           $push: {
@@ -24,7 +24,7 @@ export async function POST(request) {
           new: true,
         }
       );
-      console.log(newReply);
+
       return NextResponse.json({ message: "reply added successfull" });
     } else {
       return NextResponse.json({ message: "blogId, commentId are not match" });
@@ -34,14 +34,26 @@ export async function POST(request) {
   }
 }
 
-export async function GET(request) {
-  const body = await request.json();
-  const blogId = await request.nextUrl.searchParams.get("blogId");
+export async function DELETE(request) {
+  const replyId = await request.nextUrl.searchParams.get("replyId");
   const commentId = await request.nextUrl.searchParams.get("commentId");
 
   try {
-    console.log(body, blogId, commentId);
-    return NextResponse.json({ message: "reply added successfull" });
+    if (replyId && commentId) {
+      await connectMongoDB();
+
+      const comment = await Comment.findByIdAndUpdate(
+        { _id: commentId },
+        { $pull: { replies: { _id: replyId } } },
+        { new: true }
+      );
+
+      // console.log(newReply);
+      // console.log(comment);
+      return NextResponse.json(comment);
+    } else {
+      return NextResponse.json({ message: "replyId, commentId are not match" });
+    }
   } catch (error) {
     return NextResponse.json({ message: `some probmlem got: ${error}` });
   }

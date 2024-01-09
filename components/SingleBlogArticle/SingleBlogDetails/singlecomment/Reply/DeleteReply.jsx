@@ -5,19 +5,22 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { GoTrash } from "react-icons/go";
 
-const DeleteComment = ({ id, email }) => {
+const DeleteReply = ({ id, email, commentId }) => {
   const { data: session } = useSession();
 
   const router = useRouter();
-  const handleDelete = async (cid) => {
-    // console.log(cid);
+  const handleDelete = async (rid) => {
+    // console.log(rid);
     try {
-      const res = await fetch(`/api/blogCommets?commentId=${cid}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `/api/blogCommets/reply?commentId=${commentId}&replyId=${rid}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (res.ok) {
         router.refresh();
-        toast.success("comment delete successfull");
+        toast.success("reply delete successfull");
       }
     } catch (error) {
       console.log(error.message);
@@ -40,4 +43,4 @@ const DeleteComment = ({ id, email }) => {
   );
 };
 
-export default DeleteComment;
+export default DeleteReply;

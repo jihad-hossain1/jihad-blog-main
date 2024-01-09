@@ -43,3 +43,20 @@ export async function GET(request) {
     NextResponse.json(error);
   }
 }
+
+export async function DELETE(request) {
+  const commentId = await request.nextUrl.searchParams.get("commentId");
+  try {
+    if (commentId) {
+      await connectMongoDB();
+      const deleteComment = await Comment.findByIdAndDelete({ _id: commentId });
+      console.log(deleteComment);
+      // const comments = await Comment.find();
+      return NextResponse.json({ message: "Comment deleted successfull" });
+    } else {
+      NextResponse.json({ message: "commentId are not found" });
+    }
+  } catch (error) {
+    NextResponse.json(error);
+  }
+}

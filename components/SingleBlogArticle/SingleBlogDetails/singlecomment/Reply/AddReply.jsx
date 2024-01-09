@@ -8,8 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const AddReply = ({ bid, commentId }) => {
-  console.log(bid, commentId);
-  //   const [isFormToggle, setisFormToggle] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   const isEmail = session?.user.email;
