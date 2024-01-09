@@ -32,6 +32,10 @@ const commentSchema = new Schema({
         type: String,
         required: true,
       },
+      details: {
+        type: String,
+        required: true,
+      },
 
       commentId: {
         type: mongoose.Schema.Types.ObjectId,
