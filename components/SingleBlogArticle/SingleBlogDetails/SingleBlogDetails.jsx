@@ -1,3 +1,5 @@
+// "use client";
+
 import ShareContent from "./ShareContent";
 import NewBlogBadge from "./NewBlogBadge";
 import DetailsBlog from "./DetailsBlog";
@@ -6,12 +8,13 @@ import Comments from "./Comments";
 import BlogLinks from "./BlogLinks";
 import Link from "next/link";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import Image from "next/image";
 
 const SingleBlogDetails = ({ blog, id }) => {
   const getColorText = (bg) => {
     let color = `bg-gray-700`;
 
-    switch (bg.toLowerCase()) {
+    switch (bg?.toLowerCase()) {
       case "html":
         color = `bg-[#ff7473]`;
         return color;
@@ -30,6 +33,9 @@ const SingleBlogDetails = ({ blog, id }) => {
     }
     return color;
   };
+
+  console.log(blog);
+
   return (
     <div className="p-1 flex flex-col gap-2">
       <div className="flex justify-start">
@@ -50,20 +56,22 @@ const SingleBlogDetails = ({ blog, id }) => {
           </div>
           <hr className="h-1 my-6" />
           <div>
-            <img
+            <Image
+              width={400}
+              height={400}
               className="max-h-[500px] w-full object-cover rounded-lg mb-3"
-              src={blog?.image}
+              src={blog?.details?.image}
               alt="blog image"
             />
           </div>
           <div>
-            <h3 className="mb-4">{blog?.articleTitle}</h3>
-            <DetailsBlog details={blog?.details} />
+            <h3 className="mb-4 text-xl font-bold">{blog?.articleTitle}</h3>
+            <DetailsBlog details={blog?.details?.details} />
           </div>
-          <div>
+          {/* <div>
             <VideoFrame videoUrl={blog?.videoLink} />
           </div>
-          <BlogLinks blog_links={blog?.blog_links} />
+          <BlogLinks blog_links={blog?.blog_links} /> */}
           <div>
             <Comments bid={blog?._id} />
           </div>
