@@ -4,8 +4,7 @@ import Markdown from "react-markdown";
 import rehypeLight from "rehype-highlight";
 import "highlight.js/styles/atom-one-dark.min.css";
 import { LuTerminal } from "react-icons/lu";
-// import CopyButton from "./CopyButton";
-// import { icons } from "./icons";
+
 import { SiJavascript, SiPython, SiReact } from "react-icons/si";
 
 export const icons = {
@@ -13,8 +12,7 @@ export const icons = {
   react: SiReact,
   py: SiPython,
 };
-import CopyButton from "./CopyButton";
-// import { icons } from "lucide-react";
+
 
 const MarkdownPreview = ({ details, className }) => {
   return (

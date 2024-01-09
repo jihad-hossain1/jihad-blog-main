@@ -2,8 +2,9 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { Textarea } from "@/components/ui/textarea";
 
 const CommentForm = ({ bid }) => {
   const [isFormToggle, setisFormToggle] = useState(false);
@@ -35,7 +36,7 @@ const CommentForm = ({ bid }) => {
       return alert("login first");
     }
     try {
-      const res = await fetch(`/api/blogCommets`, {
+      const res = await fetch(`/api/blogCommets?blogId=${bid}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -60,55 +61,44 @@ const CommentForm = ({ bid }) => {
 
   const [formData, setFormData] = useState(scafolding);
 
+  useEffect(() => {
+    const objectLength = formData?.details.length;
+    // console.log(objectLength);
+    objectLength == 0 ? "" : "";
+  }, [formData]);
+
   return (
     <div className="p-4">
       {/* <Toaster /> */}
-      <button
-        onClick={() => setisFormToggle((pre) => !pre)}
-        className="transition-all duration-300 text-sm font-semibold bg-gray-200 px-4 py-1 rounded-md shadow hover:bg-slate-200/75"
-      >
-        {isFormToggle ? "Close Comment Box" : "Open Comment Box"}
-      </button>
-      {isFormToggle && (
-        <div className="max-w-lg mx-auto">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-3">
-              <label htmlFor="name" className="text-sm">
-                Name
-              </label>
-              <input
-                required
-                type="text"
-                name="name"
-                id="name"
-                className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
-                defaultValue={isName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col gap-3">
-              <label htmlFor="details" className="text-sm">
-                Details
-              </label>
-              <textarea
-                className="p-3 focus:outline-none border border-zinc-200 rounded shadow"
-                required
-                type="text"
-                name="details"
-                id="details"
-                defaultValue={formData.details}
-                onChange={handleChange}
-              />
-            </div>
 
-            <div className="">
-              <button type="submit" className="btn text-sm">
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+      <div className="">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="">
+            <Textarea
+              className="p-3 focus:outline-none border border-zinc-200 rounded shadow min-h-[30px]"
+              required
+              placeholder="Type your comments here."
+              type="text"
+              name="details"
+              id="details"
+              maxLength={300}
+              defaultValue={formData.details}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="">
+            <button
+              type="submit"
+              className={
+                formData?.details.length == 0 ? "hidden" : "block btn text-xs"
+              }
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

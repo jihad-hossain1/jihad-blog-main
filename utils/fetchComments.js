@@ -15,14 +15,17 @@ export const getComments = async () => {
   }
 };
 
-export const getCommentById = async (id) => {
+export const getCommentById = async (blogId) => {
   try {
-    const res = await fetch(`${process.env.NEXT_BASE_URL}/api/blogs/${id}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_BASE_URL}/api/blogComments?blogId=${blogId}`,
+      {
+        cache: "no-store",
+      }
+    );
     //
     if (!res.ok) {
-      throw new Error("failed to fetch product");
+      throw new Error("failed to fetch comments");
     }
     return res.json();
   } catch (error) {
