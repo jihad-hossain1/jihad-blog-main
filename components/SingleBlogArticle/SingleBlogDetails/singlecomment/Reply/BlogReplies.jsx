@@ -1,7 +1,6 @@
 "use client";
 
-import { TfiPencilAlt } from "react-icons/tfi";
-import { useSession } from "next-auth/react";
+
 // import DeleteComment from "./DeleteComment";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BsThreeDots } from "react-icons/bs";
@@ -9,7 +8,6 @@ import { formatTimestamp } from "@/utils/timeStemp";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -19,17 +17,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useState } from "react";
 import DeleteReply from "./DeleteReply";
 import { MdHideSource, MdShare } from "react-icons/md";
 
-const BlogReplies = ({ replies, commentId }) => {
-  const { data: session } = useSession();
+import UpdateReply from "./UpdateReply";
 
-  const handleUpdate = (cid) => {
-    //
-  };
-
+const BlogReplies = ({ replies, commentId, blogId }) => {
   return (
     <div className="flex flex-col gap-2">
       {replies?.map((reply) => (
@@ -67,13 +60,11 @@ const BlogReplies = ({ replies, commentId }) => {
                           <MdHideSource />
                         </button>
                         <hr />
-                        <button
-                          onClick={() => handleUpdate()}
-                          className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-green-600 transition-all duration-150"
-                        >
-                          <span>Edit</span>
-                          <TfiPencilAlt />
-                        </button>
+                        <UpdateReply
+                          reply={reply}
+                          commentId={commentId}
+                          blogId={blogId}
+                        />
                         <hr />
                         <DeleteReply
                           id={reply?._id}

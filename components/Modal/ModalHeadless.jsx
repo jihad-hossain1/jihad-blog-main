@@ -14,7 +14,7 @@ export default function ModalHeadless({ isOpen, setIsOpen, title, children }) {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as={motion.div}
-          className="relative z-10 top-11"
+          className="relative z-50 top-11"
           onClose={closeModal}
         >
           <Transition.Child

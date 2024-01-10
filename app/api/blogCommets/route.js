@@ -4,6 +4,8 @@ import Comment from "@/models/comment";
 // import Product from "@/models/product";
 import { NextResponse } from "next/server";
 
+
+
 export async function POST(request) {
   const body = await request.json();
   const blogId = await request.nextUrl.searchParams.get("blogId");
@@ -49,9 +51,9 @@ export async function DELETE(request) {
   try {
     if (commentId) {
       await connectMongoDB();
-      const deleteComment = await Comment.findByIdAndDelete({ _id: commentId });
-      console.log(deleteComment);
-      // const comments = await Comment.find();
+
+      await Comment.findByIdAndDelete({ _id: commentId });
+
       return NextResponse.json({ message: "Comment deleted successfull" });
     } else {
       NextResponse.json({ message: "commentId are not found" });
@@ -60,3 +62,35 @@ export async function DELETE(request) {
     NextResponse.json(error);
   }
 }
+
+export async function PUT(request) {
+  const body = await request.json();
+  const blogId = await request.nextUrl.searchParams.get("blogId");
+  const commentId = await request.nextUrl.searchParams.get("commentId");
+  try {
+    if (commentId && blogId) {
+      await connectMongoDB();
+
+      const _updt = await Comment.findByIdAndUpdate(
+        commentId,
+        { details: body?.details },
+        { new: true }
+      );
+
+      if (!_updt) {
+        return NextResponse.json({ message: "blog comment are not found" });
+      }
+
+      console.log(_updt);
+      // const comments = await Comment.find();
+      return NextResponse.json(_updt);
+    } else {
+      NextResponse.json({ message: "commentId are not found" });
+    }
+  } catch (error) {
+    NextResponse.json(error);
+  }
+}
+
+
+
