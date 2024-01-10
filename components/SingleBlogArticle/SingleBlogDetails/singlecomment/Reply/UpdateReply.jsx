@@ -17,6 +17,7 @@ const UpdateReply = ({ reply, blogId, commentId }) => {
   const { data: session } = useSession();
   const [details, setDetials] = useState("");
   const router = useRouter();
+  const replyId = reply?._id;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ const UpdateReply = ({ reply, blogId, commentId }) => {
     };
     try {
       const res = await fetch(
-        `/api/blogCommets/reply?blogId=${blogId}&commentId=${commentId}&replyId${reply?._id}`,
+        `/api/blogCommets/reply?blogId=${blogId}&commentId=${commentId}&replyId=${replyId}`,
         {
           method: "PUT",
           headers: {

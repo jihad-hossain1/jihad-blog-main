@@ -41,10 +41,7 @@ const commentSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
       },
-      reply: {
-        type: String,
-        required: true,
-      },
+
       createdAt: { type: Date, default: Date.now },
     },
   ],

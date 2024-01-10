@@ -1,6 +1,5 @@
 import connectMongoDB from "@/lib/mongodb";
 import Comment from "@/models/comment";
-// import Product from "@/models/product";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -53,6 +52,44 @@ export async function DELETE(request) {
       return NextResponse.json(comment);
     } else {
       return NextResponse.json({ message: "replyId, commentId are not match" });
+    }
+  } catch (error) {
+    return NextResponse.json({ message: `some probmlem got: ${error}` });
+  }
+}
+
+export async function PUT(request) {
+  const body = await request.json();
+
+  const details = body?.details;
+
+  try {
+    const blogId = await request.nextUrl.searchParams.get("blogId");
+
+    const replyId = await request.nextUrl.searchParams.get("replyId");
+
+    const commentId = await request.nextUrl.searchParams.get("commentId");
+
+    if (blogId) {
+      await connectMongoDB();
+
+      const upRep = await Comment.findOneAndUpdate(
+        { _id: commentId, "replies._id": replyId },
+        { $set: { "replies.$.details": details } },
+        { new: true }
+      );
+
+      if (!upRep) {
+        return NextResponse.json({
+          message: "some thing error happen please try again",
+        });
+      }
+
+      return NextResponse.json(upRep);
+    } else {
+      return NextResponse.json({
+        message: "replyId, commentId blogId are not match",
+      });
     }
   } catch (error) {
     return NextResponse.json({ message: `some probmlem got: ${error}` });
