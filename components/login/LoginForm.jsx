@@ -49,14 +49,14 @@ const LoginForm = () => {
           name="password"
           className="inpt"
         />
-        <input type="submit" value={"login"} className="inpt btn" />
+        <input type="submit" value={"Login"} className="inpt btn" />
       </form>
       {errors && <p className="text-red-600">{errors}</p>}
       <div className="flex justify-between items-center ">
         <div className="flex items-center gap-2 mt-5">
           You are new here ?
           <Link href={"/register"} className="underline">
-            register here
+            Register
           </Link>
         </div>
         <div className="mt-5">

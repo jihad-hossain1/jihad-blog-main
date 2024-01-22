@@ -3,6 +3,7 @@
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import LoginForm from "./LoginForm";
+import GoogleIcon from "./GoogleIcon";
 
 const SignIn = () => {
   const { status, data: session } = useSession();
@@ -29,9 +30,9 @@ const SignIn = () => {
             <div className="flex justify-center">
               <button
                 onClick={() => signIn("google")}
-                className="text-xl font-bold text-gray-700 border border-blue-600 py-2 hover:btn transition-all duration-700 rounded-lg px-6"
+                className="text-xl font-bold text-gray-700 border border-blue-600 py-2 transition-all duration-700 rounded-lg px-6"
               >
-                Sign in with Google
+                <GoogleIcon />
               </button>
             </div>
             <LoginForm />

@@ -1,3 +1,4 @@
+import { timeAgo } from "@/utils/timeAgo";
 import { formatTimestamp } from "@/utils/timeStemp";
 
 const NewBlogBadge = ({ timeSt }) => {
@@ -8,12 +9,12 @@ const NewBlogBadge = ({ timeSt }) => {
         {/* TODO show blog are new */}
         <span
           className={
-            formatTimestamp(timeSt)
-              ? "rounded-xl bg-gray-100 border-green-400 border px-2 text-sm flex items-center"
+            timeSt
+              ? "rounded-md bg-gray-100 border-green-200 border px-2 text-sm flex items-center"
               : "hidden"
           }
         >
-          new
+          {timeAgo(timeSt)}
         </span>{" "}
       </h4>
     </div>

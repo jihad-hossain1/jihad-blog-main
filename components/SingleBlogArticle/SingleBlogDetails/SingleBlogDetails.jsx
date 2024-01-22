@@ -3,9 +3,7 @@
 import ShareContent from "./ShareContent";
 import NewBlogBadge from "./NewBlogBadge";
 import DetailsBlog from "./DetailsBlog";
-import VideoFrame from "./VideoFrame";
 import Comments from "./Comments";
-import BlogLinks from "./BlogLinks";
 import Link from "next/link";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Image from "next/image";
@@ -34,8 +32,6 @@ const SingleBlogDetails = ({ blog, id }) => {
     return color;
   };
 
-  // console.log(blog);
-
   return (
     <div className="p-1 flex flex-col gap-2">
       <div className="flex justify-start">
@@ -50,6 +46,7 @@ const SingleBlogDetails = ({ blog, id }) => {
         <main className="w-full">
           <div className="flex justify-between ">
             <NewBlogBadge timeSt={blog?.createdAt} />
+
             <h4 className={`${getColorText(blog?.articleCategory)} bdg`}>
               {blog?.articleCategory}
             </h4>
@@ -68,10 +65,7 @@ const SingleBlogDetails = ({ blog, id }) => {
             <h3 className="mb-4 text-xl font-bold">{blog?.articleTitle}</h3>
             <DetailsBlog details={blog?.details?.details} />
           </div>
-          {/* <div>
-            <VideoFrame videoUrl={blog?.videoLink} />
-          </div>
-          <BlogLinks blog_links={blog?.blog_links} /> */}
+
           <div>
             <Comments bid={blog?._id} />
           </div>
