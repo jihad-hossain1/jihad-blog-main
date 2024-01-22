@@ -115,7 +115,7 @@ const CommentForm = ({ bid }) => {
                   <Avatar>
                     <AvatarImage
                       src="https://github.com/shadcn.png"
-                      alt="@shadcn"
+                      alt="@user"
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>

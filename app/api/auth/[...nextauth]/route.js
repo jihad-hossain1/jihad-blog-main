@@ -58,13 +58,13 @@ export const authOptions = {
            await connectMongoDB();
            const userAlreadyExists = await User.findOne({email})
            if (!userAlreadyExists) {
-            const res = await fetch(`${process.env.NEXT_BASE_URL}/api/user`, {
-             method: 'POST',
-             headers: {
-               "Content-Type": "application/json"
-             },
-             body: JSON.stringify({ name, email,image })
-            })
+            const res = await fetch(`${process.env.NEXT_BASE_URL}/api/users`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ name, email, image }),
+            });
              if (res.ok) {
              return user;
            }

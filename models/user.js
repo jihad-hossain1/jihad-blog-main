@@ -10,9 +10,17 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    image: {
+    password: {
       type: String,
       required: true,
+    },
+    image: {
+      type: String,
+    },
+    roles: {
+      type: String,
+      enum: ["admin", "blogger", "user"],
+      default: "user",
     },
   },
   { timestamps: true }

@@ -67,7 +67,7 @@ const SingleComment = ({ comment }) => {
     }
   };
   // console.log(session.user);
-  console.log(comment);
+  // console.log(comment);
   return (
     <>
       <div className="flex gap-2">
