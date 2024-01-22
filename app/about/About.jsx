@@ -27,8 +27,9 @@ const About = () => {
 
           <div className="max-w-4xl space-y-5 mt-5 mx-5">
             <p className="about text-lg font-SpaceGrotesk text-gray-700">
-              Name's <span className="font-semibold text-gray-900">Jihad</span>,
-              a passionate{" "}
+              Name&apos;s{" "}
+              <span className="font-semibold text-gray-900">Jihad</span>, a
+              passionate{" "}
               <span className="text-purple-500">MERN Stack Web developer</span>{" "}
               who is (currently) based in Bangladesh. I am {age} years old, but
               have at least 1.5 year of experience in building projects and
