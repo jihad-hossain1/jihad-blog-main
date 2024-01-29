@@ -10,6 +10,9 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  photo: {
+    type: String,
+  },
 
   details: {
     type: String,
@@ -35,6 +38,9 @@ const commentSchema = new Schema({
       details: {
         type: String,
         required: true,
+      },
+      photo: {
+        type: String,
       },
 
       commentId: {

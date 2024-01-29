@@ -18,6 +18,8 @@ const CommentForm = ({ bid }) => {
   const { data: session } = useSession();
   const isEmail = session?.user.email;
   const isName = session?.user.name;
+  const isPhoto = session?.user.image;
+  // console.log(session?.user);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -35,6 +37,7 @@ const CommentForm = ({ bid }) => {
       details: details,
       name: isName,
       email: isEmail,
+      photo: isPhoto,
       blogId: bid,
     };
 

@@ -66,14 +66,16 @@ const SingleComment = ({ comment }) => {
       console.log(error);
     }
   };
-  // console.log(session.user);
-  // console.log(comment);
+
   return (
     <>
       <div className="flex gap-2">
         <div>
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@user" />
+            <AvatarImage
+              src={comment?.photo || "https://github.com/shadcn.png"}
+              alt="@user"
+            />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
