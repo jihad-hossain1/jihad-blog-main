@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -20,22 +20,8 @@ const RegisterForm = () => {
       return;
     }
     try {
-      // if already a user exist in database
-      const userAlreadyExist = await fetch(`/api/userExists`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const { user } = await userAlreadyExist.json();
-      if (user) {
-        setErrors("User already exists.");
-        return;
-      }
       // send to data in database ...
-      const res = await fetch(`/api/register`, {
+      const res = await fetch(`/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,15 +33,26 @@ const RegisterForm = () => {
         }),
       });
 
-      if (res.ok) {
-        const form = e.target;
-        form.reset();
-        router.push("/login");
+      const _res = await res.json();
+
+      console.log(_res);
+      if (!res.ok) {
+        setErrors(_res?.error);
       }
+      const form = e.target;
+      form.reset();
+      router.push("/login");
     } catch (error) {
       console.log("error from form section", error);
     }
   };
+
+  useEffect(() => {
+    if (errors) {
+      console.log(errors);
+    }
+  }, [errors]);
+
   return (
     <div className="max-w-xl mx-auto p-2 min-h-screen pt-12">
       <h4 className="text-xl font-semibold text-center">Register Form</h4>

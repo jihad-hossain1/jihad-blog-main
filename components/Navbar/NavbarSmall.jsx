@@ -47,7 +47,7 @@ const itemMotion = {
 };
 
 const NavbarSmall = () => {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
   let [open, setOpen] = useState(false);
   // const location =
   return (
@@ -94,7 +94,16 @@ const NavbarSmall = () => {
                 <DropdownMenuSeparator />
                 {status === "authenticated" ? (
                   <>
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <Link href={"/profile"}>
+                      <DropdownMenuItem>Profile</DropdownMenuItem>
+                    </Link>
+
+                    {session?.user?.role == "admin" && (
+                      <Link href={"/dashboard"}>
+                        <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                      </Link>
+                    )}
+
                     <DropdownMenuItem
                       onClick={() => signOut()}
                       className="cursor-pointer"
@@ -163,6 +172,7 @@ const NavbarSmall = () => {
 
                       {status === "authenticated" ? (
                         <>
+                          <motion.a href="/addBlog">create blog</motion.a>
                           <motion.a href="/addBlog">create blog</motion.a>
                           <motion.a
                             className="cursor-pointer"

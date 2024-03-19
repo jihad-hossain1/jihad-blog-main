@@ -12,12 +12,11 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     image: {
       type: String,
     },
-    roles: {
+    role: {
       type: String,
       enum: ["admin", "blogger", "user"],
       default: "user",

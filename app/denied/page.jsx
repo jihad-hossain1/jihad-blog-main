@@ -1,9 +1,20 @@
+import Link from "next/link";
 import React from "react";
 
 const Denied = () => {
   return (
-    <div className="flex justify-center items-center mt-24">
-      <h4 className="text-xl text-red-500">Access Denied</h4>
+    <div className="flex flex-col justify-center items-center min-h-[70vh]">
+      <div className="text-center flex flex-col gap-2">
+        <h4 className="text-xl text-red-500">
+          Access Denied. You are not allow
+        </h4>
+        <Link
+          href={"/"}
+          className="text-blue-600 border border-gray-300 rounded-md shadow-sm hover:shadow transition-all duration-300 px-3 py-1 text-sm uppercase"
+        >
+          Go Back
+        </Link>
+      </div>
     </div>
   );
 };

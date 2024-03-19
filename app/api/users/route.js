@@ -24,7 +24,9 @@ export async function POST(request) {
     //encrypt the password
     const hashedPwd = await bcrypt.hash(password, 10);
 
-    await User.create({ name, email, image, password: hashedPwd });
+    const newUser = new User({ name, email, image, password: hashedPwd });
+
+    await newUser.save();
 
     return NextResponse.json(
       { message: "User Created Successfull" },
