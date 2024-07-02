@@ -21,7 +21,10 @@ export default withAuth(
     // console.log(req.nextUrl.pathname);
     // console.log(req.nextauth.token.role);
 
-    if (req.nextauth.token.role != "admin") {
+    if (
+      req.nextUrl.pathname.startsWith("/dashboard") &&
+      req.nextauth.token.role != "admin"
+    ) {
       return NextResponse.rewrite(new URL("/denied", req.url));
     }
   },
