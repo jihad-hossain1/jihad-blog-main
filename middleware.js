@@ -3,7 +3,7 @@ import { withAuth } from "next-auth/middleware";
 
 // import { serverAuth } from "./lib/session";
 
-export const config = { matcher: ["/dashboard/:path*", "/profile"] };
+
 
 // export async function middleware(request) {
 //   // const authUser = await serverAuth();
@@ -34,3 +34,5 @@ export default withAuth(
     },
   }
 );
+
+export const config = { matcher: ["/dashboard/:path*", "/profile"] };
