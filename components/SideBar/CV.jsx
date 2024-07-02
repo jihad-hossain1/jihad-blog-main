@@ -33,19 +33,6 @@ const CV = ({ lastElem }) => {
     //   message,
     // };
     try {
-      const res = await fetch("/api/sendEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: email,
-          to: "lovedose4166@gmail.com",
-          subject: `hello world`,
-          // subject: `${subject} - [${name}]`,
-          html: "<p>HI</p>",
-          text: "message",
-        }),
-      });
-      const data = await res.json();
       toast.success("Message sending successfull");
       form.reset();
       setTimeout(() => {
