@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { withAuth } from "next-auth/middleware";
-
+import { fetchSession } from "./utils/fetch/session/fetchSession";
 
 // export default withAuth(
 //   async function middleware(req) {
@@ -23,13 +23,11 @@ export const config = { matcher: ["/dashboard/:path*", "/profile"] };
 
 // import { serverAuth } from "./lib/session";
 
-
-
 export async function middleware(request) {
   // const authUser = await serverAuth();
-  const isT = true;
+  const sessionData = await fetchSession();
 
-  if (isT) {
+  if (sessionData?.user?.role == "admin") {
     return NextResponse.next();
   }
   const loginUrl = new URL("/denied", request.url);
