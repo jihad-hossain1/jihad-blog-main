@@ -1,7 +1,16 @@
-export async function fetchSession() {
-  const res = await fetch(`${process.env.NEXT_BASE_URL}/api/users/session`, {
-    cache: "no-store",
+import { decode } from "next-auth/jwt";
+
+export async function getCookieData(request) {
+  const cookie = request.cookies.get("next-auth.session-token");
+
+  const decoded = await decode({
+    token: cookie?.value,
+    secret: process.env.NEXTAUTH_SECRET,
   });
 
-  return await res.json();
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(decoded);
+    }, 1000)
+  );
 }
