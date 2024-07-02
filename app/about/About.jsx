@@ -1,6 +1,7 @@
 "use client";
 
 import { animateLeftToRight, animateToTop } from "@/utils/animation/gsap";
+import Image from "next/image";
 import React from "react";
 // import { animateLeftToRight, animateToTop } from "";
 
@@ -13,7 +14,9 @@ const About = () => {
       <>
         <div className="w-full flex flex-col mb-5 items-center justify-center text-gray-900">
           <div className="about max-w-4xl flex sm:flex-row flex-col-reverse gap-3 px-5">
-            <img
+            <Image
+              height={100}
+              width={100}
               src="https://i.ibb.co/FnfTKzv/icon-Jihad.png"
               alt="jihad"
               className="sm:w-32 w-32 rounded-full cursor-pointer"

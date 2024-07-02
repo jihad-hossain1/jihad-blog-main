@@ -2,36 +2,20 @@
 import React from "react";
 import SingleManageProject from "./singleproject/SingleManageProject";
 import Link from "next/link";
-
-const getProjects = async () => {
-  try {
-    // const res = await fetch("/api/topics", {
-    //   cache: "no-store",
-    // });
-    const res = await fetch(`${process.env.NEXT_BASE_URL}/api/projects`, {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("failed to fatch");
-    }
-    return res.json();
-  } catch (error) {
-    console.log("error loading topics:", error);
-  }
-};
+import { fetchProjects } from "../../../utils/fetch/projects";
 
 const ManageProjectsPage = async () => {
-  const { projects } = await getProjects();
+  const items = await fetchProjects();
   return (
     <div>
       <Link href={"/dashboard/addproject"}>
         <button>add project</button>
       </Link>
       <h4 className="text-xl font-bold text-center">
-        Manage-project : {projects?.length}
+        Manage-project : {items?.projects?.length}
       </h4>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
-        {projects?.map((item) => (
+        {items?.projects?.map((item) => (
           <SingleManageProject key={item?._id} item={item} />
         ))}
       </div>

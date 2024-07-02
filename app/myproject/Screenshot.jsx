@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useRef } from "react";
 
 const Screenshot = ({ children, images }) => {
@@ -33,7 +34,9 @@ const Screenshot = ({ children, images }) => {
             {images ? (
               images.map((itm, index) => (
                 <div key={index}>
-                  <img
+                  <Image
+                    height={100}
+                    width={100}
                     src={itm?.secure_urls}
                     className="rounded-xl border border-gray-200 p-1"
                     alt=""

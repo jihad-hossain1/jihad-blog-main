@@ -1,33 +1,17 @@
+import { fetchBlogs } from "@/utils/fetch/blogs/fetchBlogs";
 import SingleBlog from "./SingleBlog";
 
-const getBlogs = async () => {
-  try {
-    // const res = await fetch("/api/topics", {
-    //   cache: "no-store",
-    // });
-    const res = await fetch(`${process.env.NEXT_BASE_URL}/api/blogs`, {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("failed to fatch");
-    }
-    return res.json();
-  } catch (error) {
-    console.log("error loading topics:", error);
-  }
-};
-
 const ManageBlogPage = async () => {
-  const { blogs } = await getBlogs();
-  console.log(blogs);
+  const items = await fetchBlogs();
+
   return (
     <div>
       <h4 className="my-4 text-zinc-900 underline">
-        Manage your BlogPage: {blogs?.length}
+        Manage your BlogPage: {items?.blogs?.length}
       </h4>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {blogs?.map((itm) => (
+        {items?.blogs?.map((itm) => (
           <SingleBlog key={itm?._id} itm={itm} />
         ))}
       </div>

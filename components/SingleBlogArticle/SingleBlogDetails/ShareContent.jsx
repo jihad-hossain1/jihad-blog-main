@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -22,19 +23,28 @@ const ShareContent = ({ bid }) => {
       </h4>
       <div className="flex items-center md:flex-col  gap-4 mt-2">
         <div onClick={handleClipBoard} className="w-20 inline-block">
-          <img
+          <Image
+            alt="any"
+            height={100}
+            width={100}
             src="https://i.ibb.co/yqRfDGq/icons8-facebook-1.gif"
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />
         </div>
         <div onClick={handleClipBoard} className="w-20 inline-block">
-          <img
+          <Image
+            alt="any"
+            height={100}
+            width={100}
             src="https://i.ibb.co/G2YpH2p/icons8-twitter-circled.gif"
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />
         </div>
         <div onClick={handleClipBoard} className="w-20 inline-block">
-          <img
+          <Image
+            alt="any"
+            height={100}
+            width={100}
             src="https://i.ibb.co/LvKCh4Q/icons8-linkedin.gif"
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />

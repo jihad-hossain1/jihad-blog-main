@@ -30,7 +30,7 @@ const Footer = () => {
             {lastResponse?.slice(0, 3).map((item, index) => (
               <div key={index} className="flex gap-2 p-2 ">
                 <div className="w-24">
-                  <img src={item?.avatar} alt="" />
+                  <Image height={100} width={100} src={item?.avatar} alt="" />
                 </div>
                 <div>
                   <p className="text-gray-900 mb-4">

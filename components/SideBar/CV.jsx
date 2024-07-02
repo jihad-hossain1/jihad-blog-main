@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -59,7 +60,9 @@ const CV = ({ lastElem }) => {
     <div className="bg-white">
       <div className="p-4  flex flex-col justify-center items-center">
         <div className="mb-3 rounded-full border-[1px] border-gray-100 inline-block  overflow-hidden mt-4">
-          <img
+          <Image
+            height={100}
+            width={100}
             className="w-24 object-cover  "
             src="https://i.ibb.co/FnfTKzv/icon-Jihad.png"
             alt=""
