@@ -1,26 +1,9 @@
 import { NextResponse } from "next/server";
 import { withAuth } from "next-auth/middleware";
 
-// import { serverAuth } from "./lib/session";
-
-
-
-// export async function middleware(request) {
-//   // const authUser = await serverAuth();
-//   const isT = false;
-
-//   if (isT) {
-//     return NextResponse.next();
-//   }
-//   const loginUrl = new URL("/denied", request.url);
-//   return NextResponse.redirect(loginUrl);
-// }
 
 export default withAuth(
   async function middleware(req) {
-    // console.log(req.nextUrl.pathname);
-    // console.log(req.nextauth.token.role);
-
     if (
       req.nextUrl.pathname.startsWith("/dashboard") &&
       req.nextauth.token.role != "admin"
@@ -36,3 +19,18 @@ export default withAuth(
 );
 
 export const config = { matcher: ["/dashboard/:path*", "/profile"] };
+
+// import { serverAuth } from "./lib/session";
+
+
+
+// export async function middleware(request) {
+//   // const authUser = await serverAuth();
+//   const isT = false;
+
+//   if (isT) {
+//     return NextResponse.next();
+//   }
+//   const loginUrl = new URL("/denied", request.url);
+//   return NextResponse.redirect(loginUrl);
+// }
