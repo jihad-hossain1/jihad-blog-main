@@ -1,7 +1,22 @@
 import { NextResponse } from "next/server";
 // import { withAuth } from "next-auth/middleware";
-import { includes } from "lodash";
 import { getCookieData } from "./utils/fetch/session/fetchSession";
+
+
+function includes(collection, value) {
+  if (Array.isArray(collection)) {
+    for (let i = 0; i < collection.length; i++) {
+      if (collection[i] === value) {
+        return true;
+      }
+    }
+    return false;
+  } else if (typeof collection === "string") {
+    return collection.indexOf(value) !== -1;
+  }
+  return false;
+}
+
 
 const isAdminRoute = (pathname) => {
   return pathname.startsWith("/dashboard");
