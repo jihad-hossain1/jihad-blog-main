@@ -26,6 +26,7 @@
     "framer-motion": "^10.16.16",
     "gsap": "^3.12.5",
     "jose": "^5.1.0",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.307.0",
     "mongoose": "^7.6.4",
     "next": "14.0.1",
