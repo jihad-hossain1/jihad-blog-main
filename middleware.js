@@ -8,7 +8,7 @@ export const config = { matcher: ["/dashboard/:path*", "/profile"] };
 
 export async function middleware(request) {
   const sessionData = await getCookieData(request);
-  const loginUrl = new URL("/denied", request.url);
+  const loginUrl = new URL("/login", request.url);
   const deniedUrl = new URL("/denied", request.url);
 
   if (
@@ -16,12 +16,11 @@ export async function middleware(request) {
     sessionData?.role !== "admin"
   ) {
     return NextResponse.redirect(deniedUrl);
-  } else if (sessionData === null) {
-    return NextResponse.redirect(loginUrl);
-  } else {
-    return NextResponse.next();
   }
-  
+  if (request.nextUrl.pathname.startsWith("/profile") && sessionData === null) {
+    return NextResponse.redirect(loginUrl);
+  }
+  return NextResponse.next();
   
 }
 
