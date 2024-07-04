@@ -1,62 +1,92 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import SingleBlogArticle from "@/components/SingleBlogArticle/SingleBlogArticle";
-import { getColor } from "@/utils/getRandomColor";
 
+const BlogPage = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [limit, setLimit] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const res = await fetch(
+        `/api/blogs/pagination?page=${page}&pageSize=${pageSize}&searchTerm=${searchTerm}&limit=${limit}&sortBy=createdAt&sortOrder=desc`,
+        {
+          cache: "no-store",
+        }
+      );
+      const data = await res.json();
+      setBlogs(data?.data);
+    };
 
-const getBlogs = async () => {
-  try {
-    const res = await fetch("https://jihad-blog-main.vercel.app/api/blogs", {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("failed to fatch");
-    }
-    return res.json();
-  } catch (error) {
-    console.log("error loading blogs:", error);
-  }
-};
-const BlogPage = async () => {
-  const { blogs } = await getBlogs();
-
-  // const uniqueCategories = [
-  //   ...new Set(blogs?.map(({ articleCategory }) => articleCategory)),
-  // ];
+    fetchBlogs();
+  }, [limit, page, pageSize, searchTerm]);
 
   return (
     <div className="max-w-screen-xl mx-auto px-2 md:px-8 pb-6 min-h-screen ">
       <div>
+        <div className="flex justify-center p-4">
+          <input
+            className="max-sm:w-11/12 md:w-1/3 p-2 border border-gray-300 focus:outline-none"
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
         <div className="p-5">
           <div>
-            {/* {blogs &&
-              uniqueCategories?.map((uniquecategory, categoryIndex) => (
-                <div className="mb-4" key={categoryIndex}>
-                  <h4
-                    className={`mb-3 text-xl uppercase border-b-2  w-fit ${getColor(
-                      uniquecategory
-                    )}`}
-                  >
-                    {uniquecategory}
-                  </h4>
-                  <div className="grid md:grid-cols-2  gap-6">
-                    {blogs
-                      ?.filter(
-                        (blog) => blog.articleCategory === uniquecategory
-                      )
-                      .map((filteredblog, _index) => (
-                        <SingleBlogArticle key={_index} blog={filteredblog} />
-                      ))}
-                  </div>
-                </div>
-              ))} */}
-
             <div className="grid md:grid-cols-2 lg:grid-cols-1  gap-6">
-              {blogs?.map((filteredblog, _index) => (
-                <SingleBlogArticle key={_index} blog={filteredblog} />
+              {blogs?.map((blog, _index) => (
+                <SingleBlogArticle key={_index} blog={blog} />
               ))}
             </div>
           </div>
         </div>
+        {/* pagination button  */}
+
+        <section className="flex justify-end ">
+          {/* list of page  */}
+          <div className="flex gap-2 md:flex-row flex-col">
+            <select
+              className="border px-10 py-2 rounded border-gray-200 "
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+            >
+              <option value={""} disabled>
+                Show Blogs
+              </option>
+              {[10, 20, 30].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+            <button
+              disabled={page === 1}
+              onClick={() => setPage(page - 1)}
+              className=" border border-gray-200  py-2 rounded shadow hover:shadow-md transition-all duration-300  px-4 text-center"
+            >
+              Previous
+            </button>
+            {/* show current page number  */}
+            <h4 className="border border-gray-200  py-2 rounded shadow hover:shadow-md transition-all duration-300  px-4 text-center">
+              {page}
+            </h4>
+
+            <button
+              disabled={blogs?.length < pageSize}
+              onClick={() => setPage(page + 1)}
+              className=" border border-gray-200  py-2 rounded shadow hover:shadow-md transition-all duration-300  px-4 text-center"
+            >
+              Next
+            </button>
+          </div>
+        </section>
       </div>
     </div>
   );

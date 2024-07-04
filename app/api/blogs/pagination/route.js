@@ -2,34 +2,51 @@ import connectMongoDB from "@/lib/mongodb";
 import Blog from "@/models/blog";
 import { NextResponse, NextRequest } from "next/server";
 
-const paginate = (data, page, itemsPerPage) => {
-  const start = (page - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return data.slice(start, end);
-};
 
-export async function GET(request) {
 
-  let { searchParams } = await request?.nextUrl;
-  let page = parseFloat(searchParams.get("page")) || 1
-  const itemsPerpage = 3;
+export async function GET(req) {
+  const searchParams = req.nextUrl.searchParams;
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
+  const searchTerm = searchParams.get("searchTerm") || "";
+  const sortBy = searchParams.get("sortBy") || "createdAt";
+  const sortOrder = searchParams.get("sortOrder") || "asc";
 
-    try {
-      
-    await connectMongoDB();
-    const blogs = await Blog.find();
+  const parsedPage = page > 0 ? page : 1;
+  const parsedPageSize = pageSize > 0 ? pageSize : 10;
+  const parsedSortOrder = sortOrder === "desc" ? -1 : 1;
 
-    const paginateData = paginate(blogs, page, itemsPerpage);
-        
-    let myPagintionBlog = {
-      itemsPerpage: itemsPerpage,
-      data: paginateData,
-      currentPage: parseFloat(page),
-      totalPage: Math.ceil(blogs?.length / itemsPerpage),
-      totoalBlog: blogs?.length,
-    };
-    return NextResponse.json(myPagintionBlog);
-  } catch (error) {
-    return NextResponse.json({ error: error });
-  }
+  // Build search query
+  const searchQuery = searchTerm
+    ? {
+        $or: [
+          {
+            articleTitle: { $regex: searchTerm, $options: "i" },
+            articleCategory: { $regex: searchTerm, $options: "i" },
+          },
+        ],
+      }
+    : {};
+
+  // Calculate skip value
+  const skip = (parsedPage - 1) * parsedPageSize;
+
+  await connectMongoDB();
+
+  const total = await Blog.countDocuments(searchQuery);
+
+  // Fetch paginated data
+  const data = await Blog.find(searchQuery)
+    .sort({ [sortBy]: parsedSortOrder })
+    .skip(skip)
+    .limit(parsedPageSize);
+
+  return NextResponse.json({
+    meta: {
+      total,
+      page: parsedPage,
+      limit: parsedPageSize,
+    },
+    data,
+  });
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { formatTimestamp } from "@/utils/timeStemp";
 import Link from "next/link";
 import CommentReactionCount from "./CommentReactionCount";
@@ -27,7 +29,7 @@ const SingleBlogArticle = ({ blog }) => {
   };
   // console.log(blog);
   return (
-    <Layout>
+    <>
       <div
         className={`border-l-[14px] ${getColor(
           blog?.articleCategory
@@ -64,7 +66,7 @@ const SingleBlogArticle = ({ blog }) => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 
