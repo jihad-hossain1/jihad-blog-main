@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { PiMagnifyingGlassLight } from "react-icons/pi";
 
-const SearchForm = ({}) => {
+const SearchForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [blogs, setBlogs] = React.useState([]);
   const downref = React.useRef();
@@ -19,7 +19,9 @@ const SearchForm = ({}) => {
   const debouncedFetchBlog = React.useCallback(
     debounce(async (term) => {
       if (term) {
-        const res = await fetch(`/api/blogs/blog-search?searchTerm=${term}`);
+        const res = await fetch(`/api/blogs/blog-search?searchTerm=${term}`, {
+          cache: "no-store",
+        });
         const data = await res.json();
         setBlogs(data?.data);
       } else {

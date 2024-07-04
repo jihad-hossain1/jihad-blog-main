@@ -27,33 +27,35 @@ const parseQueryParams = (searchParams) => {
 };
 
 export async function GET(req) {
-  try {
-    const searchParams = req.nextUrl.searchParams;
-    const { page, pageSize, sortBy, sortOrder } =
-      parseQueryParams(searchParams);
-    const searchTerm = searchParams.get("searchTerm") || "";
+     const { searchParams } = new URL(req.url);
+     const searchTerm = searchParams.get("searchTerm") || "";
+     try {
+       // const searchParams = req.nextUrl.searchParams;
+       const { page, pageSize, sortBy, sortOrder } =
+         parseQueryParams(searchParams);
+       // const searchTerm = searchParams.get("searchTerm") || "";
 
-    const searchQuery = buildSearchQuery(searchTerm);
-    const skip = (page - 1) * pageSize;
+       const searchQuery = buildSearchQuery(searchTerm);
+       const skip = (page - 1) * pageSize;
 
-    await connectMongoDB();
+       await connectMongoDB();
 
-    const totalDocuments = await Blog.countDocuments(searchQuery);
-    const blogs = await Blog.find(searchQuery)
-      .sort({ [sortBy]: sortOrder })
-      .skip(skip)
-      .limit(pageSize);
+       const totalDocuments = await Blog.countDocuments(searchQuery);
+       const blogs = await Blog.find(searchQuery)
+         .sort({ [sortBy]: sortOrder })
+         .skip(skip)
+         .limit(pageSize);
 
-    return NextResponse.json({
-      meta: {
-        total: totalDocuments,
-        page,
-        limit: pageSize,
-      },
-      data: blogs,
-    });
-  } catch (error) {
-    console.error("Error fetching blog posts:", error);
-    return NextResponse.error();
-  }
+       return NextResponse.json({
+         meta: {
+           total: totalDocuments,
+           page,
+           limit: pageSize,
+         },
+         data: blogs,
+       });
+     } catch (error) {
+       console.error("Error fetching blog posts:", error);
+       return NextResponse.error();
+     }
 }

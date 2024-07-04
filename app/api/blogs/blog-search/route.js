@@ -14,18 +14,20 @@ const buildSearchQuery = (searchTerm) => {
 
 // Main handler function for GET request
 export async function GET(req) {
-  try {
-    const searchParams = req.nextUrl.searchParams;
-    const searchTerm = searchParams.get("searchTerm") || "";
+   const { searchParams } = new URL(req.url);
+   const searchTerm = searchParams.get("searchTerm") || "";
+   try {
+     // const searchParams = req.nextUrl.searchParams;
+     // const searchTerm = searchParams.get("searchTerm") || "";
 
-    await connectMongoDB();
+     await connectMongoDB();
 
-    const searchQuery = buildSearchQuery(searchTerm);
-    const data = await Blog.find(searchQuery);
+     const searchQuery = buildSearchQuery(searchTerm);
+     const data = await Blog.find(searchQuery);
 
-    return NextResponse.json({ data });
-  } catch (error) {
-    console.error("Error fetching queries:", error);
-    return NextResponse.json({ error: error?.message }, { status: 500 });
-  }
+     return NextResponse.json({ data });
+   } catch (error) {
+     console.error("Error fetching queries:", error);
+     return NextResponse.json({ error: error?.message }, { status: 500 });
+   }
 }
