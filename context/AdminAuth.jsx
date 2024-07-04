@@ -13,7 +13,7 @@ const AdminAuth = ({ children }) => {
     if (status === "unauthenticated") {
       router.push("/login");
     } else if (status === "authenticated" && data?.user?.role !== "admin") {
-      router.push("/Denied");
+      router.push("/denied");
     }
   }, [status, data, router]);
 

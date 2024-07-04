@@ -52,7 +52,7 @@ const NavbarSmall = () => {
   let [open, setOpen] = useState(false);
   const path = usePathname();
 
-  const paths = ["/login", "/register", "/Denied"];
+  const paths = ["/login", "/register", "/denied"];
   // const location =
   return (
     <nav

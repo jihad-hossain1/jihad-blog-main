@@ -1,9 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 
 const Denied = () => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-[70vh]">
+    <div className="flex flex-col justify-center items-center min-h-[90vh]">
       <div className="text-center flex flex-col gap-2">
         <h4 className="text-xl text-red-500">
           Access Denied. You are not allow

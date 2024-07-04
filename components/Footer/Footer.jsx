@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const path = usePathname();
-  const paths = ["/login", "/register", "/Denied"];
+  const paths = ["/login", "/register", "/denied"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
