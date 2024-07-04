@@ -1,6 +1,8 @@
+"use server";
+
 export async function fetchUserBlogs(id) {
   const res = await fetch(
-    `http://localhost:3000/api/users/profile/user-blogs?id=${id}`,
+    `${process.env.NEXT_PUBLIC_API}/api/users/profile/user-blogs?id=${id}`,
     {
       cache: "no-store",
     }
