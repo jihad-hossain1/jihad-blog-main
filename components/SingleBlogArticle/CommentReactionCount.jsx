@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FiMessageSquare } from "react-icons/fi";
 import { MdFavoriteBorder } from "react-icons/md";
 
-const CommentReactionCount = async ({ bid }) => {
+const CommentReactionCount = ({ bid }) => {
   // const { comments } = await getComments();
   // const allComments = [...comments];
   // const inBlogCount = allComments?.filter((item) => item?.blogId === bid);

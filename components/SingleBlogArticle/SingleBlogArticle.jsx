@@ -4,6 +4,8 @@ import { formatTimestamp } from "@/utils/timeStemp";
 import Link from "next/link";
 import CommentReactionCount from "./CommentReactionCount";
 import Layout from "../Layout";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const SingleBlogArticle = ({ blog }) => {
   const getColor = (cardColor) => {
@@ -27,11 +29,32 @@ const SingleBlogArticle = ({ blog }) => {
     }
     return color;
   };
-  // console.log(blog);
+  useGSAP(() => {
+    gsap.fromTo(
+      ".textgsap",
+      {
+        // opacity: 0,
+        duration: 0.5,
+        x: -16,
+        y: -26,
+        ease: "back.out",
+        stagger: 0.1,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        stagger: 0.1,
+        duration: 1,
+        ease: "back.inOut",
+        delay: 0.5,
+      }
+    );
+  }, [blog]);
   return (
-    <>
+    <Layout>
       <div
-        className={`border-l-[14px] ${getColor(
+        className={`border-l-[14px] textgsap opacity-0 ${getColor(
           blog?.articleCategory
         )} p-2 bg-white rounded shadow-sm`}
       >
@@ -66,7 +89,7 @@ const SingleBlogArticle = ({ blog }) => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

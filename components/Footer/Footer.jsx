@@ -10,8 +10,12 @@ import {
   AiFillGithub,
 } from "react-icons/ai";
 import toast from "react-hot-toast";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const path = usePathname();
+  const paths = ["/login", "/register", "/Denied"];
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -22,7 +26,7 @@ const Footer = () => {
     }
   };
   return (
-    <div className="bg-slate-100/5">
+    <div className={paths.includes(path) ? "hidden" : "block bg-slate-100/5"}>
       <div className="text-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto  gap-3 mt-6 p-3">
           <div className="text-gray-800">

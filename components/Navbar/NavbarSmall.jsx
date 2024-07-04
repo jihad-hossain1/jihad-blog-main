@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { usePathname } from "next/navigation";
 
 const listvariants = {
   hidden: { opacity: 0 },
@@ -49,9 +50,18 @@ const itemMotion = {
 const NavbarSmall = () => {
   const { status, data: session } = useSession();
   let [open, setOpen] = useState(false);
+  const path = usePathname();
+
+  const paths = ["/login", "/register", "/Denied"];
   // const location =
   return (
-    <nav className="shadow-md w-full sticky z-50 top-0 left-0 bg-white">
+    <nav
+      className={
+        paths.includes(path)
+          ? "hidden"
+          : "shadow-md w-full sticky z-50 top-0 left-0 bg-white"
+      }
+    >
       <div className="max-w-screen-xl mx-auto px-4   pb-6">
         <div className="hidden md:block">
           <div className="flex justify-between items-center border-b border-gray-200 pb-4 px-4">

@@ -2,51 +2,58 @@ import connectMongoDB from "@/lib/mongodb";
 import Blog from "@/models/blog";
 import { NextResponse, NextRequest } from "next/server";
 
+// Helper function to build the search query
+const buildSearchQuery = (searchTerm) => {
+  if (!searchTerm) return {};
+  const regex = { $regex: searchTerm, $options: "i" };
+  return {
+    $or: [{ articleTitle: regex }, { articleCategory: regex }],
+  };
+};
 
-
-export async function GET(req) {
-  const searchParams = req.nextUrl.searchParams;
+// Helper function to parse query parameters
+const parseQueryParams = (searchParams) => {
   const page = parseInt(searchParams.get("page") || "1", 10);
   const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
-  const searchTerm = searchParams.get("searchTerm") || "";
   const sortBy = searchParams.get("sortBy") || "createdAt";
   const sortOrder = searchParams.get("sortOrder") || "asc";
 
-  const parsedPage = page > 0 ? page : 1;
-  const parsedPageSize = pageSize > 0 ? pageSize : 10;
-  const parsedSortOrder = sortOrder === "desc" ? -1 : 1;
+  return {
+    page: page > 0 ? page : 1,
+    pageSize: pageSize > 0 ? pageSize : 10,
+    sortBy,
+    sortOrder: sortOrder === "desc" ? -1 : 1,
+  };
+};
 
-  // Build search query
-  const searchQuery = searchTerm
-    ? {
-        $or: [
-          {
-            articleTitle: { $regex: searchTerm, $options: "i" },
-            articleCategory: { $regex: searchTerm, $options: "i" },
-          },
-        ],
-      }
-    : {};
+export async function GET(req) {
+  try {
+    const searchParams = req.nextUrl.searchParams;
+    const { page, pageSize, sortBy, sortOrder } =
+      parseQueryParams(searchParams);
+    const searchTerm = searchParams.get("searchTerm") || "";
 
-  // Calculate skip value
-  const skip = (parsedPage - 1) * parsedPageSize;
+    const searchQuery = buildSearchQuery(searchTerm);
+    const skip = (page - 1) * pageSize;
 
-  await connectMongoDB();
+    await connectMongoDB();
 
-  const total = await Blog.countDocuments(searchQuery);
+    const totalDocuments = await Blog.countDocuments(searchQuery);
+    const blogs = await Blog.find(searchQuery)
+      .sort({ [sortBy]: sortOrder })
+      .skip(skip)
+      .limit(pageSize);
 
-  // Fetch paginated data
-  const data = await Blog.find(searchQuery)
-    .sort({ [sortBy]: parsedSortOrder })
-    .skip(skip)
-    .limit(parsedPageSize);
-
-  return NextResponse.json({
-    meta: {
-      total,
-      page: parsedPage,
-      limit: parsedPageSize,
-    },
-    data,
-  });
+    return NextResponse.json({
+      meta: {
+        total: totalDocuments,
+        page,
+        limit: pageSize,
+      },
+      data: blogs,
+    });
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return NextResponse.error();
+  }
 }

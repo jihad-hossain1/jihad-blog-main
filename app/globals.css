@@ -68,7 +68,7 @@
     }
 
     .inpt {
-      @apply focus:outline-none p-3 w-full border border-neutral-300;
+      @apply focus:outline-none px-3 py-1 w-full border border-neutral-300;
     }
 
     .crt-blog {

@@ -8,7 +8,7 @@ const RegisterPage = async () => {
 
   if (session) redirect("/");
   return (
-    <div>
+    <div className="p-20 max-sm:p-2 min-h-screen flex flex-col justify-center container mx-auto ">
       <RegisterForm />
     </div>
   );

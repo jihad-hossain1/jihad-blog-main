@@ -43,12 +43,12 @@ export const authOptions = {
       async authorize(credentials) {
         const { email, password } = credentials;
 
-        try {
+ 
           await connectMongoDB();
           const _user = await User.findOne({ email });
           // console.log(_user);
           if (!_user) {
-            return null;
+            throw new Error("Email is not valid");
           }
           const user = {
             id: _user?._id,
@@ -63,14 +63,12 @@ export const authOptions = {
             );
 
             if (!passwordsMatch) {
-              return null;
+              throw new Error("Password Invalid");
             }
             // delete _user?.password;
             return user;
           }
-        } catch (error) {
-          console.error("Error: ", error);
-        }
+        
       },
     }),
   ],
