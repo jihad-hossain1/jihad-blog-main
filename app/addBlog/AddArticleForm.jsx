@@ -9,6 +9,8 @@ import { useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Textarea } from "@/components/ui/textarea";
+import { revalidate } from "@/helpers/revalidate";
+import { serverAction } from "./server-action";
 
 const AddarticlesForm = () => {
   const { status } = useSession();
@@ -17,18 +19,13 @@ const AddarticlesForm = () => {
   const { toast } = useToast();
   const [isPreview, setPreview] = useState(false);
 
-  const user = {
-    displayName: session?.user.displayName,
-    photoURL: session?.user.photoURL,
-    email: session?.user.email,
-  };
-
   const [category, setCategory] = useState("");
   const [loading, setloading] = useState(false);
 
   const [details, setDetails] = useState("");
   const [articleTitle, setarticleTitle] = useState("");
   const [sortContent, setSortContent] = useState("");
+  const [slug, setSlug] = useState("");
 
   const [photo, setPhoto] = useState("");
   const [image, setimage] = useState(null);
@@ -59,30 +56,45 @@ const AddarticlesForm = () => {
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
     }
-    const info = {
-      articleTitle,
-      articleCategory: category,
-      details: {
-        user,
-        image: photo,
-        details,
-      },
-      sortContent,
-    };
+
     try {
       setloading(true);
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...info }),
-      };
-      const res = await fetch(`/api/blogs`, requestOptions);
 
-      if (res?.status == 200) {
-        toast({
-          title: "Blog Added Successfull",
+      const res = await serverAction({
+        articleTitle: articleTitle.trim(),
+        articleCategory: category,
+        author: {
+          name: session?.user?.name,
+          userId: session?.user?.id,
+        },
+        details: {
+          user: {
+            displayName: session?.user.name,
+            photoURL: session?.user.photoURL,
+            email: session?.user.email,
+          },
+          image: photo,
+          details,
+        },
+        sortContent: sortContent.trim(),
+        slug: slug.trim(),
+      });
+
+      if (res?.error) {
+        setloading(false);
+        return toast({
+          variant: "destructive",
+          Power2: "Power",
+          title: "Uh oh! Something went wrong.",
+          description: res?.error,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
         });
-        form.reset();
+      }
+      if (res?.result) {
+        revalidate("blog");
+        toast({
+          title: res?.message,
+        });
         setloading(false);
       }
     } catch (error) {
@@ -95,12 +107,14 @@ const AddarticlesForm = () => {
       <h4 className="text-gray-900 font-semibold text-2xl text-center">
         Create a Blog
       </h4>
-      <button
-        className="border  px-3 rounded shadow-sm hover:shadow hover:bg-blue-50"
-        onClick={() => setPreview(!isPreview)}
-      >
-        Preview
-      </button>
+      <div className="flex justify-end">
+        <button
+          className="border  px-3 rounded shadow-sm hover:shadow hover:bg-blue-50"
+          onClick={() => setPreview(!isPreview)}
+        >
+          Preview
+        </button>
+      </div>
       <div
         className={
           isPreview ? "flex flex-col lg:grid lg:grid-cols-2 gap-4" : ""
@@ -114,6 +128,7 @@ const AddarticlesForm = () => {
           {/* blog title section  */}
           <div className="">
             <div className="">
+              <label className="text-gray-900 font-semibold">Title</label>
               <input
                 className="inpt"
                 required
@@ -124,11 +139,23 @@ const AddarticlesForm = () => {
                 onChange={(e) => setarticleTitle(e.target.value)}
               />
             </div>
+            <div>
+              <label className="text-gray-900 font-semibold">Slug</label>
+              <input
+                className="inpt"
+                required
+                placeholder="Slug"
+                type="text"
+                name="slug"
+                value={slug}
+                onChange={(e) => setSlug(e.target.value)}
+              />
+            </div>
           </div>
           {/* blog category section  */}
           <div className="">
             <select
-              required
+              // required
               onChange={(e) => setCategory(e.target.value)}
               className="mb-7 w-full inpt"
             >
@@ -146,7 +173,7 @@ const AddarticlesForm = () => {
             <div className="flex items-center gap-3">
               <input
                 className="inpt"
-                required
+                // required
                 type="file"
                 name=""
                 accept="image/*"

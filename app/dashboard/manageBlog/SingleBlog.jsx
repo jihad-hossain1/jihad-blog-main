@@ -1,5 +1,7 @@
 "use client";
 
+import { useToast } from "@/components/ui/use-toast";
+import { revalidate } from "@/helpers/revalidate";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PiTrashSimpleLight, PiEyeLight } from "react-icons/pi";
@@ -7,6 +9,7 @@ import { VscEdit } from "react-icons/vsc";
 
 const SingleBlog = ({ itm }) => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleDeleteItme = async (id) => {
     const confirmed = confirm("are you sure?");
@@ -16,6 +19,10 @@ const SingleBlog = ({ itm }) => {
         method: "DELETE",
       });
       if (res.ok) {
+        revalidate("blog");
+        toast({
+          title: "blog delete successfull",
+        });
         router.refresh();
       }
     }
