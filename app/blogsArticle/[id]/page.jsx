@@ -26,7 +26,11 @@ const SingleBlogpage = async ({ params }) => {
   return (
     <MainContainer>
       <>
-        <SingleBlogDetails id={id} blog={blog?.blog} />
+        <SingleBlogDetails
+          id={id}
+          blog={blog?.blog}
+          comments={blog?.comments}
+        />
       </>
     </MainContainer>
   );

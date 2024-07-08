@@ -2,6 +2,7 @@
 import connectMongoDB from "@/lib/mongodb";
 import BlogDetail from "@/models/BlogDetail";
 import Blog from "@/models/blog";
+import Coment from "@/models/coment";
 import { NextResponse } from "next/server";
 
 //update by single id
@@ -20,9 +21,18 @@ export async function PUT(request, { params }) {
 export async function GET(request, { params }) {
   const { id } = params;
 
-  await connectMongoDB();
+  try {
+    await connectMongoDB();
 
-  const blog = await Blog.findOne({ _id: id }).populate("details");
+    const blog = await Blog.findOne({ _id: id }).populate("details");
 
-  return NextResponse.json({ blog }, { status: 200 });
+    const populateBlogComents = await Coment.find({ blogId: id });
+
+    return NextResponse.json(
+      { blog, comments: populateBlogComents },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error: error?.message }, { status: 500 });
+  }
 }
