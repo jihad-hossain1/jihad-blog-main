@@ -11,73 +11,46 @@ import { FiThumbsUp } from "react-icons/fi";
 import { TbMessage } from "react-icons/tb";
 import { BiRepost } from "react-icons/bi";
 import { IoIosSend } from "react-icons/io";
+import { createComment } from "./comment-serveraction";
 
 const CommentForm = ({ bid }) => {
   const [isFormToggle, setisFormToggle] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
-  const isEmail = session?.user.email;
-  const isName = session?.user.name;
-  const isPhoto = session?.user.image;
-  // console.log(session?.user);
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [formData, setFormData] = useState({
+    details: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let { details } = formData;
-    const info = {
-      details: details,
-      name: isName,
-      email: isEmail,
-      photo: isPhoto,
-      blogId: bid,
-    };
 
     if (!session) {
       return alert("login first");
     }
     try {
-      const res = await fetch(`/api/blogCommets?blogId=${bid}`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const result = await createComment({
+        info: {
+          details: formData.details,
+          name: session?.user?.name,
+          email: session?.user?.email,
+          photo: session?.user?.image,
+          blogId: bid,
         },
-        body: JSON.stringify(info),
       });
-      if (res.ok) {
+
+      if (result?.result) {
+        toast.success(result?.message);
+        setFormData({ details: "" });
         router.refresh();
-        toast.success("successfull added comment");
-        setFormData({
-          details: "",
-        });
-      } else {
-        throw new Error("failed to create comment");
+      }
+
+      if (result?.error) {
+        toast.error(result?.error);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  const scafolding = {
-    name: session?.user.name,
-    details: "",
-  };
-
-  const [formData, setFormData] = useState(scafolding);
-
-  useEffect(() => {
-    const objectLength = formData?.details.length;
-    // console.log(objectLength);
-    objectLength == 0 ? "" : "";
-  }, [formData]);
 
   return (
     <div>
@@ -85,7 +58,7 @@ const CommentForm = ({ bid }) => {
 
       <>
         <div className="">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center max-sm:flex-col max-sm:items-start gap-1">
             <button className="flex items-center gap-1 hover:bg-gray-300/90 px-3 hover:rounded-md py-2 transition-all duration-300">
               <FiThumbsUp size={22} />
               <span> Like</span>
@@ -131,9 +104,11 @@ const CommentForm = ({ bid }) => {
                 type="text"
                 name="details"
                 id="details"
-                maxLength={300}
-                defaultValue={formData.details}
-                onChange={handleChange}
+                maxLength={200}
+                value={formData?.details}
+                onChange={(e) =>
+                  setFormData({ ...formData, details: e.target.value })
+                }
               />
             </div>
 
@@ -141,7 +116,9 @@ const CommentForm = ({ bid }) => {
               <button
                 type="submit"
                 className={
-                  formData?.details.length == 0 ? "hidden" : "block btn text-xs"
+                  formData?.details?.length == 0
+                    ? "hidden"
+                    : "block btn text-xs"
                 }
               >
                 Submit

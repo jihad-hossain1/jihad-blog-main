@@ -1,5 +1,3 @@
-"use client";
-
 import ShareContent from "./ShareContent";
 import NewBlogBadge from "./NewBlogBadge";
 import DetailsBlog from "./DetailsBlog";
@@ -10,6 +8,7 @@ import Image from "next/image";
 import NestedComment from "./comment/NestedComment";
 import commentsData from "@/public/data.json";
 import NestedComent from "./coment/NestedComent";
+import Comments from "./Comments";
 
 const SingleBlogDetails = ({ blog, id, comments }) => {
   const getColorText = (bg) => {
@@ -69,16 +68,18 @@ const SingleBlogDetails = ({ blog, id, comments }) => {
             <DetailsBlog details={blog?.details?.details} />
           </div>
 
-          <div>{/* <Comments bid={blog?._id} /> */}</div>
+          <div>
+            <Comments bid={blog?._id} />
+          </div>
           {/* <NestedComment
-            comments={commentsData}
+            comments={comments}
             onSubmit={() => {}}
             onEdit={() => {}}
             onDelete={() => {}}
             // onUpvote={() => {}}
             // onDownvote={() => {}}
           /> */}
-          <NestedComent comments={comments} blogId={blog?._id} />
+          {/* <NestedComent comments={comments} blogId={blog?._id} /> */}
         </main>
         {/* share content  */}
         <div className="md:flex justify-end">

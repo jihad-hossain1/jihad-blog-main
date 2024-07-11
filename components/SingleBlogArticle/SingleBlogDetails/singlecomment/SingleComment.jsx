@@ -87,7 +87,7 @@ const SingleComment = ({ comment }) => {
               </h4>
               <div className="flex gap-2 items-center">
                 <p className="text-xs text-gray-600">
-                  {formatTimestamp(comment?.createdAt)}
+                  {new Date(comment?.createdAt).toLocaleDateString("en-US")}
                 </p>
 
                 <DropdownMenu>
@@ -100,12 +100,11 @@ const SingleComment = ({ comment }) => {
                         <span>Share</span>
                         <MdShare />
                       </button>
-                      <hr />
                       <button className="flex items-center justify-between gap-5 px-2 hover:border-l-2 hover:border-r-2 hover:border-orange-600 transition-all duration-150">
                         <span>Hide</span>
                         <MdHideSource />
                       </button>
-                      <hr />
+
                       <Dialog>
                         <DialogTrigger>
                           <button
@@ -160,8 +159,12 @@ const SingleComment = ({ comment }) => {
                         </DialogContent>
                       </Dialog>
 
-                      <hr />
-                      <DeleteComment id={comment?._id} email={comment?.email} />
+                      {session?.user.email === comment?.email && (
+                        <DeleteComment
+                          id={comment?._id}
+                          email={comment?.email}
+                        />
+                      )}
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>

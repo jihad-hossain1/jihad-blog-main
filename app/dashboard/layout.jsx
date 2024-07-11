@@ -35,10 +35,9 @@ const DashboardLayout = ({ children }) => {
                 <span className="md:hidden">Products</span>
               </li>
             </Link>
-            <Link href={"/dashboard"}>
+            <Link href={"/dashboard/messages"}>
               <li className="text-xs md:text-lg">
-                <span className="hidden md:block">Dash-Home</span>
-                <span className="md:hidden">Home</span>
+                <span className="hidden md:block">Messages</span>
               </li>
             </Link>
           </ul>

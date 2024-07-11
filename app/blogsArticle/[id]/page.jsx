@@ -19,19 +19,10 @@ const getBlogById = async (id) => {
 
 const SingleBlogpage = async ({ params }) => {
   const { id } = params;
-  // const { blog} = await getBlogById(id);
   const blog = await getBlogById(id);
-
-  // console.log(result);
   return (
     <MainContainer>
-      <>
-        <SingleBlogDetails
-          id={id}
-          blog={blog?.blog}
-          comments={blog?.comments}
-        />
-      </>
+      <SingleBlogDetails id={id} blog={blog?.blog} comments={blog?.comments} />
     </MainContainer>
   );
 };

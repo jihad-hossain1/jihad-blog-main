@@ -7,40 +7,44 @@ import toast from "react-hot-toast";
 import { BsGithub, BsFacebook } from "react-icons/bs";
 import { GrLinkedinOption } from "react-icons/gr";
 import { PiBookOpenThin, PiTelegramLogoLight } from "react-icons/pi";
+import { addMessage } from "./message-server-action";
 
 const CV = ({ lastElem }) => {
   const modalRef = useRef(null);
   const formRef = useRef(null);
-  const [updateData, setUpdateData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    content: "",
+    subject: "",
+  });
 
-  const openModal = (modalComp) => {
-    setUpdateData(modalComp);
+  const openModal = () => {
     modalRef.current.showModal();
   };
   const closeModal = () => {
     modalRef.current.close();
   };
+
   const handleMessage = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const subject = form.subject.value;
-    const email = form.email.value;
-    const message = form.message.value;
-    // const info = {
-    //   name,
-    //   email,
-    //   message,
-    // };
     try {
-      toast.success("Message sending successfull");
-      form.reset();
-      setTimeout(() => {
+      setLoading(true);
+      const result = await addMessage({ ...formData });
+      setLoading(false);
+
+      if (result?.result) {
+        toast.success(result?.message);
+        setFormData({ name: "", email: "", content: "", subject: "" });
         closeModal();
-      }, 2000);
-      console.log(data);
+      }
+      if (result?.error) {
+        toast.error(result?.error);
+      }
     } catch (error) {
-      console.log(error.message);
+      setLoading(false);
+      console.error(error?.message);
     }
   };
   return (
@@ -117,7 +121,13 @@ const CV = ({ lastElem }) => {
                 className="inpt"
                 name="name"
                 placeholder="Your Name"
-                // defaultValue={updateData?.commentUser}
+                value={formData.name}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    name: e.target.value,
+                  }));
+                }}
               />
             </div>
             <div className="mb-4">
@@ -127,7 +137,13 @@ const CV = ({ lastElem }) => {
                 className="inpt"
                 name="subject"
                 placeholder="subject"
-                // defaultValue={updateData?.commentUser}
+                value={formData.subject}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    subject: e.target.value,
+                  }));
+                }}
               />
             </div>
             <div className="mb-4">
@@ -137,7 +153,13 @@ const CV = ({ lastElem }) => {
                 className="inpt"
                 name="email"
                 placeholder="Your Email"
-                // defaultValue={updateData?.commentUser}
+                value={formData.email}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    email: e.target.value,
+                  }));
+                }}
               />
             </div>
             <div className="mb-4">
@@ -147,11 +169,18 @@ const CV = ({ lastElem }) => {
                 className="inpt"
                 name="message"
                 placeholder="Your Message"
+                value={formData.content}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    content: e.target.value,
+                  }));
+                }}
               />
             </div>
             <div>
               <button className="inpt btn" type="submit">
-                Send
+                {loading ? "Sending..." : "Send"}
               </button>
             </div>
           </form>

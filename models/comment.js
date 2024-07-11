@@ -16,7 +16,9 @@ const commentSchema = new Schema({
 
   details: {
     type: String,
-    required: true,
+    required: [true, "details are required"],
+    trim: true,
+    maxlength: [200, "details can not be more than 200 characters"],
   },
   blogId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -37,7 +39,9 @@ const commentSchema = new Schema({
       },
       details: {
         type: String,
-        required: true,
+        required: [true, "details are required"],
+        trim: true,
+        maxlength: [200, "details can not be more than 200 characters"],
       },
       photo: {
         type: String,

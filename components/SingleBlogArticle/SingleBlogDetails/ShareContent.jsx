@@ -18,11 +18,14 @@ const ShareContent = ({ bid }) => {
   return (
     <aside className="">
       <Toaster />
-      <h4 className="bg-green-600 px-2 text-sm text-zinc-50 rounded-md shadow">
+      <h4 className="bg-green-600 px-2 text-sm text-zinc-50 rounded-md shadow max-sm:text-center max-sm:py-3">
         Share This
       </h4>
-      <div className="flex items-center md:flex-col  gap-4 mt-2">
-        <div onClick={handleClipBoard} className="w-20 inline-block">
+      <div className="flex items-center lg:flex-col max-sm:justify-center max-sm:mt-4   gap-4 mt-2 ">
+        <div
+          onClick={handleClipBoard}
+          className="max-sm:w-10 lg:w-20 inline-block"
+        >
           <Image
             alt="any"
             height={100}
@@ -31,7 +34,10 @@ const ShareContent = ({ bid }) => {
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />
         </div>
-        <div onClick={handleClipBoard} className="w-20 inline-block">
+        <div
+          onClick={handleClipBoard}
+          className="max-sm:w-10 lg:w-20 inline-block"
+        >
           <Image
             alt="any"
             height={100}
@@ -40,7 +46,10 @@ const ShareContent = ({ bid }) => {
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />
         </div>
-        <div onClick={handleClipBoard} className="w-20 inline-block">
+        <div
+          onClick={handleClipBoard}
+          className="max-sm:w-10 lg:w-20 inline-block"
+        >
           <Image
             alt="any"
             height={100}
