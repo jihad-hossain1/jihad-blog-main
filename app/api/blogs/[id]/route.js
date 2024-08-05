@@ -1,4 +1,5 @@
 // import connectMongoDB from "@/database/connectMongoDB";
+import { modSlug } from "@/helpers/modText";
 import connectMongoDB from "@/lib/mongodb";
 import BlogDetail from "@/models/BlogDetail";
 import Blog from "@/models/blog";
@@ -9,13 +10,25 @@ import { NextResponse } from "next/server";
 export async function PUT(request, { params }) {
   const { id } = params;
   const {
-    newArticleTitle: articleTitle,
-    newDetails: details,
-    newImage: image,
+    articleTitle,
+    details,
+    image,
   } = await request.json();
-  await connectMongoDB();
-  await Blog.findByIdAndUpdate(id, { articleTitle, details, image });
-  return NextResponse.json({ message: "Blog updated" }, { status: 200 });
+
+ try {
+   await connectMongoDB();
+ 
+   const modSlugs = await modSlug(articleTitle,Blog)
+ 
+  const newUpdate = await Blog.findByIdAndUpdate(id, { articleTitle: articleTitle?.trim(), slug: modSlugs }, {
+   new: true,
+  });
+ 
+   return NextResponse.json({result: "success", message: "Blog updated" }, { status: 200 });
+
+ } catch (error) {
+  return NextResponse.json({ error: error?.message }, { status: 500 });
+ }
 }
 //get single id
 export async function GET(request, { params }) {

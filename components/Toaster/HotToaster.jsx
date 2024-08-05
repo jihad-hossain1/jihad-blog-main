@@ -2,4 +2,6 @@
 
 import { Toaster } from "react-hot-toast";
 
-export default Toaster;
+const HotToaster = Toaster
+
+export default HotToaster;

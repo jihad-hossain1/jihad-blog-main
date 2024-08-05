@@ -77,8 +77,8 @@ const AddarticlesForm = () => {
           details,
         },
         sortContent: sortContent.trim(),
-        slug: slug.trim(),
       });
+      console.log("🚀 ~ handleSubmit ~ res:", res)
 
       if (res?.error) {
         setloading(false);
@@ -139,18 +139,7 @@ const AddarticlesForm = () => {
                 onChange={(e) => setarticleTitle(e.target.value)}
               />
             </div>
-            <div>
-              <label className="text-gray-900 font-semibold">Slug</label>
-              <input
-                className="inpt"
-                required
-                placeholder="Slug"
-                type="text"
-                name="slug"
-                value={slug}
-                onChange={(e) => setSlug(e.target.value)}
-              />
-            </div>
+           
           </div>
           {/* blog category section  */}
           <div className="">

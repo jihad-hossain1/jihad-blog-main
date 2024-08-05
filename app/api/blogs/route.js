@@ -1,7 +1,7 @@
 import { valid, validMax } from "@/helpers/inputValidation";
+import { modSlug } from "@/helpers/modText";
 import connectMongoDB from "@/lib/mongodb";
 import BlogDetail from "@/models/BlogDetail";
-// import connectMongoDB from "@/database/connectMongoDB";
 import Blog from "@/models/blog";
 import { NextResponse } from "next/server";
 
@@ -12,7 +12,6 @@ export async function POST(request) {
     sortContent,
     details: bDetails,
     author,
-    slug,
   } = await request.json();
 
   try {
@@ -20,21 +19,11 @@ export async function POST(request) {
     validMax(articleCategory, "Article Category", 1, 50);
     validMax(sortContent, "Sort Content", 10, 250);
     valid(author.name, "Author Name");
-    validMax(slug, "Slug", 5, 50);
 
     await connectMongoDB();
 
-    const findSlug = await Blog.findOne({ slug: slug.trim() });
-    if (findSlug) {
-      return NextResponse.json(
-        {
-          error: "slug already exists",
-        },
-        { status: 400 }
-      );
-    }
-
     const details = await BlogDetail.create(bDetails);
+    const modifySlug  = await modSlug(articleTitle,Blog);
 
     if (details) {
       const newBlog = await Blog.create({
@@ -42,7 +31,7 @@ export async function POST(request) {
         articleCategory,
         sortContent: sortContent.trim(),
         author,
-        slug: slug.trim(),
+        slug: modifySlug,
       });
 
       if (!newBlog) {

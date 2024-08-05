@@ -6,6 +6,7 @@ import { debounce } from "@/helpers/debounce";
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
+  console.log("🚀 ~ BlogPage ~ blogs:", blogs)
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [limit, setLimit] = useState(10);

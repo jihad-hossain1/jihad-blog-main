@@ -67,10 +67,10 @@ const SingleBlogArticle = ({ blog }) => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <hr className="h-[1px] w-full  " />
+          <hr className="h-[1px] w-full" />
           <div className="">
             <Link
-              href={`/blogsArticle/${blog?._id}`}
+              href={`/blogsArticle/${blog?.slug}`}
               className="  text-sm lg:text-lg font-semibold hover:underline"
             >
               {blog?.articleTitle}
@@ -80,7 +80,7 @@ const SingleBlogArticle = ({ blog }) => {
             {blog?.sortContent?.slice(0, 200)}...
           </p>
           <div className="flex items-center justify-between">
-            <Link href={`/blogsArticle/${blog?._id}`} className="linkT">
+            <Link href={`/blogsArticle/${blog?.slug}`} className="linkT">
               Read More
             </Link>
             <div className="flex items-center space-x-3 text-gray-500">

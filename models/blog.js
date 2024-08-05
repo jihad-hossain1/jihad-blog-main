@@ -30,7 +30,7 @@ const blogSchema = new Schema({
     lowercase: true,
     index: true,
     trim: true,
-    max: [50, "Slug cannot be more than 50 characters"],
+    max: [250, "Slug cannot be more than 250 characters"],
   },
   author: {
     userId: {

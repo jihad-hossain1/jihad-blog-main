@@ -1,16 +1,12 @@
 import ShareContent from "./ShareContent";
 import NewBlogBadge from "./NewBlogBadge";
 import DetailsBlog from "./DetailsBlog";
-// import Comments from "./Comments";
 import Link from "next/link";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Image from "next/image";
-import NestedComment from "./comment/NestedComment";
-import commentsData from "@/public/data.json";
-import NestedComent from "./coment/NestedComent";
 import Comments from "./Comments";
 
-const SingleBlogDetails = ({ blog, id, comments }) => {
+const SingleBlogDetails = ({ blog }) => {
   const getColorText = (bg) => {
     let color = `bg-gray-700`;
 
@@ -71,15 +67,7 @@ const SingleBlogDetails = ({ blog, id, comments }) => {
           <div>
             <Comments bid={blog?._id} />
           </div>
-          {/* <NestedComment
-            comments={comments}
-            onSubmit={() => {}}
-            onEdit={() => {}}
-            onDelete={() => {}}
-            // onUpvote={() => {}}
-            // onDownvote={() => {}}
-          /> */}
-          {/* <NestedComent comments={comments} blogId={blog?._id} /> */}
+         
         </main>
         {/* share content  */}
         <div className="md:flex justify-end">
