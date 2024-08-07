@@ -10,9 +10,11 @@ const categorySchema = new Schema({
   },
 
   createdAt: { type: Date, default: Date.now },
-  sortId: {
+  shortId: {
     type: String,
   },
+},{
+  timestamps: true
 });
 
 const Category =
@@ -32,9 +34,11 @@ const subCategorySchema = new Schema({
   },
 
   createdAt: { type: Date, default: Date.now },
-  sortId: {
+  shortId: {
     type: String,
   },
+},{
+  timestamps: true
 });
 
 const SubCategory =

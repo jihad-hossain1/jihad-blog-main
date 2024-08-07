@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const path = usePathname();
-  const paths = ["/login", "/register", "/denied"];
+  const paths = ["/login", "/register", "/denied", '/dashboard'];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,8 +25,10 @@ const Footer = () => {
       form.reset();
     }
   };
+
+  const hiddenPath = paths.some((item) => path.startsWith(item));
   return (
-    <div className={paths.includes(path) ? "hidden" : "block bg-slate-100/5"}>
+    <div className={hiddenPath ? "hidden" : "block bg-slate-100/5"}>
       <div className="text-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto  gap-3 mt-6 p-3">
           <div className="text-gray-800">

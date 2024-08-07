@@ -14,6 +14,10 @@ const blogSchema = new Schema({
     max: [50, "Category cannot be more than 50 characters"],
     trim: true,
   },
+  catId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "SubCategory",
+  },
   sortContent: {
     type: String,
     required: true,

@@ -38,3 +38,21 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+
+export async function GET(request) {
+  const { searchParams } = new URL(request.nextUrl)
+  const catId = searchParams.get('catId')
+  try {
+    await connectMongoDB();
+    if(catId){
+      const categories = await SubCategory.find({catId: catId});
+      return NextResponse.json(categories);
+    }else{
+      const categories = await SubCategory.find({});
+      return NextResponse.json(categories);
+    }
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

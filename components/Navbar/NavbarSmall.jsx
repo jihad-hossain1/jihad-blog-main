@@ -52,12 +52,12 @@ const NavbarSmall = () => {
   let [open, setOpen] = useState(false);
   const path = usePathname();
 
-  const paths = ["/login", "/register", "/denied"];
-  // const location =
+  const paths = ["/login", "/register", "/denied", '/dashboard'];
+  const hiddenPath = paths.some((item) => path.startsWith(item));
   return (
     <nav
       className={
-        paths.includes(path)
+        hiddenPath
           ? "hidden"
           : "shadow-md w-full sticky z-50 top-0 left-0 bg-white"
       }
