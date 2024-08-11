@@ -35,8 +35,8 @@ const SearchForm = () => {
     debouncedFetchBlog(searchTerm);
   }, [searchTerm, debouncedFetchBlog]);
 
-  const handleClick = (id) => {
-    router.push(`/blogsArticle/${id}`);
+  const handleClick = (slug) => {
+    router.push(`/blogsArticle/${slug}`);
     setIsOpen(false);
   };
 
@@ -78,7 +78,7 @@ const SearchForm = () => {
                 <div
                   className="border border-gray-200 rounded-md p-2 cursor-pointer"
                   key={blog?._id}
-                  onClick={() => handleClick(blog?._id)}
+                  onClick={() => handleClick(blog?.slug)}
                 >
                   {blog?.articleTitle}
                 </div>

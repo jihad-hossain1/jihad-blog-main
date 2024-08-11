@@ -1,11 +1,12 @@
 import connectMongoDB from "@/lib/mongodb";
 import Blog from "@/models/blog";
+import BlogDetail from "@/models/BlogDetail";
 import Coment from "@/models/coment";
 import { NextResponse } from "next/server";
 
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams } = new URL(request.nextUrl);
   const slug = searchParams.get("slug") || "";
 
   try {
@@ -15,11 +16,15 @@ export async function GET(request) {
 
     await connectMongoDB();
 
-    const blog = await Blog.findOne({ slug: slug }).populate("details");
-    const populateBlogComents = await Coment.find({ blogId: blog?._id });
+    const blog = await Blog.findOne({ slug: slug })
+  
+    const findDetails = await BlogDetail.findOne({ _id: blog?.details });
+
+    // const populateBlogComents = await Coment.find({ blogId: blog?._id });
+    // console.log("🚀 ~ GET ~ populateBlogComents:", populateBlogComents)
 
     return NextResponse.json(
-      { blog, comments: populateBlogComents },
+      { blog: blog, details: findDetails },
       { status: 200 }
     );
   } catch (error) {

@@ -6,7 +6,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import Image from "next/image";
 import Comments from "./Comments";
 
-const SingleBlogDetails = ({ blog }) => {
+const SingleBlogDetails = ({ blog , details }) => {
   const getColorText = (bg) => {
     let color = `bg-gray-700`;
 
@@ -55,13 +55,13 @@ const SingleBlogDetails = ({ blog }) => {
               width={400}
               height={400}
               className="max-h-[500px] w-full object-cover rounded-lg mb-3"
-              src={blog?.details?.image}
+              src={details?.image}
               alt="blog image"
             />
           </div>
           <div>
             <h3 className="mb-4 text-xl font-bold">{blog?.articleTitle}</h3>
-            <DetailsBlog details={blog?.details?.details} />
+            <DetailsBlog details={details?.details} />
           </div>
 
           <div>

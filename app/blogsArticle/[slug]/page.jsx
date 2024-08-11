@@ -3,11 +3,11 @@ import SingleBlogDetails from "@/components/SingleBlogArticle/SingleBlogDetails/
 
 const getBlogById = async (slug) => {
   try {
-    const res = await fetch(`${process.env.NEXT_BASE_URL}/api/blogs/blog-by-slug?slug=${slug}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/blogs/blog-by-slug?slug=${slug}`, {
       cache: "no-store",
     });
     const data = await res.json();
-    console.log("🚀 ~ getBlogById ~ data:", data)
+    // console.log("🚀 ~ getBlogById ~ data:", data)
     return data;
   } catch (error) {
     console.error(error);
@@ -18,10 +18,10 @@ const getBlogById = async (slug) => {
 const SingleBlogpage = async ({ params }) => {
   const slug = params.slug;
   const blog = await getBlogById(slug);
-  console.log("🚀 ~ SingleBlogpage ~ blog:", blog)
+  // console.log("🚀 ~ SingleBlogpage ~ blog:", blog)
   return (
     <MainContainer>
-      <SingleBlogDetails  blog={blog?.blog} />
+      <SingleBlogDetails details={blog?.details}  blog={blog?.blog} />
     </MainContainer>
   );
 };

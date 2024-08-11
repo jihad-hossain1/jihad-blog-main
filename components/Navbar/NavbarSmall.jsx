@@ -3,13 +3,11 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import Link from "next/link";
-import Search from "./search/Search";
 import { useSession, signOut } from "next-auth/react";
 import Logo from "./Logo";
 import Book from "./Book";
 import Buyproduct from "./Buyproduct";
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { usePathname } from "next/navigation";
+import SearchForm from "./search/SearchForm";
 
 const listvariants = {
   hidden: { opacity: 0 },
@@ -52,7 +51,7 @@ const NavbarSmall = () => {
   let [open, setOpen] = useState(false);
   const path = usePathname();
 
-  const paths = ["/login", "/register", "/denied", '/dashboard'];
+  const paths = ["/login", "/register", "/denied", "/dashboard"];
   const hiddenPath = paths.some((item) => path.startsWith(item));
   return (
     <nav
@@ -68,7 +67,7 @@ const NavbarSmall = () => {
             <Logo />
             <Book />
             <div>
-              <Search />
+              <SearchForm />
             </div>
           </div>
         </div>
@@ -139,7 +138,7 @@ const NavbarSmall = () => {
             <Logo />
             {/* <Search /> */}
             <div className="relative flex items-center gap-6">
-              <Search />
+              <SearchForm />
               <button
                 onClick={() => setOpen((pre) => !pre)}
                 className="text-3xl"
@@ -183,13 +182,19 @@ const NavbarSmall = () => {
                       {status === "authenticated" ? (
                         <>
                           <motion.a href="/addBlog">create blog</motion.a>
-                          <motion.a href="/addBlog">create blog</motion.a>
+                          {session?.user?.role == "admin" && (
+                            <motion.a href={"/dashboard"} >
+                              <p>Dashboard</p>
+                            </motion.a>
+                          )}
                           <motion.a
                             className="cursor-pointer"
                             onClick={() => signOut()}
                           >
                             Log-Out
                           </motion.a>
+
+                          
                         </>
                       ) : (
                         <motion.a variants={itemMotion} href="/login">

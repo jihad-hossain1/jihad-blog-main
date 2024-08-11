@@ -41,7 +41,7 @@ const BlogReplies = ({ replies, commentId, blogId }) => {
                 </h4>
                 <div className="flex gap-2 items-center">
                   <p className="text-xs text-gray-600">
-                    {formatTimestamp(reply?.createdAt)}
+                    {new Date(reply?.createdAt).toLocaleDateString("en-US")}
                   </p>
 
                   <DropdownMenu>

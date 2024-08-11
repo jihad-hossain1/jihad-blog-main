@@ -6,7 +6,7 @@ import CommentForm from "./CommentForm";
 async function getCommentById(blogId) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_BASE_URL}/api/blogCommets?blogId=${blogId}`,
+      `${process.env.NEXT_PUBLIC_API}/api/blogCommets?blogId=${blogId}`,
       {
         cache: "no-store",
       }
