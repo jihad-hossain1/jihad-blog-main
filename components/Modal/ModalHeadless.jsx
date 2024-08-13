@@ -3,9 +3,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ACTION_TYPES } from "@/reducer/categoryReducer";
 
-export default function ModalHeadless({ isOpen, setIsOpen, title, children }) {
+export default function ModalHeadless({ isOpen, setIsOpen, title, children ,dispatch  }) {
   function closeModal() {
+    dispatch({ type: ACTION_TYPES.SET_MODAL_STATE, payload: false });
     setIsOpen(false);
   }
 

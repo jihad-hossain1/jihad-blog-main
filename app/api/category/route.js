@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 // generate unique id auto increment
 async function generateId() {
-  return Date.now().toString(10) + Math.random().toString(10);
+  return Date.now().toString(5) + Math.random().toString(5);
 }
 
 export async function POST(request) {
@@ -29,10 +29,10 @@ export async function POST(request) {
       );
     }
 
-    const newCategory = new Category({ name, sortId: sortId });
-    await newCategory.save();
+    const newCategory = new Category({ name, uid: sortId });
+   const result = await newCategory.save();
 
-    return NextResponse.json({ message: "Category Created" }, { status: 201 });
+    return NextResponse.json({ result: result, message: "Category Created" }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -42,7 +42,8 @@ export async function POST(request) {
 export async function GET() {
   try {
     await connectMongoDB();
-    const categories = await Category.find({});
+    const categories = await Category.find();
+    console.log("🚀 ~ GET ~ categories:", categories)
     return NextResponse.json(categories);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -10,7 +10,7 @@ const categorySchema = new Schema({
   },
 
   createdAt: { type: Date, default: Date.now },
-  shortId: {
+  uid: {
     type: String,
   },
 },{
