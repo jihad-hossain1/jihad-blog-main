@@ -4,7 +4,9 @@ export const fetchBlogs = async () => {
       next: { tags: ["blog"] },
     });
 
-    return res.json();
+    const data = await res.json();
+
+    return data;
   } catch (error) {
     console.error("error loading topics:", error);
   }

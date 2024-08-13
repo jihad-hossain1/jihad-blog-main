@@ -7,8 +7,8 @@ import { getResume } from "@/utils/fetchResume";
 import HomeBanner from "./HomeBanner";
 
 const Home = async () => {
-  const { resumes } = await getResume();
-  const lastElem = await resumes?.at(-1);
+  const resumes = await getResume();
+  const lastElem = await resumes?.resumes?.at(-1);
 
   return (
     <Container>
