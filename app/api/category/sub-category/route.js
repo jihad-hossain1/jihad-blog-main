@@ -1,18 +1,20 @@
-import { valid, validId } from "@/helpers/inputValidation";
+import { valid, validId, validMax } from "@/helpers/inputValidation";
 import connectMongoDB from "@/lib/mongodb";
 import { Category, SubCategory } from "@/models/category";
 import { NextResponse } from "next/server";
 
 // generate unique id auto increment
 async function generateId() {
-  return Date.now().toString(10) + Math.random().toString(10);
+  const categories = await SubCategory.find();
+  const id = categories.length + 1;
+  return id.toString();
 }
 
 export async function POST(request) {
   const { name, catId } = await request.json();
-
+  
   try {
-    validId(catId, "Category");
+    console.log("🚀 ~ POST ~ { name, catId }:", { name, catId })
     validMax(name, "Name", 1, 20);
     valid(catId, "Category");
 
@@ -30,10 +32,10 @@ export async function POST(request) {
       );
     }
 
-    const newCategory = new SubCategory({ name, sortId: sortId, catId: catId });
+    const newCategory = new SubCategory({ name, uid: sortId, catId: catId });
     await newCategory.save();
 
-    return NextResponse.json({ message: "Category Created" }, { status: 201 });
+    return NextResponse.json({ result: 'success', message: "Category Created" }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

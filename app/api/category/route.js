@@ -5,7 +5,9 @@ import { NextResponse } from "next/server";
 
 // generate unique id auto increment
 async function generateId() {
-  return Date.now().toString(5) + Math.random().toString(5);
+  const categories = await Category.find();
+  const id = categories.length + 1;
+  return id.toString();
 }
 
 export async function POST(request) {

@@ -29,12 +29,11 @@ const subCategorySchema = new Schema({
     unique: [true, "Name must be unique"],
   },
   catId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+    type: String,
   },
 
   createdAt: { type: Date, default: Date.now },
-  shortId: {
+  uid: {
     type: String,
   },
 },{

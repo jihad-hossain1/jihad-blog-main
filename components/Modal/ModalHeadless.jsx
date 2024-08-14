@@ -5,9 +5,9 @@ import { Fragment } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ACTION_TYPES } from "@/reducer/categoryReducer";
 
-export default function ModalHeadless({ isOpen, setIsOpen, title, children ,dispatch  }) {
+export default function ModalHeadless({ isOpen, setIsOpen, title, children ,dispatch,type  }) {
   function closeModal() {
-    dispatch({ type: ACTION_TYPES.SET_MODAL_STATE, payload: false });
+    dispatch({ type: type, payload: false });
     setIsOpen(false);
   }
 
@@ -33,6 +33,7 @@ export default function ModalHeadless({ isOpen, setIsOpen, title, children ,disp
 
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
+             
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -42,7 +43,10 @@ export default function ModalHeadless({ isOpen, setIsOpen, title, children ,disp
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="relative w-full max-w-md transform overflow-hidden rounded bg-white p-1 text-left align-middle shadow-xl transition-all">
+               <div className="absolute top-0 right-0">
+               <button onClick={closeModal} className="btn text-xl px-3 py-1 bg-red-500 hover:bg-red-600">x</button>
+               </div>
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"

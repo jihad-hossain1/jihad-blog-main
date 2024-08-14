@@ -18,6 +18,8 @@ const AddarticlesForm = () => {
 
   const { toast } = useToast();
   const [isPreview, setPreview] = useState(false);
+  const [categoryData, setCategoryData] = useState([]);
+  console.log("🚀 ~ AddarticlesForm ~ categoryData:", categoryData)
 
   const [category, setCategory] = useState("");
   const [loading, setloading] = useState(false);
@@ -102,6 +104,20 @@ const AddarticlesForm = () => {
     }
   };
   // console.log();
+
+  const fetchSubData = React.useCallback(async () => {
+    try {
+        const data = await fetch("/api/category/sub-category");
+        const json = await data.json();
+        setCategoryData(json);
+    } catch (error) {
+        console.error(error);
+    }
+}, []);
+
+React.useEffect(() => {
+  fetchSubData();
+}, [fetchSubData]);
   return (
     <div className="max-w-screen-xl mx-auto px-2 py-5 min-h-screen">
       <h4 className="text-gray-900 font-semibold text-2xl text-center">
@@ -150,9 +166,9 @@ const AddarticlesForm = () => {
             >
               <option>Select a Category</option>
 
-              {categoriesData.map((ite) => (
-                <option key={ite.id} value={ite.value}>
-                  {ite.value}
+              {categoryData?.map((ite) => (
+                <option key={ite._id} value={ite.name}>
+                  {ite.name}
                 </option>
               ))}
             </select>
