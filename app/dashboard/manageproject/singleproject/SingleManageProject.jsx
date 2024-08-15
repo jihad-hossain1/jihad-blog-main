@@ -21,10 +21,6 @@ const SingleManageProject = ({ item }) => {
       }
     }
   };
-  const handleUpdateItme = (ite) => {
-    console.log(ite?._id);
-  };
-
   return (
     <div className="bg-white p-4 rounded-sm shadow-sm">
       <h4 className="break-all text-sm text-blue-gray-400 mb-3">

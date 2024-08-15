@@ -7,12 +7,10 @@ export async function GET(request, { params }) {
   const { id } = params;
   await connectMongoDB();
   const product = await Product.findOne({ _id: id });
-  // console.log('from ser',product);
   return NextResponse.json({ product }, { status: 200 });
 }
 
 export async function PUT(req, { params }) {
-  // console.log(req);
   try {
     const { id } = params;
     const body = await req.json();
@@ -20,7 +18,7 @@ export async function PUT(req, { params }) {
     const update = await Product.findByIdAndUpdate(id, {
       ...body
     })
-      console.log(update);
+     
     return NextResponse.json({ message: 'product updated' }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "not update some err:", error }, { status: 500 });
@@ -28,7 +26,6 @@ export async function PUT(req, { params }) {
 }
 
 export async function DELETE(req,{params}) {
-  // console.log(req);
   try {
       const { id } = params;
       await connectMongoDB();

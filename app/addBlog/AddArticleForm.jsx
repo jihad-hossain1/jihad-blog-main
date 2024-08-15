@@ -1,6 +1,5 @@
 "use client";
-// import AuthContext from "@/context/AuthContext";
-import { categoriesData } from "./categoryData";
+
 import React, { useState } from "react";
 import axios from "axios";
 import MarkdownPreview from "./MarkdownPreview";
@@ -19,7 +18,6 @@ const AddarticlesForm = () => {
   const { toast } = useToast();
   const [isPreview, setPreview] = useState(false);
   const [categoryData, setCategoryData] = useState([]);
-  console.log("🚀 ~ AddarticlesForm ~ categoryData:", categoryData)
 
   const [category, setCategory] = useState("");
   const [loading, setloading] = useState(false);
@@ -27,7 +25,6 @@ const AddarticlesForm = () => {
   const [details, setDetails] = useState("");
   const [articleTitle, setarticleTitle] = useState("");
   const [sortContent, setSortContent] = useState("");
-  const [slug, setSlug] = useState("");
 
   const [photo, setPhoto] = useState("");
   const [image, setimage] = useState(null);
@@ -43,7 +40,7 @@ const AddarticlesForm = () => {
       let _up = await res?.data?.secure_url;
       setPhoto(_up);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -80,7 +77,7 @@ const AddarticlesForm = () => {
         },
         sortContent: sortContent.trim(),
       });
-      console.log("🚀 ~ handleSubmit ~ res:", res)
+
 
       if (res?.error) {
         setloading(false);
@@ -100,10 +97,10 @@ const AddarticlesForm = () => {
         setloading(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-  // console.log();
+
 
   const fetchSubData = React.useCallback(async () => {
     try {
@@ -118,6 +115,8 @@ const AddarticlesForm = () => {
 React.useEffect(() => {
   fetchSubData();
 }, [fetchSubData]);
+
+
   return (
     <div className="max-w-screen-xl mx-auto px-2 py-5 min-h-screen">
       <h4 className="text-gray-900 font-semibold text-2xl text-center">
@@ -218,7 +217,7 @@ React.useEffect(() => {
           </div>
 
           <div className="mt-4 ml-2">
-            <button className="w-fit btn" type="submit">
+            <button disabled={loading} className="w-fit btn" type="submit">
               Add Blog
             </button>
           </div>

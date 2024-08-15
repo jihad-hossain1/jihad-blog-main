@@ -32,17 +32,20 @@ const CategoryTable = () => {
             dispatch({ type: ACTION_TYPES.SET_SUB_LOADING, payload: false });
         } catch (error) {
             console.error(error);
-            dispatch({ type: ACTION_TYPES.SET_SUB_ERROR, payload: error.message });
+            dispatch({
+                type: ACTION_TYPES.SET_SUB_ERROR,
+                payload: error.message,
+            });
             dispatch({ type: ACTION_TYPES.SET_SUB_LOADING, payload: false });
         }
     }, []);
 
     React.useEffect(() => {
-        if(state.add) fetchData();
+        if (state.add) fetchData();
     }, [fetchData, state.add]);
 
     React.useEffect(() => {
-        if(state.subAdd) fetchSubData();
+        if (state.subAdd) fetchSubData();
     }, [fetchSubData, state.subAdd]);
 
     const handleAddCategory = async () => {
@@ -90,18 +93,24 @@ const CategoryTable = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name: state.subCategoryName, catId: state.catId }),
+                body: JSON.stringify({
+                    name: state.subCategoryName,
+                    catId: state.catId,
+                }),
             });
             const json = await data.json();
 
             if (json.result) {
                 dispatch({ type: ACTION_TYPES.SET_SUB_ADD, payload: true });
-                toast.success('Sub Category Created');
+                toast.success("Sub Category Created");
                 dispatch({
                     type: ACTION_TYPES.SET_SUB_LOADING,
                     payload: false,
                 });
-                dispatch({ type: ACTION_TYPES.SET_SUB_CATEGORY_NAME, payload: "" });
+                dispatch({
+                    type: ACTION_TYPES.SET_SUB_CATEGORY_NAME,
+                    payload: "",
+                });
                 dispatch({ type: ACTION_TYPES.SET_CAT_ID, payload: "" });
                 // fetchData();
             }
@@ -139,43 +148,66 @@ const CategoryTable = () => {
             </div>
 
             <div>
-                <table className='w-full border'>
-                    <thead>
-                        <tr className='bg-gray-300 shadow rounded'>
-                            <th className='px-4 py-3 text-start'>Uid</th>
-                            <th className='px-4 py-3 text-start'>Name</th>
-                            <th className='px-4 py-3 text-start'>Created At</th>
-                            <th className='px-4 py-3 text-end'>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {state.loading ? [...Array(5)].map((_,ind) => <tr key={ind}><td className='px-4 py-3 text-start h-10 w-full bg-zinc-400/90 border-b border-white  animate-pulse'></td></tr>) :  state.categories?.map((category) => (
-                            <tr
-                                key={category?._id}
-                                className='border-b border-gray-300 hover:bg-gray-100 '
-                            >
-                                <td className='px-4 py-3 text-start'>
-                                    {category?.uid}
-                                </td>
-                                <td className='px-4 py-3 text-start'>
-                                    {category?.name}
-                                </td>
-                                <td className='px-4 py-3 text-start'>
-                                    {new Date(
-                                        category?.createdAt,
-                                    ).toLocaleDateString("en-US")}
-                                </td>
-                                <td className='px-4 py-3 text-end'>
-                                    <button className='btn'>Edit</button>
-                                </td>
+                {state.loading ? (
+                    <table className='w-full border'>
+                        <thead>
+                            {[...Array(5)].map((_, ind) => (
+                                <tr key={ind}>
+                                    <th className='px-4 py-3 text-start h-10 w-full bg-zinc-400/90 border-b border-white  animate-pulse'></th>
+                                </tr>
+                            ))}
+                        </thead>
+                        {[...Array(5)].map((_, ind) => (
+                            <tr key={ind}>
+                                <td className='px-4 py-3 text-start h-10 w-full bg-zinc-400/90 border-b border-white  animate-pulse'></td>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
+                    </table>
+                ) : (
+                    <table className='w-full border'>
+                        <thead>
+                            <tr className='bg-gray-300 shadow rounded'>
+                                <th className='px-4 py-3 text-start'>Uid</th>
+                                <th className='px-4 py-3 text-start'>Name</th>
+                                <th className='px-4 py-3 text-start'>
+                                    Created At
+                                </th>
+                                <th className='px-4 py-3 text-end'>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {state.categories?.map((category) => (
+                                <tr
+                                    key={category?._id}
+                                    className='border-b border-gray-300 hover:bg-gray-100 '
+                                >
+                                    <td className='px-4 py-3 text-start'>
+                                        {category?.uid}
+                                    </td>
+                                    <td className='px-4 py-3 text-start'>
+                                        {category?.name}
+                                    </td>
+                                    <td className='px-4 py-3 text-start'>
+                                        {new Date(
+                                            category?.createdAt,
+                                        ).toLocaleDateString("en-US")}
+                                    </td>
+                                    <td className='px-4 py-3 text-right'>
+                                        <button className='btn'>Edit</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
 
-            <ModalHeadless isOpen={state.modalState} type={ACTION_TYPES.SET_MODAL_STATE} dispatch={dispatch}>
+            <ModalHeadless
+                isOpen={state.modalState}
+                type={ACTION_TYPES.SET_MODAL_STATE}
+                dispatch={dispatch}
+            >
                 <div className='flex flex-col gap-2 p-5'>
                     <h4 className='text-center text-2xl pb-3 '>Add Category</h4>
                     <input
@@ -221,68 +253,105 @@ const CategoryTable = () => {
             </div>
 
             <div>
-                <table className='w-full border'>
-                    <thead>
-                        <tr className='bg-gray-300 shadow rounded'>
-                            <th className='px-4 py-3 text-start'>Uid</th>
-                            <th className='px-4 py-3 text-start'>Name</th>
-                            <th className='px-4 py-3 text-start'>Created At</th>
-                            <th className='px-4 py-3 text-start'>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {state.subLoading ? [...Array(5)].map((_,ind) => <tr key={ind}><td className='px-4 py-3 text-start h-10 w-full bg-zinc-400/90 border-b border-white  animate-pulse'></td></tr>) :  state.subCategories?.map((category) => (
-                            <tr
-                                key={category?._id}
-                                className='border-b border-gray-300 hover:bg-gray-100 '
-                            >
-                                <td className='px-4 py-3 text-start'>
-                                    {category?.uid}
-                                </td>
-                                <td className='px-4 py-3 text-start'>
-                                    {category?.name}
-                                </td>
-                                <td className='px-4 py-3 text-start'>
-                                    {new Date(
-                                        category?.createdAt,
-                                    ).toLocaleDateString("en-US")}
-                                </td>
-                                <td className='px-4 py-3 text-start'>
-                                    <button className='btn'>Edit</button>
-                                </td>
+                {state.subLoading ? (
+                    <table className='w-full border'>
+                        <thead>
+                            {[...Array(5)].map((_, ind) => (
+                                <tr key={ind}>
+                                    <th className='px-4 py-3 text-start h-10 w-full bg-zinc-400/90 border-b border-white  animate-pulse'></th>
+                                </tr>
+                            ))}
+                        </thead>
+                        {[...Array(5)].map((_, ind) => (
+                            <tr key={ind}>
+                                <td className='px-4 py-3 text-start h-10 w-full bg-zinc-400/90 border-b border-white  animate-pulse'></td>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
+                    </table>
+                ) : (
+                    <table className='w-full border'>
+                        <thead>
+                            <tr className='bg-gray-300 shadow rounded'>
+                                <th className='px-4 py-3 text-start'>Uid</th>
+                                <th className='px-4 py-3 text-start'>Name</th>
+                                <th className='px-4 py-3 text-start'>
+                                    Created At
+                                </th>
+                                <th className='px-4 py-3 text-end'>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {state.subCategories?.map((category) => (
+                                <tr
+                                    key={category?._id}
+                                    className='border-b border-gray-300 hover:bg-gray-100 '
+                                >
+                                    <td className='px-4 py-3 text-start'>
+                                        {category?.uid}
+                                    </td>
+                                    <td className='px-4 py-3 text-start'>
+                                        {category?.name}
+                                    </td>
+                                    <td className='px-4 py-3 text-start'>
+                                        {new Date(
+                                            category?.createdAt,
+                                        ).toLocaleDateString("en-US")}
+                                    </td>
+                                    <td className='px-4 py-3 text-end'>
+                                        <button className='btn'>Edit</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
-            <ModalHeadless isOpen={state.subModalState} type={ACTION_TYPES.SET_SUB_MODAL_STATE} dispatch={dispatch}>
+            <ModalHeadless
+                isOpen={state.subModalState}
+                type={ACTION_TYPES.SET_SUB_MODAL_STATE}
+                dispatch={dispatch}
+            >
                 <div className='flex flex-col gap-2 p-5'>
-                    <h4 className='text-center text-2xl pb-3 '>Add Sub-Category</h4>
+                    <h4 className='text-center text-2xl pb-3 '>
+                        Add Sub-Category
+                    </h4>
 
-
-                    <div className="flex flex-col gap-4">
-                    <select className='inpt' value={state.catId} onChange={(e) => dispatch({ type: ACTION_TYPES.SET_CAT_ID, payload: e.target.value })}>
-                        <option value="">--- Select Category ---</option>
-                        {
-
-                            state.categories?.map((category) => <option key={category?._id} value={category?.uid}>{category?.name}</option>)
-                        }
-                    </select>
-                    <input
-                        placeholder='Category Name'
-                        className='inpt'
-                        type='text'
-                        name=''
-                        value={state.subCategoryName}
-                        onChange={(e) =>
-                            dispatch({
-                                type: ACTION_TYPES.SET_SUB_CATEGORY_NAME,
-                                payload: e.target.value,
-                            })
-                        }
-                        id=''
-                    />
+                    <div className='flex flex-col gap-4'>
+                        <select
+                            className='inpt'
+                            value={state.catId}
+                            onChange={(e) =>
+                                dispatch({
+                                    type: ACTION_TYPES.SET_CAT_ID,
+                                    payload: e.target.value,
+                                })
+                            }
+                        >
+                            <option value=''>--- Select Category ---</option>
+                            {state.categories?.map((category) => (
+                                <option
+                                    key={category?._id}
+                                    value={category?.uid}
+                                >
+                                    {category?.name}
+                                </option>
+                            ))}
+                        </select>
+                        <input
+                            placeholder='Category Name'
+                            className='inpt'
+                            type='text'
+                            name=''
+                            value={state.subCategoryName}
+                            onChange={(e) =>
+                                dispatch({
+                                    type: ACTION_TYPES.SET_SUB_CATEGORY_NAME,
+                                    payload: e.target.value,
+                                })
+                            }
+                            id=''
+                        />
                     </div>
                     <button
                         className='btn mt-3 w-fit'

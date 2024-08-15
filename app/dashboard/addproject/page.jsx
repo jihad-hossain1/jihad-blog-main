@@ -27,9 +27,7 @@ const AddProject = () => {
       let api = `https://api.cloudinary.com/v1_1/dqfi9zw3e/${resourceType}/upload`;
 
       const res = await axios.post(api, data);
-      console.log(res);
       const { secure_url } = res.data;
-      console.log(secure_url);
       setloading(false);
       return secure_url;
     } catch (error) {
@@ -77,7 +75,6 @@ const AddProject = () => {
         body: JSON.stringify(info),
       });
       if (res.status == 200) {
-        console.log(res);
         toast.success("project is added");
         form.reset();
         setloading(false);

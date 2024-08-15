@@ -9,14 +9,14 @@ const getProductById = async (id) => {
     }
     return res.json();
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const SingleProductDetails = async ({ params }) => {
   const { id } = params;
   const { product } = await getProductById(id);
-  console.log(product);
+
   return (
     <div>
       SingleProductDetails

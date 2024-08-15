@@ -8,7 +8,6 @@ import { NextResponse } from "next/server";
 //   try {
 //     const { blogId, content, userId, parentReplyId } = await req.json();
 
-//     console.log(blogId, content, userId, parentReplyId);
 //     await connectMongoDB();
 
 //     if (parentReplyId) {
@@ -87,8 +86,6 @@ export async function GET(request) {
       const comments = await Comment.find({ blogId }).sort({
         createdAt: "desc",
       });
-      // console.log(comments);
-      // const comments = await Comment.find();
       return NextResponse.json({ comments });
     } else {
       NextResponse.json({ message: "blogId are not found" });
@@ -133,7 +130,6 @@ export async function PUT(request) {
         return NextResponse.json({ message: "blog comment are not found" });
       }
 
-      console.log(_updt);
       // const comments = await Comment.find();
       return NextResponse.json(_updt);
     } else {

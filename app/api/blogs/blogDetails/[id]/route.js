@@ -19,9 +19,9 @@ import { NextResponse } from "next/server";
 //get single blogdetails id
 export async function GET(request, { params }) {
   const { id } = params;
-  // console.log(id);
+
   await connectMongoDB();
   const blogdetail = await BlogDetail.findById({ _id: id });
-  // console.log(blogdetail);
+
   return NextResponse.json({ blogdetail }, { status: 200 });
 }

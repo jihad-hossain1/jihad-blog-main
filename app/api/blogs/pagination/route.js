@@ -8,7 +8,7 @@ export async function GET(req) {
   const searchTerm = searchParams.get("searchTerm") || "";
 
   try {
-    const { page, pageSize, sortBy, sortOrder } =
+    const { page, pageSize, sortBy, sortOrder,category,catId } =
       parseQueryParams(searchParams);
     // Define the fields you want to search through
     const searchFields = ["articleTitle", "articleCategory"];
@@ -17,11 +17,18 @@ export async function GET(req) {
 
     await connectMongoDB();
 
+    let blogs;
     const totalDocuments = await Blog.countDocuments(searchQuery);
-    const blogs = await Blog.find(searchQuery)
+     blogs = await Blog.find(searchQuery)
       .sort({ [sortBy]: sortOrder })
       .skip(skip)
       .limit(pageSize);
+
+    if(category){
+      blogs = await Blog.find({
+        articleCategory: category?.toLowerCase()
+      })
+    }
 
     return NextResponse.json({
       meta: {

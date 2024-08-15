@@ -14,7 +14,6 @@ export async function POST(request) {
   const { name, catId } = await request.json();
   
   try {
-    console.log("🚀 ~ POST ~ { name, catId }:", { name, catId })
     validMax(name, "Name", 1, 20);
     valid(catId, "Category");
 

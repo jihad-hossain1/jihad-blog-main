@@ -45,7 +45,6 @@ export async function GET() {
   try {
     await connectMongoDB();
     const categories = await Category.find();
-    console.log("🚀 ~ GET ~ categories:", categories)
     return NextResponse.json(categories);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

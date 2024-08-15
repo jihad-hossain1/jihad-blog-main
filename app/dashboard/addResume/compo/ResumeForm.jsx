@@ -13,9 +13,7 @@ const ResumeForm = () => {
     const info = {
       link,
     };
-    console.log(info);
     try {
-      //   console.log(formData);
       const res = await fetch(`/api/resume`, {
         method: "POST",
         headers: {
@@ -31,7 +29,7 @@ const ResumeForm = () => {
         throw new Error("failed to create link");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

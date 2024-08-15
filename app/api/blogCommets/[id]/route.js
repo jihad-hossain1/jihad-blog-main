@@ -18,7 +18,6 @@ export async function PUT(req, { params }) {
     const update = await Comment.findByIdAndUpdate(id, {
       ...body
     })
-      console.log(update);
     return NextResponse.json({ message: 'comment updated' }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "not update some err:", error }, { status: 500 });

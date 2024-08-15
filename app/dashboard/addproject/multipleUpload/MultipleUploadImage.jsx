@@ -14,13 +14,11 @@ const MultipleUploadForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(multiImage);
     try {
       setloading(true);
       let arr = [];
       for (let i = 0; i < multiImage.length; i++) {
         const data = await uploadMultiple(multiImage[i]);
-        console.log(data);
         arr.push(data);
       }
       setmultiLink(arr);
@@ -28,9 +26,8 @@ const MultipleUploadForm = () => {
       axios.post();
       toast.success("multiple image upload successfull");
       toast.success("check show upload button click");
-      console.log(multiLink);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

@@ -11,7 +11,7 @@ const getProjects = async () => {
     }
     return res.json();
   } catch (error) {
-    console.log("error loading projects:", error);
+    console.error("error loading projects:", error);
   }
 };
 const MyProjectPage = async () => {

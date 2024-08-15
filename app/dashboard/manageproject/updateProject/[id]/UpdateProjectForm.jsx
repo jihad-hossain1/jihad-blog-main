@@ -35,7 +35,7 @@ const UpdateProjectForm = ({ id, project }) => {
       router.push("/");
       router.refresh();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

@@ -15,13 +15,12 @@ const getTopicById = async (id) => {
     }
     return res.json();
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const EditTopic = async ({ params }) => {
   const { id } = params;
-  // console.log(id);
   const { topic } = await getTopicById(id);
   return (
     <div>

@@ -7,7 +7,6 @@ const getBlogById = async (slug) => {
       cache: "no-store",
     });
     const data = await res.json();
-    // console.log("🚀 ~ getBlogById ~ data:", data)
     return data;
   } catch (error) {
     console.error(error);
@@ -18,7 +17,6 @@ const getBlogById = async (slug) => {
 const SingleBlogpage = async ({ params }) => {
   const slug = params.slug;
   const blog = await getBlogById(slug);
-  // console.log("🚀 ~ SingleBlogpage ~ blog:", blog)
   return (
     <MainContainer>
       <SingleBlogDetails details={blog?.details}  blog={blog?.blog} />

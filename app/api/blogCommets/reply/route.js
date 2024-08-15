@@ -9,7 +9,6 @@ export async function POST(request) {
 
   try {
     if (blogId && commentId) {
-      console.log(body, blogId, commentId);
       await connectMongoDB();
 
       await Comment.findByIdAndUpdate(
@@ -47,8 +46,6 @@ export async function DELETE(request) {
         { new: true }
       );
 
-      // console.log(newReply);
-      // console.log(comment);
       return NextResponse.json(comment);
     } else {
       return NextResponse.json({ message: "replyId, commentId are not match" });

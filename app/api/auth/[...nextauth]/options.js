@@ -47,7 +47,7 @@ export const authOptions = {
  
           await connectMongoDB();
           const _user = await User.findOne({ email });
-          // console.log(_user);
+
           if (!_user) {
             throw new Error("Email is not valid");
           }

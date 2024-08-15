@@ -62,7 +62,6 @@ export async function GET() {
   await connectMongoDB();
   const _b = await Blog.find();
   let blogs = _b.reverse();
-  // console.log(blogs);
   return NextResponse.json({ blogs });
 }
 

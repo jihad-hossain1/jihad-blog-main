@@ -20,9 +20,6 @@ export async function GET(request) {
   
     const findDetails = await BlogDetail.findOne({ _id: blog?.details });
 
-    // const populateBlogComents = await Coment.find({ blogId: blog?._id });
-    // console.log("🚀 ~ GET ~ populateBlogComents:", populateBlogComents)
-
     return NextResponse.json(
       { blog: blog, details: findDetails },
       { status: 200 }
