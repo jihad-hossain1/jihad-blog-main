@@ -273,8 +273,8 @@ import { ToastAction } from "@/components/ui/toast";
 import { Textarea } from "@/components/ui/textarea";
 import { revalidate } from "@/helpers/revalidate";
 import { serverAction } from "./server-action";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 import "./preview.css";
 
 const AddarticlesForm = () => {
@@ -359,7 +359,7 @@ const AddarticlesForm = () => {
                 });
             }
             if (res?.result) {
-                revalidate("blog");
+                // revalidate("blog");
                 toast({
                     title: res?.message,
                 });
@@ -515,14 +515,14 @@ const AddarticlesForm = () => {
                     </div>
                     {/* blog main content  */}
                     <div className=''>
-                        <ReactQuill
+                        {/* <ReactQuill
                             theme='snow'
                             modules={modules}
                             formats={formats}
                             onChange={setDetails}
                             value={details}
                             className='py-2 w-full '
-                        />
+                        /> */}
                     </div>
 
                     <div className='mt-4 ml-2'>

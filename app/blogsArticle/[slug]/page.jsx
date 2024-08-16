@@ -7,7 +7,6 @@ const getBlogById = async (slug) => {
       cache: "no-store",
     });
     const data = await res.json();
-    console.log("🚀 ~ getBlogById ~ data:", data)
     return data;
   } catch (error) {
     console.error(error);
