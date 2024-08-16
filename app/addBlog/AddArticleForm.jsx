@@ -266,7 +266,6 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import MarkdownPreview from "./MarkdownPreview";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
@@ -274,6 +273,9 @@ import { ToastAction } from "@/components/ui/toast";
 import { Textarea } from "@/components/ui/textarea";
 import { revalidate } from "@/helpers/revalidate";
 import { serverAction } from "./server-action";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import './preview.css'
 
 const AddarticlesForm = () => {
   const { status } = useSession();
@@ -376,6 +378,51 @@ const AddarticlesForm = () => {
     }
 }, []);
 
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+];
+// const modules = {
+//   toolbar: [
+//     [{ header: [1, 2, 3, 4, 5, 6, false] }],
+//     ["bold", "italic", "underline", "strike", "blockquote"],
+//     [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+//     ["link", "image"],
+//     ["clean"],
+//   ],
+//   clipboard: {
+//     // toggle to add extra line breaks when pasting HTML:
+//     matchVisual: false,
+//   },
+//   syntax: {
+//     highlight: (text) => hljs.highlightAuto(text).value,
+//   },
+// };
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, 4, 5, 6] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "image", "video", "code-block"],
+    ["clean"],
+  ],
+};
+
 React.useEffect(() => {
   fetchSubData();
 }, [fetchSubData]);
@@ -468,7 +515,16 @@ React.useEffect(() => {
           </div>
           {/* blog main content  */}
           <div className="">
-            <Textarea
+
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            onChange={setDetails}
+            value={details}
+            className="py-2 w-full h-[300px]"
+          />
+            {/* <Textarea
               onChange={(e) => setDetails(e.target.value)}
               value={details}
               className="hover:outline-none"
@@ -477,7 +533,7 @@ React.useEffect(() => {
               name="details"
               cols="30"
               rows="10"
-            />
+            /> */}
           </div>
 
           <div className="mt-4 ml-2">
@@ -501,7 +557,7 @@ React.useEffect(() => {
               />
             )}
             <h4>{sortContent}</h4>
-            <MarkdownPreview details={details}></MarkdownPreview>
+            <div id="preview" dangerouslySetInnerHTML={{ __html: details }} ></div>
           </div>
         )}
       </div>
