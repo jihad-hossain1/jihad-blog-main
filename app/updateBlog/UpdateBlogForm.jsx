@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const UpdateBlogForm = ({ id, blog }) => {
   const router = useRouter();
@@ -55,7 +57,37 @@ const UpdateBlogForm = ({ id, blog }) => {
         newImage: blog?.details?.image || "",
       })
     }
-  }, [blog?.articleTitle, blog?.details, blog?.image])
+  }, [blog, blog?.articleTitle, blog?.details, blog.image])
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "code-block",
+];
+
+const modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, 4, 5, 6] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+        ],
+        ["link", "image", "video", "code-block"],
+        ["clean"],
+    ],
+};
   return (
     <div>
       <button onClick={() => router.back()} className="my-5 btn">Back</button>
@@ -70,12 +102,21 @@ const UpdateBlogForm = ({ id, blog }) => {
             name="title"
           />
            <Image
+            alt="image"
             src={formData.newImage ? formData.newImage : ""}
             className="max-w-[500px] border border-gray-200 p-3 focus:outline-none"
            height={200}
             width={1000}
           />
         </div>
+        <ReactQuill
+                            theme='snow'
+                            modules={modules}
+                            formats={formats}
+                            onChange={setDetails}
+                            value={details}
+                            className='py-2 w-full '
+                        />
         <textarea
             onChange={(e) => setnewdetails(e.target.value)}
             value={formData.newDetails}
@@ -86,6 +127,8 @@ const UpdateBlogForm = ({ id, blog }) => {
             rows={formData?.newDetails?.length > 500 ? 30 : 15}
             cols="30"
           />
+        
+          
         <button
           type="submit"
           className="transition duration-300 border p-4 w-fit bg-yellow-400 text-white rounded hover:bg-yellow-500"

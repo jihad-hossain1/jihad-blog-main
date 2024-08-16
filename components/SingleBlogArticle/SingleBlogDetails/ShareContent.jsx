@@ -18,18 +18,18 @@ const ShareContent = ({ bid }) => {
   return (
     <aside className="">
       <Toaster />
-      <h4 className="bg-green-600 px-2 text-sm text-zinc-50 rounded-md shadow max-sm:text-center max-sm:py-3">
+      <h4 className="bg-green-600 px-2 text-sm text-zinc-50 rounded-md shadow max-sm:text-center max-sm:py-3 ">
         Share This
       </h4>
-      <div className="flex items-center lg:flex-col max-sm:justify-center max-sm:mt-4   gap-4 mt-2 ">
+      <div className="flex items-center lg:flex-col max-sm:justify-center max-sm:mt-4  gap-4 mt-2 ">
         <div
           onClick={handleClipBoard}
           className="max-sm:w-10 lg:w-20 inline-block"
         >
           <Image
             alt="any"
-            height={100}
-            width={100}
+            height={20}
+            width={20}
             src="https://i.ibb.co/yqRfDGq/icons8-facebook-1.gif"
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />
@@ -40,8 +40,8 @@ const ShareContent = ({ bid }) => {
         >
           <Image
             alt="any"
-            height={100}
-            width={100}
+            height={20}
+            width={20}
             src="https://i.ibb.co/G2YpH2p/icons8-twitter-circled.gif"
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />
@@ -52,8 +52,8 @@ const ShareContent = ({ bid }) => {
         >
           <Image
             alt="any"
-            height={100}
-            width={100}
+            height={20}
+            width={20}
             src="https://i.ibb.co/LvKCh4Q/icons8-linkedin.gif"
             className="rounded-full shadow hover:translate-x-2 transition-all duration-300"
           />

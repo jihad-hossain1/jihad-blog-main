@@ -63,7 +63,15 @@ const BlogPage = () => {
   }, []);
 
 
-
+const handleCategoryEvent = async(_category)=>{
+  try {
+    const res = await fetch(`/api/blogs/category-blogs?catId=${_category?.uid}&category=${_category?.name}`);
+    const data = await res.json();
+    setBlogs(data?.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
   return (
     <div className="max-w-screen-xl mx-auto px-2 md:px-8 pb-6 min-h-screen">
@@ -82,18 +90,18 @@ const BlogPage = () => {
             { [...new Array(10)].map((_, index) => (
               <div
                 key={index}
-              className={`animate-pulse w-full h-[20px] border-l-[14px] opacity-0  p-2 bg-zinc-400 rounded shadow-sm`}
+              className={`animate-pulse w-full h-[20px]  border-l-[14px] opacity-0  p-2 bg-zinc-400 rounded shadow-sm`}
             >
             </div>
             ))}
-          </div> : <div className="flex flex-grow gap-2">
-            {categories?.map((category, _index) => (
+          </div> : <div className="flex flex-wrap gap-2">
+            {categories?.map((_category, _index) => (
               <button
-                onClick={() => setCategory(category?.name)}
+                onClick={() => handleCategoryEvent(_category)}
                 key={_index}
-                className="border border-gray-300 p-2 rounded hover:bg-slate-200/30 hover:border-gray-700"
+                className="border border-gray-300 text-xs p-2 rounded hover:bg-slate-200/30 hover:border-gray-700"
                >
-               {category?.name}
+               {_category?.name}
               </button>
             ))}
           </div>

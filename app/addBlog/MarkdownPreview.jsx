@@ -2,7 +2,7 @@
 import React from "react";
 import Markdown from "react-markdown";
 import rehypeLight from "rehype-highlight";
-import "highlight.js/styles/atom-one-dark.min.css";
+// import "highlight.js/styles/atom-one-dark.min.css";
 import { LuTerminal } from "react-icons/lu";
 
 import { SiJavascript, SiPython, SiReact } from "react-icons/si";

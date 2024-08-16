@@ -1,6 +1,7 @@
 import { buildSearchQuery, parseQueryParams } from "@/helpers/paginated-helper";
 import connectMongoDB from "@/lib/mongodb";
 import Blog from "@/models/blog";
+import { SubCategory } from "@/models/category";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -24,10 +25,18 @@ export async function GET(req) {
       .skip(skip)
       .limit(pageSize);
 
+      const findCategory = await SubCategory.findOne({
+        name: category
+      })
+
     if(category){
       blogs = await Blog.find({
-        articleCategory: category?.toLowerCase()
+        $or: [
+          // { articleCategory: category?.toLowerCase() },
+          { catId: findCategory?.uid }
+        ]
       })
+      console.log("🚀 ~ GET ~ blogs:", blogs)
     }
 
     return NextResponse.json({
