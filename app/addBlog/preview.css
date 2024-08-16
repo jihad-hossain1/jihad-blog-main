@@ -1,156 +1,126 @@
+#preview {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
 #preview h1 {
-    margin: 0;
-    padding: 0;
     font-size: 2.5rem;
     line-height: 2.75rem;
     font-weight: 600;
     text-transform: none;
+    margin-bottom: 1rem;
 }
 
 #preview h2 {
-    margin: 0;
-    padding: 0;
     font-size: 1.25rem;
     line-height: 1.75rem;
     font-weight: 600;
     text-transform: none;
+    margin-bottom: 0.75rem;
 }
 
 #preview h3 {
-    margin: 0;
-    padding: 0;
     font-size: 1.125rem;
     line-height: 1.75rem;
     font-weight: 600;
     text-transform: none;
+    margin-bottom: 0.5rem;
 }
 
-#preview h4 {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    line-height: 1.75rem;
+#preview h4, #preview h5, #preview h6 {
     font-weight: 600;
-    text-align: center;
     text-transform: none;
-}
-
-#preview h5 {
-    margin: 0;
-    padding: 0;
-    font-size: 0.875rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-    text-align: center;
-    text-transform: none;
-}
-
-#preview h6 {
-    margin: 0;
-    padding: 0;
-    font-size: 0.75rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-    text-align: center;
-    text-transform: none;
+    margin-bottom: 0.5rem;
 }
 
 #preview p {
-    margin: 0;
-    padding: 0;
     font-size: 1rem;
     line-height: 1.75rem;
     font-weight: 400;
     text-transform: none;
+    text-align: left;
+    margin-bottom: 1rem;
 }
 
 #preview a {
     text-decoration: underline;
+    color: #007BFF;
+    transition: color 0.2s ease;
 }
 
-#preview ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: disc;
+#preview a:hover {
+    color: #0056b3;
+}
+
+#preview ul, #preview ol {
+    margin-left: 1.5rem;
     font-size: 1rem;
     line-height: 1.75rem;
     font-weight: 400;
-    text-align: center;
+    text-align: left;
     text-transform: none;
-}
-
-#preview ol {
-    margin: 0;
-    padding: 0;
-    list-style-type: decimal;
-    font-size: 1rem;
-    line-height: 1.75rem;
-    font-weight: 400;
-    text-align: center;
-    text-transform: none;
+    margin-bottom: 1rem;
 }
 
 #preview li {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    line-height: 1.75rem;
-    font-weight: 400;
-    text-align: center;
-    text-transform: none;
+    margin-bottom: 0.5rem;
 }
 
 #preview blockquote {
-    margin: 0;
-    padding: 0;
     font-size: 1rem;
     line-height: 1.75rem;
     font-weight: 400;
-    text-align: center;
-    text-transform: none;
+    padding: 1rem;
+    border-left: 4px solid #ccc;
+    background-color: #f9f9f9;
+    margin-bottom: 1rem;
+    text-align: left;
 }
 
-#preview pre {  
-    margin: 0;
-    padding: 0;
+#preview pre {
     font-size: 1rem;
     line-height: 1.75rem;
     font-weight: 400;
-    text-align: center;
-    text-transform: none;
+    background-color: #1a1919;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    text-align: left;
+    color: #fff;
 }
 
 #preview code {
-    margin: 0;
-    padding: 0;
     font-size: 1rem;
     line-height: 1.75rem;
     font-weight: 400;
-    text-align: center;
-    text-transform: none;
+    background-color: #2b2828;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    text-align: left;
+    color: #fff;
 }
 
 #preview img {
     max-width: 100%;
     height: auto;
+    margin-bottom: 1rem;
 }
 
 #preview hr {
-    margin: 0;
-    padding: 0;
     border: none;
     border-top: 1px solid #ccc;
+    margin: 2rem 0;
 }
 
 #preview table {
-    margin: 0;
-    padding: 0;
     border-collapse: collapse;
     font-size: 1rem;
     line-height: 1.75rem;
     font-weight: 400;
-    text-align: center;
-    text-transform: none;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 #preview td, #preview th {
@@ -160,6 +130,7 @@
 
 #preview th {
     font-weight: bold;
+    background-color: #f9f9f9;
 }
 
 #preview tr:nth-child(even) {
@@ -173,15 +144,11 @@
 #preview caption {
     font-weight: bold;
     text-align: center;
+    margin-bottom: 0.5rem;
 }
 
 #preview figcaption {
     font-weight: bold;
     text-align: center;
-}   
-
-
-
-
-
-
+    margin-top: 0.5rem;
+}

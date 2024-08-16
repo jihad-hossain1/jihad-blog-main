@@ -276,6 +276,8 @@ import { serverAction } from "./server-action";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import './preview.css'
+import MarkdownEditor from "./MarkDownEditor";
+
 
 const AddarticlesForm = () => {
   const { status } = useSession();
@@ -289,6 +291,7 @@ const AddarticlesForm = () => {
   const [loading, setloading] = useState(false);
 
   const [details, setDetails] = useState("");
+  console.log("🚀 ~ AddarticlesForm ~ details:", details)
   const [articleTitle, setarticleTitle] = useState("");
   const [sortContent, setSortContent] = useState("");
 
@@ -361,6 +364,13 @@ const AddarticlesForm = () => {
           title: res?.message,
         });
         setloading(false);
+        setPreview(true);
+        setDetails("");
+        setarticleTitle("");
+        setSortContent("");
+        setPhoto("");
+        setimage(null);
+        setCategory("");
       }
     } catch (error) {
       console.error(error);
@@ -390,6 +400,7 @@ const formats = [
   "indent",
   "link",
   "image",
+  "code-block",
 ];
 // const modules = {
 //   toolbar: [
@@ -522,7 +533,7 @@ React.useEffect(() => {
             formats={formats}
             onChange={setDetails}
             value={details}
-            className="py-2 w-full h-[300px]"
+            className="py-2 w-full "
           />
             {/* <Textarea
               onChange={(e) => setDetails(e.target.value)}
@@ -534,6 +545,8 @@ React.useEffect(() => {
               cols="30"
               rows="10"
             /> */}
+
+            <MarkdownEditor />
           </div>
 
           <div className="mt-4 ml-2">
@@ -568,3 +581,15 @@ React.useEffect(() => {
 };
 
 export default AddarticlesForm;
+
+
+// import React from 'react'
+
+// import './style.css'
+// const TextEditPreview = ({details}) => {
+//   return (
+//     <div id="preview" dangerouslySetInnerHTML={{ __html: details }} ></div>
+//   )
+// }
+
+// export default TextEditPreview
