@@ -51,13 +51,13 @@ const SingleBlogDetails = ({ blog , details }) => {
           </div>
           <hr className="h-1 my-6" />
           <div>
-            <Image
+            {details?.image ? <Image
               width={400}
               height={400}
               className="max-h-[500px] w-full object-cover rounded-lg mb-3"
               src={details?.image}
               alt="blog image"
-            />
+            />: null}
           </div>
           <div>
             <h3 className="mb-4 text-xl font-bold">{blog?.articleTitle}</h3>

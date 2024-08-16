@@ -107,7 +107,7 @@ const handleCategoryEvent = async(_category)=>{
           </div>
         }
       </div>
-      <div className="p-5 min-h-[60vh]">
+      <div className="p-2 min-h-[60vh]">
        {
         loading ? <div className="grid md:grid-cols-2 lg:grid-cols-1 gap-6">
          { [...new Array(10)].map((_, index) => (
@@ -131,9 +131,9 @@ const handleCategoryEvent = async(_category)=>{
 
       {/* Pagination controls */}
       <section className="flex justify-end">
-      <div className="flex gap-2 md:flex-row flex-col">
+      <div className="flex gap-2 flex-row ">
         <select
-          className="border px-10 py-2 rounded border-gray-200"
+          className="max-sm:px-5 border px-10 py-2 rounded border-gray-200"
           value={pageSize}
           onChange={(e) => setPageSize(Number(e.target.value))}
         >
@@ -149,17 +149,17 @@ const handleCategoryEvent = async(_category)=>{
         <button
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
-          className="border border-gray-200 py-2 rounded shadow hover:shadow-md transition-all duration-300 px-4 text-center"
+          className="max-sm:w-fit border border-gray-200 py-2 rounded shadow hover:shadow-md transition-all duration-300 px-4 text-center"
         >
           Previous
         </button>
-        <h4 className="border border-gray-200 py-2 rounded shadow hover:shadow-md transition-all duration-300 px-4 text-center">
+        <h4 className="max-sm:w-fit border border-gray-200 py-2 rounded shadow hover:shadow-md transition-all duration-300 px-4 text-center">
           {page}
         </h4>
         <button
           disabled={blogs?.length < pageSize}
           onClick={() => setPage(page + 1)}
-          className="border border-gray-200 py-2 rounded shadow hover:shadow-md transition-all duration-300 px-4 text-center"
+          className="max-sm:w-fit border border-gray-200 py-2 rounded shadow hover:shadow-md transition-all duration-300 px-4 text-center"
         >
           Next
         </button>
