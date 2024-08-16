@@ -15,8 +15,8 @@ const blogSchema = new Schema({
     trim: true,
   },
   catId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "SubCategory",
+    type: String,
+    required: [true, "Category Id is required"],
   },
   sortContent: {
     type: String,

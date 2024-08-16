@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useCallback, useEffect, useReducer } from "react";
 import { PiEyeLight, PiTrashSimpleLight } from "react-icons/pi";
 import { VscEdit } from "react-icons/vsc";
+import { revalidate } from "@/helpers/revalidate";
 
 const ManageBlogPage = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -49,17 +50,19 @@ const ManageBlogPage = () => {
     }, [state.page, state.pageSize, state.searchTerm, state.limit]);
 
     useEffect(() => {
-        fetchBlogs();
-    }, [fetchBlogs]);
+       if(state.isAdd) fetchBlogs();
+    }, [fetchBlogs, state.isAdd]);
 
     const handleDeleteItme = async (id) => {
         const confirmed = confirm("are you sure?");
 
         if (confirmed) {
+            dispatch({ type: ACTION_TYPES.SET_IS_ADD, payload: false });
             const res = await fetch(`/api/blogs?id=${id}`, {
                 method: "DELETE",
             });
             if (res.ok) {
+                dispatch({ type: ACTION_TYPES.SET_IS_ADD, payload: true });
                 revalidate("blog");
                 toast({
                     title: "blog delete successfull",

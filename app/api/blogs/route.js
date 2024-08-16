@@ -3,6 +3,7 @@ import { modSlug } from "@/helpers/modText";
 import connectMongoDB from "@/lib/mongodb";
 import BlogDetail from "@/models/BlogDetail";
 import Blog from "@/models/blog";
+import { SubCategory } from "@/models/category";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -15,15 +16,19 @@ export async function POST(request) {
   } = await request.json();
 
   try {
-    validMax(articleTitle, "Article Title", 10, 100);
+    validMax(articleTitle, "Article Title", 1, 100);
     validMax(articleCategory, "Article Category", 1, 50);
-    validMax(sortContent, "Sort Content", 10, 250);
+    validMax(sortContent, "Sort Content", 1, 250);
     valid(author.name, "Author Name");
 
     await connectMongoDB();
+    const findSubCategory = await SubCategory.findOne({
+      name: articleCategory,
+    })
 
     const details = await BlogDetail.create(bDetails);
     const modifySlug  = await modSlug(articleTitle,Blog);
+
 
     if (details) {
       const newBlog = await Blog.create({
@@ -32,6 +37,8 @@ export async function POST(request) {
         sortContent: sortContent.trim(),
         author,
         slug: modifySlug,
+        catId: findSubCategory?.uid,
+        details: details._id,
       });
 
       if (!newBlog) {
@@ -46,6 +53,13 @@ export async function POST(request) {
       return NextResponse.json(
         { result: newBlog, message: "Blog Created" },
         { status: 201 }
+      );
+    } else {
+      return NextResponse.json(
+        {
+          error: "blog detail not created",
+        },
+        { status: 500 }
       );
     }
   } catch (error) {

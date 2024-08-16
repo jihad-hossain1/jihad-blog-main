@@ -6,6 +6,7 @@ export const ACTION_TYPES = {
     SET_PAGE_SIZE: "SET_PAGE_SIZE",
     SET_LIMIT: "SET_LIMIT",
     SET_SEARCH_TERM: "SET_SEARCH_TERM",
+    SET_IS_ADD: "SET_IS_ADD",
 };
 
 export const initialState = {
@@ -16,6 +17,7 @@ export const initialState = {
     pageSize: 10,
     limit: 10,
     searchTerm: "",
+    isAdd: true,
 };
 
 export const reducer = (state, action) => {
@@ -54,6 +56,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 searchTerm: action.payload,
+            };
+        case ACTION_TYPES.SET_IS_ADD:
+            return {
+                ...state,
+                isAdd: action.payload,
             };
         default:
             return state;
