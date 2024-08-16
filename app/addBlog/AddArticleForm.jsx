@@ -265,16 +265,18 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import axios from "axios";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Textarea } from "@/components/ui/textarea";
-import { revalidate } from "@/helpers/revalidate";
 import { serverAction } from "./server-action";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+
+// Dynamically import ReactQuill
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 import "./preview.css";
 
 const AddarticlesForm = () => {
@@ -317,7 +319,7 @@ const AddarticlesForm = () => {
             return toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",
-                description: "You are not logIn ,Please login first",
+                description: "You are not logged in. Please login first.",
                 action: (
                     <ToastAction altText='Try again'>Try again</ToastAction>
                 ),
@@ -350,7 +352,6 @@ const AddarticlesForm = () => {
                 setloading(false);
                 return toast({
                     variant: "destructive",
-                    Power2: "Power",
                     title: "Uh oh! Something went wrong.",
                     description: res?.error,
                     action: (
@@ -359,7 +360,6 @@ const AddarticlesForm = () => {
                 });
             }
             if (res?.result) {
-                // revalidate("blog");
                 toast({
                     title: res?.message,
                 });
@@ -515,14 +515,14 @@ const AddarticlesForm = () => {
                     </div>
                     {/* blog main content  */}
                     <div className=''>
-                        {/* <ReactQuill
+                        <ReactQuill
                             theme='snow'
                             modules={modules}
                             formats={formats}
                             onChange={setDetails}
                             value={details}
                             className='py-2 w-full '
-                        /> */}
+                        />
                     </div>
 
                     <div className='mt-4 ml-2'>
@@ -562,3 +562,4 @@ const AddarticlesForm = () => {
 };
 
 export default AddarticlesForm;
+
