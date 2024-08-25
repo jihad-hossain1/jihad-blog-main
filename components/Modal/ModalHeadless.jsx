@@ -7,7 +7,9 @@ import { ACTION_TYPES } from "@/reducer/categoryReducer";
 
 export default function ModalHeadless({ isOpen, setIsOpen, title, children ,dispatch,type  }) {
   function closeModal() {
+   if(type){
     dispatch({ type: type, payload: false });
+   }
     setIsOpen(false);
   }
 
