@@ -26,21 +26,6 @@ export const metadata = {
         description: "Share Your Programming Knowledge",
         images: [],
     },
-
-    icons: {
-        images: [],
-    },
-
-    themeColor: [],
-    metadata: {
-        description: "Jihad Blogs",
-    },
-
-    viewport: {
-        width: "device-width",
-        initialScale: 1,
-        maximumScale: 1,
-    },
 };
 
 export default function RootLayout({ children }) {

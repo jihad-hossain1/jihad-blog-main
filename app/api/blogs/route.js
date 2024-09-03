@@ -13,6 +13,7 @@ export async function POST(request) {
     sortContent,
     details: bDetails,
     author,
+    tags,
   } = await request.json();
 
   try {
@@ -39,6 +40,7 @@ export async function POST(request) {
         slug: modifySlug,
         catId: findSubCategory?.uid,
         details: details._id,
+        tags: tags
       });
 
       if (!newBlog) {

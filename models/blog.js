@@ -23,6 +23,9 @@ const blogSchema = new Schema({
     required: true,
     max: [250, "Content cannot be more than 250 characters"],
   },
+  tags: {
+    type: [String],
+  },
   details: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "BlogDetail",

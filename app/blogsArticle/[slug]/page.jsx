@@ -14,6 +14,26 @@ const getBlogById = async (slug) => {
 };
 
 
+export async function generateMetadata({ params }) {
+  const blog = await getBlogById(params.slug);
+  const formateTag = blog?.blog?.tags?.join(",");
+  return {
+    title: blog?.blog?.articleTitle,
+    description: blog?.blog?.sortContent,
+    keywords: formateTag,
+    openGraph: {
+      title: blog?.blog?.articleTitle,
+      description: blog?.blog?.sortContent,
+      url: `https://jihad-blog-main.vercel.app/blogsArticle/${params.slug}`,
+      images: [
+        {
+          url: blog?.blog?.details?.image,
+        },
+      ],
+    },
+  };
+}
+
 const SingleBlogpage = async ({ params }) => {
   const slug = params.slug;
   const blog = await getBlogById(slug);

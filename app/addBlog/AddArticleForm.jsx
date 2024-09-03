@@ -1,267 +1,3 @@
-// 'use client';
-
-// import React, { useReducer, useCallback, useEffect } from "react";
-// import axios from "axios";
-// import MarkdownPreview from "./MarkdownPreview";
-// import Image from "next/image";
-// import { useSession } from "next-auth/react";
-// import { useToast } from "@/components/ui/use-toast";
-// import { ToastAction } from "@/components/ui/toast";
-// import { Textarea } from "@/components/ui/textarea";
-// import { revalidate } from "@/helpers/revalidate";
-// import { serverAction } from "./server-action";
-
-// const initialState = {
-//   isPreview: false,
-//   categoryData: [],
-//   category: "",
-//   loading: false,
-//   details: "",
-//   articleTitle: "",
-//   sortContent: "",
-//   photo: "",
-//   image: null,
-// };
-
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "SET_FIELD":
-//       return { ...state, [action.field]: action.value };
-//     case "SET_CATEGORY_DATA":
-//       return { ...state, categoryData: action.data };
-//     case "SET_LOADING":
-//       return { ...state, loading: action.loading };
-//     case "TOGGLE_PREVIEW":
-//       return { ...state, isPreview: !state.isPreview };
-//     case "SET_IMAGE":
-//       return { ...state, image: action.image };
-//     default:
-//       return state;
-//   }
-// };
-
-// const AddarticlesForm = () => {
-//   const { status } = useSession();
-//   const { data: session } = useSession();
-//   const { toast } = useToast();
-
-//   const [state, dispatch] = useReducer(reducer, initialState);
-
-//   const handleOnFileUpload = async (e) => {
-//     e.preventDefault();
-//     try {
-//       let data = new FormData();
-//       data.append("file", state.image);
-//       data.append("upload_preset", "images_preset");
-//       let api = `https://api.cloudinary.com/v1_1/dqfi9zw3e/image/upload`;
-//       const res = await axios.post(api, data);
-//       let _up = await res?.data?.secure_url;
-//       dispatch({ type: "SET_FIELD", field: "photo", value: _up });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const unAuth = status === "authenticated";
-//     if (!unAuth) {
-//       return toast({
-//         variant: "destructive",
-//         title: "Uh oh! Something went wrong.",
-//         description: "You are not logged in. Please login first.",
-//         action: <ToastAction altText="Try again">Try again</ToastAction>,
-//       });
-//     }
-
-//     try {
-//       dispatch({ type: "SET_LOADING", loading: true });
-
-//       const res = await serverAction({
-//         articleTitle: state.articleTitle.trim(),
-//         articleCategory: state.category,
-//         author: {
-//           name: session?.user?.name,
-//           userId: session?.user?.id,
-//         },
-//         details: {
-//           user: {
-//             displayName: session?.user.name,
-//             photoURL: session?.user.photoURL,
-//             email: session?.user.email,
-//           },
-//           image: state.photo,
-//           details: state.details,
-//         },
-//         sortContent: state.sortContent.trim(),
-//       });
-
-//       if (res?.error) {
-//         dispatch({ type: "SET_LOADING", loading: false });
-//          toast({
-//           variant: "destructive",
-//           title: "Uh oh! Something went wrong.",
-//           description: res?.error,
-//           action: <ToastAction altText="Try again">Try again</ToastAction>,
-
-//         });
-//       }
-//       if (res?.result) {
-//         revalidate("blog");
-//         toast({
-//           title: res?.message,
-//         });
-//         dispatch({ type: "SET_LOADING", loading: false });
-//         dispatch({ type: "SET_FIELD", field: "articleTitle", value: "" });
-//         dispatch({ type: "SET_FIELD", field: "sortContent", value: "" });
-//         dispatch({ type: "SET_FIELD", field: "details", value: "" });
-//         dispatch({ type: "SET_FIELD", field: "photo", value: "" });
-//         dispatch({ type: "SET_FIELD", field: "image", value: null });
-//         dispatch({ type: "SET_FIELD", field: "category", value: "" });
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   const fetchSubData = useCallback(async () => {
-//     try {
-//       const data = await fetch("/api/category/sub-category");
-//       const json = await data.json();
-//       dispatch({ type: "SET_CATEGORY_DATA", data: json });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     fetchSubData();
-//   }, [fetchSubData]);
-
-//   return (
-//     <div className="max-w-screen-xl mx-auto px-2 py-5 min-h-screen">
-//       <h4 className="text-gray-900 font-semibold text-2xl text-center">
-//         Create a Blog
-//       </h4>
-//       <div className="flex justify-end">
-//         <button
-//           className="border px-3 rounded shadow-sm hover:shadow hover:bg-blue-50"
-//           onClick={() => dispatch({ type: "TOGGLE_PREVIEW" })}
-//         >
-//           Preview
-//         </button>
-//       </div>
-//       <div className={state.isPreview ? "flex flex-col lg:grid lg:grid-cols-2 gap-4" : ""}>
-//         <form action="" onSubmit={handleSubmit} className="p-2 flex flex-col gap-2">
-//           {/* blog title section */}
-//           <div className="">
-//             <div className="">
-//               <label className="text-gray-900 font-semibold">Title</label>
-//               <input
-//                 className="inpt"
-//                 required
-//                 placeholder="Title"
-//                 type="text"
-//                 name="articleTitle"
-//                 value={state.articleTitle}
-//                 onChange={(e) =>
-//                   dispatch({ type: "SET_FIELD", field: "articleTitle", value: e.target.value })
-//                 }
-//               />
-//             </div>
-//           </div>
-//           {/* blog category section */}
-//           <div className="">
-//             <select
-//               onChange={(e) =>
-//                 dispatch({ type: "SET_FIELD", field: "category", value: e.target.value })
-//               }
-//               className="mb-7 w-full inpt"
-//             >
-//               <option>Select a Category</option>
-//               {state.categoryData?.map((ite) => (
-//                 <option key={ite._id} value={ite.name}>
-//                   {ite.name}
-//                 </option>
-//               ))}
-//             </select>
-//           </div>
-//           {/* image uploader section */}
-//           <div>
-//             <div className="flex items-center gap-3">
-//               <input
-//                 className="inpt"
-//                 type="file"
-//                 accept="image/*"
-//                 onChange={(e) => dispatch({ type: "SET_IMAGE", image: e.target.files[0] })}
-//               />
-//               <button
-//                 onClick={handleOnFileUpload}
-//                 className="border p-2 rounded bg-slate-400"
-//               >
-//                 Upload
-//               </button>
-//             </div>
-//           </div>
-//           <div>
-//             <Textarea
-//               onChange={(e) =>
-//                 dispatch({ type: "SET_FIELD", field: "sortContent", value: e.target.value })
-//               }
-//               value={state.sortContent}
-//               placeholder="sort content"
-//               type="text"
-//               name="details"
-//               maxLength={200}
-//             />
-//           </div>
-//           {/* blog main content */}
-//           <div className="">
-//             <Textarea
-//               onChange={(e) =>
-//                 dispatch({ type: "SET_FIELD", field: "details", value: e.target.value })
-//               }
-//               value={state.details}
-//               className="hover:outline-none"
-//               placeholder="Details markdown syntax support"
-//               type="text"
-//               name="details"
-//               cols="30"
-//               rows="10"
-//             />
-//           </div>
-
-//           <div className="mt-4 ml-2">
-//             <button disabled={state.loading} className="w-fit btn" type="submit">
-//               Add Blog
-//             </button>
-//           </div>
-//         </form>
-
-//         {/* preview */}
-//         {state.isPreview && (
-//           <div>
-//             <h4>{state.articleTitle}</h4>
-//             <h4>{state.category}</h4>
-//             {state.photo && (
-//               <Image
-//                 alt="photo for blog"
-//                 width={300}
-//                 height={300}
-//                 src={state.photo}
-//               />
-//             )}
-//             <h4>{state.sortContent}</h4>
-//             <MarkdownPreview details={state.details}></MarkdownPreview>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AddarticlesForm;
-
 "use client";
 
 import React, { useState } from "react";
@@ -293,6 +29,9 @@ const AddarticlesForm = () => {
     const [details, setDetails] = useState("");
     const [articleTitle, setarticleTitle] = useState("");
     const [sortContent, setSortContent] = useState("");
+    const [tag, setTag] = useState("");
+    const [tags, setTags] = useState([]);
+    const [errors, setErrors] = useState(null);
 
     const [photo, setPhoto] = useState("");
     const [image, setimage] = useState(null);
@@ -332,6 +71,7 @@ const AddarticlesForm = () => {
             const res = await serverAction({
                 articleTitle: articleTitle.trim(),
                 articleCategory: category,
+                tags: tags,
                 author: {
                     name: session?.user?.name,
                     userId: session?.user?.id,
@@ -421,6 +161,29 @@ const AddarticlesForm = () => {
         fetchSubData();
     }, [fetchSubData]);
 
+    const handleTags = (e) => {
+        setErrors(null);
+        if (e?.trim()?.length < 1) return;
+        if (e?.trim()?.length > 30)
+            return setErrors({
+                tag_error: "Tags should be less than 30 characters.",
+            });
+
+        if (tags.includes(e?.trim()))
+            return setErrors({ tag_error: "Tag Already Exist" });
+        setTags([...tags, e]);
+        setTag("");
+    };
+
+    const modTag = (e) => {
+        setTag(e?.trim());
+    };
+
+    const removeTag = (e) => {
+        setTags(tags.filter((tag) => tag !== e));
+    };
+
+
     return (
         <div className='max-w-screen-xl mx-auto px-2 py-5 min-h-screen'>
             <h4 className='text-gray-900 font-semibold text-2xl text-center'>
@@ -448,60 +211,52 @@ const AddarticlesForm = () => {
                 >
                     {/* blog title section  */}
                     <div className=''>
-                        <div className=''>
-                            <label className='text-gray-900 font-semibold'>
-                                Title
-                            </label>
-                            <input
-                                className='inpt'
-                                required
-                                placeholder='Title'
-                                type='text'
-                                name='articleTitle'
-                                value={articleTitle}
-                                onChange={(e) =>
-                                    setarticleTitle(e.target.value)
-                                }
-                            />
-                        </div>
+                        <label className='text-gray-900 font-semibold'>
+                            Title
+                        </label>
+                        <input
+                            className='inpt'
+                            required
+                            placeholder='Title'
+                            type='text'
+                            name='articleTitle'
+                            value={articleTitle}
+                            onChange={(e) => setarticleTitle(e.target.value)}
+                        />
                     </div>
                     {/* blog category section  */}
-                    <div className=''>
-                        <select
-                            // required
-                            onChange={(e) => setCategory(e.target.value)}
-                            className='mb-7 w-full inpt'
-                        >
-                            <option>Select a Category</option>
+                    <select
+                        // required
+                        onChange={(e) => setCategory(e.target.value)}
+                        className='mb-7 w-full inpt'
+                    >
+                        <option>Select a Category</option>
 
-                            {categoryData?.map((ite) => (
-                                <option key={ite._id} value={ite.name}>
-                                    {ite.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                        {categoryData?.map((ite) => (
+                            <option key={ite._id} value={ite.name}>
+                                {ite.name}
+                            </option>
+                        ))}
+                    </select>
                     {/* image uploader section  */}
-                    <div>
-                        <div className='flex items-center gap-3'>
-                            <input
-                                className='inpt'
-                                // required
-                                type='file'
-                                name=''
-                                accept='image/*'
-                                id='image'
-                                onChange={(e) =>
-                                    setimage((prev) => e.target.files[0])
-                                }
-                            />
-                            <button
-                                onClick={handleOnFileUpload}
-                                className='border p-2 rounded bg-slate-400'
-                            >
-                                Upload
-                            </button>
-                        </div>
+                    <div className='flex items-center gap-3'>
+                        <input
+                            className='inpt'
+                            // required
+                            type='file'
+                            name=''
+                            accept='image/*'
+                            id='image'
+                            onChange={(e) =>
+                                setimage((prev) => e.target.files[0])
+                            }
+                        />
+                        <button
+                            onClick={handleOnFileUpload}
+                            className='border p-2 rounded bg-slate-400'
+                        >
+                            Upload
+                        </button>
                     </div>
                     <div>
                         <Textarea
@@ -513,18 +268,65 @@ const AddarticlesForm = () => {
                             maxLength={200}
                         />
                     </div>
-                    {/* blog main content  */}
-                    <div className=''>
-                        <ReactQuill
-                            theme='snow'
-                            modules={modules}
-                            formats={formats}
-                            onChange={setDetails}
-                            value={details}
-                            className='py-2 w-full '
-                        />
+                    {/* add tags  */}
+                    <div>
+                        <label className='text-gray-900 font-semibold'>
+                            Tags
+                        </label>
+                        {errors?.tag_error && (
+                            <p className='text-red-500  text-sm'>
+                                {errors?.tag_error}
+                            </p>
+                        )}
+                        <div className='relative'>
+                            <input
+                                className='inpt'
+                                placeholder='Tags'
+                                type='text'
+                                name='tags'
+                                value={tag}
+                                onChange={(e) => setTag(e.target.value)}
+                            />
+                            {tag?.length > 0 && (
+                                <button
+                                    type='button'
+                                    onClick={() => handleTags(tag)}
+                                    className='flex gap-1 absolute top-6 z-20 left-0 bg-green-100 text-green-600 shadow-sm border p-2 rounded'
+                                >
+                                    <span>+</span>
+                                    {tag}
+                                </button>
+                            )}
+                        </div>
+                        {tags?.length > 0 && (
+                            <div className='flex gap-4 mt-2 flex-wrap'>
+                                {tags?.map((ite) => (
+                                    <div
+                                        key={ite}
+                                        className='bg-green-100  p-1 rounded border border-green-200 relative'
+                                    >
+                                        <button
+                                            type='button'
+                                            onClick={() => modTag(ite)}
+                                            className='text-green-600'
+                                        >
+                                            {ite}
+                                        </button>
+                                        <button onClick={() => removeTag(ite)} type='button' className='shadow rounded absolute top-[-5px] right-[-10px] bg-red-400 p-1 text-white h-4 w-4 flex items-center justify-center'>x</button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
-
+                    {/* blog main content  */}
+                    <ReactQuill
+                        theme='snow'
+                        modules={modules}
+                        formats={formats}
+                        onChange={setDetails}
+                        value={details}
+                        className='py-2 w-full '
+                    />
                     <div className='mt-4 ml-2'>
                         <button
                             disabled={loading}
@@ -562,4 +364,3 @@ const AddarticlesForm = () => {
 };
 
 export default AddarticlesForm;
-
