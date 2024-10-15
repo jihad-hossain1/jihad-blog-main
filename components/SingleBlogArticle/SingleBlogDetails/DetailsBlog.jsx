@@ -6,8 +6,8 @@ const DetailsBlog = ({ details, detail }) => {
   return (
     <>
       <div>
-        <BlogPreview details={details} />
-        {/* <MarkdownPreview details={details}></MarkdownPreview> */}
+        {/* <BlogPreview details={details} /> */}
+        <MarkdownPreview details={details}></MarkdownPreview>
         {/* <p className="text-lg text-gray-500 break-all mb-4">
           {details?.detailsSingle || detail}
         </p>

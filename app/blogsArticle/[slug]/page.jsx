@@ -1,7 +1,8 @@
 import MainContainer from "@/components/MainContainer";
 import SingleBlogDetails from "@/components/SingleBlogArticle/SingleBlogDetails/SingleBlogDetails";
+import { cache } from "react";
 
-const getBlogById = async (slug) => {
+const getBlogById = cache(async (slug) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/blogs/blog-by-slug?slug=${slug}`, {
       cache: "no-store",
@@ -11,7 +12,7 @@ const getBlogById = async (slug) => {
   } catch (error) {
     console.error(error);
   }
-};
+})
 
 
 export async function generateMetadata({ params }) {
